@@ -82,7 +82,7 @@ $(document).ready(function(){
 				got_info_clear_welcome();
 			}
 
-			$('#myCampains').append("<li>"+
+			$('#campaignMovieList').append("<li>"+
 			'<time datetime="'+date+'">'+
 			'<span class="day">'+day+'</span>'+
 			'<span class="month">'+month +'</span>'+
