@@ -72,7 +72,8 @@ def tweets(c_id):
 		url = TWITRIS_ANALYSIS_ROOT+c_id+'/tweets'+getOptions(includeTime=True)
 		curl, buffer = generateRequest(url)
 		curl.perform()
-		return make_response(buffer.getvalue(), curl.getinfo(curl.RESPONSE_CODE))
+		data = json.loads(buffer.getvalue())
+		return make_response(jsonify({ "data": data }), curl.getinfo(curl.RESPONSE_CODE))
 	except:
 		return serverError("error")
 	finally:
@@ -85,13 +86,13 @@ def topics(c_id):
 		url = TWITRIS_ANALYSIS_ROOT+c_id+'/topics'+getOptions()
 		curl, buffer = generateRequest(url)
 		curl.perform()
-		return make_response(buffer.getvalue(), curl.getinfo(curl.RESPONSE_CODE))
+		data = json.loads(buffer.getvalue())
+		return make_response(jsonify({ "data": data }), curl.getinfo(curl.RESPONSE_CODE))
 	except:
 		return serverError("error")
 	finally:
 		if curl:
 			curl.close()
-	return tweets(c_id)
 
 def sentiment(c_id):
 	curl = None
@@ -99,13 +100,13 @@ def sentiment(c_id):
 		url = TWITRIS_ANALYSIS_ROOT+c_id+'/sentiment'+getOptions()
 		curl, buffer = generateRequest(url)
 		curl.perform()
-		return make_response(buffer.getvalue(), curl.getinfo(curl.RESPONSE_CODE))
+		data = json.loads(buffer.getvalue())
+		return make_response(jsonify({ "data": data }), curl.getinfo(curl.RESPONSE_CODE))
 	except:
 		return serverError("error")
 	finally:
 		if curl:
 			curl.close()
-	return tweets(c_id)
 
 def emotions(c_id):
 	curl = None
@@ -113,10 +114,10 @@ def emotions(c_id):
 		url = TWITRIS_ANALYSIS_ROOT+c_id+'/emotions'+getOptions()
 		curl, buffer = generateRequest(url)
 		curl.perform()
-		return make_response(buffer.getvalue(), curl.getinfo(curl.RESPONSE_CODE))
+		data = json.loads(buffer.getvalue())
+		return make_response(jsonify({ "data": data }), curl.getinfo(curl.RESPONSE_CODE))
 	except:
 		return serverError("error")
 	finally:
 		if curl:
 			curl.close()
-	return tweets(c_id)

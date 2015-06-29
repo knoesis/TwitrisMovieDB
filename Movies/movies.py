@@ -19,7 +19,7 @@ def serverError(error):
 
 def generateStartEndDates():
 	t = datetime.today()
-	date_string = str(t.year)+'-'+str(t.month)+'-'+str(t.day)	
+	date_string = str(t.year)+'-'+str(t.month-1)+'-'+str(t.day)	
 	date_format = "%Y-%m-%d"
 	date = datetime.strptime(date_string, date_format)
 	start_date = str(date).split(" ")[0]
@@ -67,5 +67,19 @@ def get_info(text):
 				movie = m
 				break
 		return make_response(jsonify({"info":movie}), 200)
+	except:
+		return serverError("error")
+
+def get_reviews(id):
+	try:	
+		url = TMDB_API_ROOT+"movie/"+id+"/reviews?api_key="+TMDB_API_KEY
+		headers = {
+		  'Accept': 'application/json'
+		}
+		request = Request(url, headers=HEADERS)
+		response_body = json.loads(urlopen(request).read())
+		print response_body
+
+		return make_response(jsonify({"reviews":response_body}), 200)
 	except:
 		return serverError("error")
