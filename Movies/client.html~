@@ -1,0 +1,44 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>Twittris Movie Web-Application</title>
+  <meta name="description" content="The HTML5 Herald">
+  <meta name="author" content="SitePoint">
+
+  <link rel="stylesheet" href="">
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+
+
+<script>
+$(document).ready(function(){
+	$.ajax({
+		type: 'GET',
+		url:"http://127.0.0.1:5200/twitris-movie-ext/api/v1.0/new_releases",
+		dataType: "jsonp",
+		success: function (moviejson) {
+			console.dir(moviejson);
+		},
+		error: function (e) {
+			console.log(e.message);
+			console.log("ERROR");
+		}	
+    });
+});`
+		  
+	
+
+
+</script>
+
+</head>
+
+<body>
+
+
+
+</body>
+</html>

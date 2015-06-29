@@ -1,0 +1,160 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
+
+from flask import Flask, jsonify, make_response, request, current_app
+from flask.ext.cors import CORS
+from functools import update_wrapper
+import json
+import urllib
+import urllib2
+import re
+import pycurl
+import unirest
+try:
+    from io import BytesIO
+except ImportError:
+    from StringIO import StringIO as BytesIO
+
+CLIENT_ID = "bnTnsANzdDVI9U1CYCrt8ErCz6pu2FSMXcyZONEz"
+CLIENT_SECRET = """
+Xv4j2ptY2Pvukc1H9Wtiqu8yCuMkeekMi
+oesT5LqYoWN61iLhqPzxR1XxgDqDESrGX
+pBGmHmANkjJDVTQoINkUxslGPMTqiAtM0
+CC0xj6F8J0PMhhScTkHN5vCowJCF3
+"""
+
+app = Flask(__name__)
+cors = CORS(app, resources=r'/twitris-movie-ext/api/*', allow_headers='Content-Type')
+
+@app.route('/twitris-movie-ext/api/v1.0/create', methods=['post'])
+def create():
+
+	buffer = BytesIO()
+	c = pycurl.Curl()
+	try:
+		c.setopt(c.URL, 'http://twitris.knoesis.org/api/v1/campaigns/?')
+		postfields = urlencode(request.json)
+		# Sets request method to POST,
+		# Content-Type header to application/x-www-form-urlencoded
+		# and data to send in request body.
+		c.setopt(c.POSTFIELDS, postfields)
+		c.setopt(c.HTTPHEADER, ['Content-Type : application/x-www-form-urlencoded'])
+		c.setopt(c.USERPWD, "generic"+":"+"knoesisGeneric")
+		c.setopt(c.WRITEDATA, buffer)
+		c.perform()
+		return make_response(jsonify({
+			'response': buffer.getvalue()
+			}), c.getinfo(c.RESPONSE_CODE))
+	except:
+		serverError("error")
+	finally:
+		c.close()
+
+
+@app.route('/twitris-movie-ext/api/v1.0/remove/<int:c_id>', methods=['DELETE'])
+def remove(c_id):
+
+	buffer = BytesIO()
+	c = pycurl.Curl()
+	try:
+		c.setopt(c.URL, 'http://twitris.knoesis.org/api/v1/campaigns/'+c_id)
+		c.setopt(c.CUSTOMREQUEST, 'DELETE')
+		c.setopt(c.HTTPHEADER, ['Content-Type : application/x-www-form-urlencoded'])
+		c.setopt(c.USERPWD, "generic"+":"+"knoesisGeneric")
+		c.setopt(c.WRITEDATA, buffer)
+		c.perform()
+		return make_response(jsonify({
+			'response': buffer.getvalue()
+			}), c.getinfo(c.RESPONSE_CODE))
+	except:
+		serverError("error")
+	finally:
+		c.close()
+
+@app.route('/twitris-movie-ext/api/v1.0/retrieve/<path:c_id>', methods=['GET'])
+def retreive(c_id):
+
+	buffer = BytesIO()
+	c = pycurl.Curl()
+	try:
+		c.setopt(c.URL, 'http://twitris.knoesis.org/api/v1/campaigns/'+str(c_id))
+		c.setopt(c.HTTPHEADER, ['Content-Type : application/x-www-form-urlencoded'])
+		c.setopt(c.USERPWD, "generic"+":"+"knoesisGeneric")
+		c.setopt(c.WRITEDATA, buffer)
+		c.perform()
+		return make_response(jsonify({
+			'response': buffer.getvalue()
+			}), c.getinfo(c.RESPONSE_CODE))
+	except:
+		serverError("error")
+	finally:
+		c.close()
+
+@app.route('/twitris-movie-ext/api/v1.0/list', methods=['GET'])
+def list():
+
+	buffer = BytesIO()
+	c = pycurl.Curl()
+	try:
+		c.setopt(c.URL, 'http://twitris.knoesis.org/api/v1/campaigns')
+		c.setopt(c.HTTPHEADER, ['Content-Type : application/x-www-form-urlencoded'])
+		c.setopt(c.USERPWD, "generic"+":"+"knoesisGeneric")
+		c.setopt(c.WRITEDATA, buffer)
+		c.perform()
+		return make_response(jsonify({
+			'response': buffer.getvalue()
+			}), c.getinfo(c.RESPONSE_CODE))
+	except:
+		serverError("error")
+	finally:
+		c.close()
+
+
+@app.route('/twitris-movie-ext/api/v1.0/new_releases', methods=['GET'])
+def new_releases():
+	c = pycurl.Curl()
+
+	try:
+		# These code snippets use an open-source library. http://unirest.io/python
+		response = unirest.get("https://byroredux-metacritic.p.mashape.com/movie-list/coming-soon",
+		 headers={
+		   "X-Mashape-Key": "g2amvwPpNumshIWVGS39jIi3oVKbp1a9SjYjsnaQmvSlD89FPo",
+		   "Accept": "application/json"
+		 }
+		)
+		print response.body
+		return make_response(jsonify({
+			'response': response.body
+			}), 200)
+	except:
+		serverError("error")
+
+@app.route('/twitris-movie-ext/api/v1.0/get_tweets', methods=['GET'])
+def get_tweets():
+
+	text = request.args.get('text').encode('ascii', 'ignore')
+	
+	buffer = BytesIO()
+	c = pycurl.Curl()
+	try:
+		c.setopt(c.URL, 'http://twitris.knoesis.org/api/v1/utilities/twitter_search?query='+
+			text)
+		c.setopt(c.HTTPHEADER, ['Content-Type : application/x-www-form-urlencoded'])
+		c.setopt(c.USERPWD, "generic"+":"+"knoesisGeneric")
+		c.setopt(c.WRITEDATA, buffer)
+		c.perform()
+		return make_response(jsonify({
+			'response': buffer.getvalue()
+			}), c.getinfo(c.RESPONSE_CODE))
+	except:
+		serverError("error")
+	finally:
+		c.close()
+
+@app.errorhandler(500)
+def serverError(error):
+
+	return make_response(jsonify({'error': error }), 500)
+
+if __name__ == '__main__':
+    app.run(debug=True, port=5200)
