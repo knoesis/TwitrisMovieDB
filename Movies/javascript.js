@@ -18,7 +18,8 @@ $(document).ready(function(){
 
 
 	var got_info_clear_welcome = function() {
-		$('.content').html($('<div>').attr('id','myCampains'));
+		$('#welcomeScreen').hide();
+		$('#myCampains').show();
 		welcome_visible = false;
 	}
 
@@ -39,21 +40,29 @@ $(document).ready(function(){
 						"content-type": "Application/JSON",
 						url:"http://127.0.0.1:5200/twitris-movie-ext/api/v1.0/get_info/"+name,
 						success: function(results) {
-							var name = results['info']['original_title']
+							var name = results['info']['original_title'],
+								movie_id = results['info']['id'];
 							movies[name]["info"]=results["info"];
 							$.ajax({
 								type: 'GET',
 								"content-type": "Application/JSON",
 								url:"http://localhost:5200/twitris-movie-ext/api/v1.0/sentiment/"+id,
 								success: function(results) {
-									movies[name]["sentiment"]=$.parseJSON(results);
+									movies[name]["sentiment"]=results['data'];
 									$.ajax({
 										type: 'GET',
 										"content-type": "Application/JSON",
 										url:"http://localhost:5200/twitris-movie-ext/api/v1.0/emotions/"+id,
 										success: function(results) {
-											movies[name]["emotions"]=$.parseJSON(results);
-											listMovies(movies[name])
+											movies[name]["emotions"]=results['data'];
+											$.ajax({
+												type: 'GET',
+												"content-type": "Application/JSON",
+												url:"http://127.0.0.1:5200/twitris-movie-ext/api/v1.0/get_reviews/"+movie_id,
+												success: function(results) {
+													listMovies(movies[name])
+												}
+											});
 										}
 									})
 								}

@@ -14,7 +14,7 @@ from campaigns import (create, remove, list_campaigns, retrieve)
 
 from analysis import (tweets, topics, sentiment, emotions)
 
-from movies import (new_releases, get_info)
+from movies import (new_releases, get_info, get_reviews)
 
 
 app = Flask(__name__)
@@ -70,6 +70,9 @@ def releases():
 def info(name):
 	return get_info(name)
 
+@app.route('/twitris-movie-ext/api/v1.0/get_reviews/<path:id>', methods=['GET'])
+def reviews(id):
+	return get_reviews(id)
 
 @app.errorhandler(500)
 def serverError(error):

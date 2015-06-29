@@ -38,7 +38,7 @@ def generateRequest(url, method="GET", credentials=TWITRIS_UN_PWD, headers=TWITR
 def create(name):
 
 	curl = None
-	keywords = [ "going to see "+name, "saw "+name ]
+	keywords = [ "see "+name, "saw "+name, "watch " +name, "watched "+name]
 	movie_campaign = {
 		"campaign_type": "movie",
 		"blacklisted_words": ["trailer"],
