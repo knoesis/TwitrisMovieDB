@@ -36,7 +36,7 @@ $(document).ready(function(){
 				// loop through the genres and create the HTML 
 				// for the genre list
 				for (var j=0; j<gIds.length;j++) {
-					gs+='<li>'+genres[gIds[j]]+'</li>';
+					gs+='<li><button type="button" class="btn btn-primary btn-round-sm btn-sm">'+genres[gIds[j]]+'</button></li>';
 				}
 				gs+='</ul>'; // close the genre list
 
@@ -44,7 +44,7 @@ $(document).ready(function(){
 				// there is an img to retrieve
 				var img = '';
 				if (result["backdrop_path"] !== null) {
-					img = '<img alt="" src="http://image.tmdb.org/t/p/w500/'+result["backdrop_path"]+'" />'
+					img = '<img src="http://image.tmdb.org/t/p/w500'+result["backdrop_path"]+'" />'
 				}
 
 				$('#movieList').append("<li>"+
@@ -76,10 +76,7 @@ $(document).ready(function(){
 					'</ul>'+
 					'</div>'+
 					'</li>')
-				}}
-				$("img").error(function(){
-        		$(this).hide();
-			});					
+				}}		
 		},
 		error: function (e) {
 			console.log(e.message);

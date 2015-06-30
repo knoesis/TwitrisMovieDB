@@ -1,4 +1,5 @@
 $(document).ready(function(){	
+	lightbox.init();
 	var month_array = new Array();
 		month_array[0] = "JAN";
 		month_array[1] = "FEB";
@@ -90,7 +91,7 @@ $(document).ready(function(){
 			'<span class="month">'+month +'</span>'+
 			'<span class="year">'+year+'</span>'+
 			'</time>'+
-			'<img alt="" src="http://image.tmdb.org/t/p/w500/'+movie["info"]["backdrop_path"]+'" />'+
+			'<a class="" href="http://image.tmdb.org/t/p/w500/'+movie["info"]["backdrop_path"]+'" data-lightbox="'+movie["info"]["id"]+'"><img alt="" src="http://image.tmdb.org/t/p/w500/'+movie["info"]["backdrop_path"]+'" /></a>'+
 			'<div class="info">'+
 			'<h2 class="title">'+movie["info"]["original_title"]+'</h2>'+
 			'<div class="movieDesc" id="'+movie["info"]['id']+'">'+
@@ -110,7 +111,8 @@ $(document).ready(function(){
 			'<li class="google-plus" style="width:33%;"><a href="#google-plus"><span class="fa fa-google-plus"></span></a></li>'+
 			'</ul>'+
 			'</div>'+
-			'</li>')					
+			'</li>')	
+
 			console.log("mycampainsuccess");
 	}
 	function myFailure (){
