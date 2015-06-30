@@ -44,7 +44,7 @@ $(document).ready(function(){
 				// there is an img to retrieve
 				var img = '';
 				if (result["backdrop_path"] !== null) {
-					img = '<img alt="" src="http://image.tmdb.org/t/p/w500/'+result["backdrop_path"]+'" />'
+					img = '<a><img data-lightbox="" alt="" src="http://image.tmdb.org/t/p/w500/'+result["backdrop_path"]+'" /></a>'
 				}
 
 				$('#movieList').append("<li>"+
@@ -108,8 +108,15 @@ $(document).ready(function(){
 	});
 	$("#my").click(function(){
 		 $("#myCampains").show();
+		  $('.movieDesc').each(function() {
+		 	$('#'+$(this).attr('id')).dotdotdot({
+		 		height:"25px",
+		 		watch: false
+		 	});
+		 })
 		 $("#welcomeScreen").hide();
 		 $("#newReleases").hide();
+
 	});
 	$("#home, #home1").click(function(){
 		 $(this).find('#movieDesc, #movieSenti').toggle();
