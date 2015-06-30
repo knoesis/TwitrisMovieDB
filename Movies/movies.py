@@ -19,7 +19,7 @@ def serverError(error):
 
 def generateStartEndDates():
 	t = datetime.today()
-	date_string = str(t.year)+'-'+str(t.month-1)+'-'+str(t.day)	
+	date_string = str(t.year)+'-'+str(t.month)+'-'+str(t.day)	
 	date_format = "%Y-%m-%d"
 	date = datetime.strptime(date_string, date_format)
 	start_date = str(date).split(" ")[0]
@@ -33,7 +33,7 @@ def getOptions(includeTime=False):
 	options+=str(sd)
 	options+="&primary_release_date.lte="
 	options+=str(ed)
-	options+="&sort_by=release_date.asc"
+	options+="&sort_by=primary_release_date.asc"
 	# "&keyword="+ Cannabis
 	return options
 

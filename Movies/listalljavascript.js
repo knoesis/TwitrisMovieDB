@@ -1,47 +1,68 @@
 $(document).ready(function(){	
-		$.ajax({
-			type: 'GET',
-			"content-type": "Application/JSON",
-			url:"http://127.0.0.1:5200/twitris-movie-ext/api/v1.0/new_releases",
-			success: function listMovies (results) {
-				results = results["results"];
-				var movieTitle = "";
-				var month_array = new Array();
-					month_array[0] = "JAN";
-					month_array[1] = "FEB";
-					month_array[2] = "MAR";
-					month_array[3] = "APR";
-					month_array[4] = "MAY";
-					month_array[5] = "JUNE";
-					month_array[6] = "JULY";
-					month_array[7] = "AUG";
-					month_array[8] = "SEPT";
-					month_array[9] = "OCT";
-					month_array[10] = "NOV";
-					month_array[11] = "DEC";
+	$.ajax({
+		type: 'GET',
+		"content-type": "Application/JSON",
+		url:"http://127.0.0.1:5200/twitris-movie-ext/api/v1.0/new_releases",
+		success: function listMovies (results) {
+			results = results["results"];
+			var movieTitle = ""
+				month_array = [ "JAN","FEB","MAR","APR","MAY","JUNE",
+					"JULY","AUG","SEPT","OCT","NOV","DEC"],
+				genres={28:"Action",12:"Adventure",16:"Animation",
+					35:"Comedy",80:"Crime",99:"Documentary",18:"Drama",
+					10751:"Family",14:"Fantasy",10769:"Foreign",
+					36:"History",27:"Horror",10402:"Music",
+					9648:"Mystery",10749:"Romance",878:"Science Fiction",
+					10770:"TV Movie",53:"Thriller",10752:"War",37:"Western"}
 
-				for (var i = 0; i < results.length; i++) {
+			for (var i = 0; i < results.length; i++) {
+				// store a copy of results[i] as results so 
+				// we don't waste cycles accessing the list
+				var result = results[i];
+				// only parse if the movie is in english
+				if (result["original_language"]==="en" && 
+						result["release_date"] !== null) {
+					
+				// parse the date into an appropriate format
+				var date = result["release_date"],
+					day = date.substring(8,10),
+					month = month_array[parseInt(date.substring(6,7))-1],	
+					year = date.substring(0,4),
+					// get the genre ids from the movie
+					gIds = result['genre_ids'],
+					// create a var to store the genre list
+					gs = '<ul>';
 
-					if (results[i]["original_language"]==="en"){
-						
-					var date = results[i]["release_date"];
-					var day = date.substring(8,10);
-					var month = month_array[parseInt(date.substring(6,7))-1];		
-					var year = date.substring(0,4);
+				// loop through the genres and create the HTML 
+				// for the genre list
+				for (var j=0; j<gIds.length;j++) {
+					gs+='<li>'+genres[gIds[j]]+'</li>';
+				}
+				gs+='</ul>'; // close the genre list
 
-					$('#movieList').append("<li>"+
+				// stop backgound pic error by only adding the img el if
+				// there is an img to retrieve
+				var img = '';
+				if (result["backdrop_path"] !== null) {
+					img = '<img alt="" src="http://image.tmdb.org/t/p/w500/'+result["backdrop_path"]+'" />'
+				}
+
+				$('#movieList').append("<li>"+
 					'<time datetime="'+date+'">'+
 					'<span class="day">'+day+'</span>'+
 					'<span class="month">'+month +'</span>'+
 					'<span class="year">'+year+'</span>'+
 					'</time>'+
-					'<img alt="" src="http://image.tmdb.org/t/p/w500/'+results[i]["backdrop_path"]+'" />'+
+					img+ // either "" or an img element
 					'<div class="info">'+
-					'<h2 class="title">'+results[i]["original_title"]+'</h2>'+
-					'<p class="desc" id="movieDesc" class="dsotdotdot">'+results[i]["overview"]+'</p>'+
+					'<h2 class="title">'+result["original_title"]+'</h2>'+
+					'<div class="movieDesc" id="'+result['id']+'">'+
+					'<p class="desc">'+result["overview"]+'</p>'+
+					'</div>'+
 					'<p class="senti" style="display:none;" id="movieSenti" class="">'+"Sentiment"+'</p>'+
+					gs+  // either <ul></ul> or a list of genres
 					'<ul>'+
-					'<li id="sentimentTogg" style="width:25%;">1 <span class="fa fa-smile-o"></span></li>'+
+					'<li class="sentimentTogg" style="width:25%;">1 <span class="fa fa-smile-o"></span></li>'+
 					'<li style="width:25%;">3 <span class="fa fa-question"></span></li>'+
 					'<li style="width:25%;">103 <span class="fa fa-envelope"></span></li>'+
 					'<li style="width:25%;">3 <span class="fa fa-question"></span></li>'+
@@ -55,58 +76,52 @@ $(document).ready(function(){
 					'</ul>'+
 					'</div>'+
 					'</li>')
-					}}
-					$("img").error(function(){
-	        		$(this).hide();
-					});
-
-					$('.dotdotdot').dotdotdot({
-						height: "100px"
-
-					});					
-			},
-			error: function (e) {
-				console.log(e.message);
-				console.log("ERROR");
-			}	
+				}}
+				$("img").error(function(){
+        		$(this).hide();
+			});					
+		},
+		error: function (e) {
+			console.log(e.message);
+			console.log("ERROR");
+		}	
     });
 });
 
 
-	$(document).ready(function(){
-		$("#home, #home1").click(function(){
-			 $("#welcomeScreen").show();
-    		 $("#newReleases").hide();
-    		 $("#myCampains").hide();
-		});
-		$("#new").click(function(){
-			 $("#newReleases").show();
-    		 $("#welcomeScreen").hide();
-    		 $("#myCampains").hide();
-		});
-		$("#my").click(function(){
-			 $("#myCampains").show();
-    		 $("#welcomeScreen").hide();
-    		 $("#newReleases").hide();
-		});
-		$("#home, #home1").click(function(){
-			 $(this).find('#movieDesc, #movieSenti').toggle();
-		});
-
-
+$(document).ready(function(){
+	$("#home, #home1").click(function(){
+		 $("#welcomeScreen").show();
+		 $("#newReleases").hide();
+		 $("#myCampains").hide();
+	});
+	$("#new").click(function(){
+		 $("#newReleases").show();
+		 $('.movieDesc').each(function() {
+		 	$('#'+$(this).attr('id')).dotdotdot({
+		 		height:"25px",
+		 		watch: false
+		 	});
+		 })
+		 $("#welcomeScreen").hide();
+		 $("#myCampains").hide();
+	});
+	$("#my").click(function(){
+		 $("#myCampains").show();
+		 $("#welcomeScreen").hide();
+		 $("#newReleases").hide();
+	});
+	$("#home, #home1").click(function(){
+		 $(this).find('#movieDesc, #movieSenti').toggle();
+	});
 });
 
-	$(document).ready(function(){
-		$(function() {
-				$("#menu")
-					.mmenu({
-		extensions 	: [ "theme-white", "border-full", "effect-slide-listitems" ],
-		navbar 		: false
-					}).on( 'click',
-						'a[href^="#/"]',
-						function() {
-							return false;
-						}
-					);
-			});
-});	
+
+$(function() {
+	$("#menu").mmenu({
+		extensions : [ "theme-white", "border-full", "effect-slide-listitems" ],
+		navbar : false
+	}).on('click','a[href^="#/"]',function() {
+		return true; // close the menu
+	});
+});
