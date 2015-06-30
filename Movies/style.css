@@ -145,7 +145,7 @@ h1 {text-align: center;
 	position: relative;
 	display: block;
 	width: 100%;
-	height: 120px; 
+	height: 130px; 
 	padding: 0px;
 	
 }
@@ -165,9 +165,14 @@ h1 {text-align: center;
 .event-list > li > time,
 .event-list > li > img {
 	width: 120px;
-	height: 130px;
 	padding: 0px;
 	margin: 0px;
+}
+.event-list > li > time {
+	height: 130px;
+}
+.event-list > li > img {
+	margin-top: 4%;
 }
 .event-list > li > .info {
 	position: relative;
