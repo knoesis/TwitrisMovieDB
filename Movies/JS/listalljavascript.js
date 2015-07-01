@@ -44,7 +44,7 @@ $(document).ready(function(){
 				// there is an img to retrieve
 				var img = '';
 				if (result["backdrop_path"] !== null) {
-					img = '<img src="http://image.tmdb.org/t/p/w500'+result["backdrop_path"]+'" />'
+					img = '<a class="" href="http://image.tmdb.org/t/p/w500/'+result["poster_path"]+'" data-lightbox="'+result["id"]+'"><img src="http://image.tmdb.org/t/p/w500'+result["poster_path"]+'" /><a/>'
 				}
 
 				$('#movieList').append("<li>"+
