@@ -85,21 +85,35 @@ $(document).ready(function(){
 			'<h2 class="title">'+movie["info"]["original_title"]+'</h2>'+
 			'<p class="desc ellipsis">'+movie["info"]["overview"]+'</p>'+
 			'<ul>'+
-			'<li id="sentimentTogg" style="width:25%;">1 <span class="fa fa-smile-o"></span></li>'+
-			'<li style="width:25%;">3 <span class="fa fa-question"></span></li>'+
-			'<li style="width:25%;">103 <span class="fa fa-envelope"></span></li>'+
-			'<li style="width:25%;">3 <span class="fa fa-question"></span></li>'+
-			'</ul>'+
+			'<li id="sentimentTogg" style="width:25%;">1 <span id="myBtnsenti" class="fa fa-smile-o">&nbspSentiment</span></li>'+
+			'<div class="modal fade" id="myModalsenti" role="dialog">'+
+			'<h1>TEST SENTIMENT MODAL</h1>'+
+			'</div>'+
+			'<li style="width:25%;"><span id="myBtnemo" class="fa fa-question">&nbspEmotion</span></li>'+
+			'<div class="modal fade" id="myModalemo" role="dialog">'+
+			'<h1>TEST EMOTIONS MODAL</h1>'+
+			'</div>'+
+			'<li style="width:25%;">103 <span class="fa fa-envelope">&nbspTweet\'s</span></li>'+
+			// '<li style="width:15%;"><span class="fa fa-question">&nbspOn/Off</span></li>'+
+			// '</ul>'+
 			'</div>'+
 			'<div class="social">'+
 			'<ul>'+
-			'<li class="facebook" style="width:33%;"><a href="#facebook"><span class="fa fa-facebook"></span></a></li>'+
-			'<li class="twitter" style="width:34%;"><a href="#twitter"><span class="fa fa-twitter"></span></a></li>'+
-			'<li class="google-plus" style="width:33%;"><a href="#google-plus"><span class="fa fa-google-plus"></span></a></li>'+
+			'<li class="facebook" style="width:25%;"><a href="#facebook"><span class="fa fa-facebook"></span></a></li>'+
+			'<li class="twitter" style="width:25%;"><a href="#twitter"><span class="fa fa-twitter"></span></a></li>'+
+			'<li class="google-plus" style="width:25%;"><a href="#google-plus"><span class="fa fa-google-plus"></span></a></li>'+
+			'<li class="power" style="width:25%;"><a href="#facebook"><span class="fa fa-power-off"></span></a></li>'+
 			'</ul>'+
 			'</div>'+
-			'</li>')	
-			
+			'</li>')
+
+		   $("#myBtnsenti").click(function(){
+		        $("#myModalsenti").modal();
+		    });
+		    $("#myBtnemo").click(function(){
+		        $("#myModalemo	").modal();
+		    }); 
+		
 			console.log("mycampainsuccess");
 	}
 	function myFailure (){
@@ -107,6 +121,7 @@ $(document).ready(function(){
 	}
 
 });
+
 
 
 
