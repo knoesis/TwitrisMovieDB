@@ -1,23 +1,13 @@
 $(document).ready(function(){	
 	lightbox.init();
-	var month_array = new Array();
-		month_array[0] = "JAN";
-		month_array[1] = "FEB";
-		month_array[2] = "MAR";
-		month_array[3] = "APR";
-		month_array[4] = "MAY";
-		month_array[5] = "JUNE";
-		month_array[6] = "JULY";
-		month_array[7] = "AUG";
-		month_array[8] = "SEPT";
-		month_array[9] = "OCT";
-		month_array[10] = "NOV";
-		month_array[11] = "DEC";
-	var movies = {},
+	var month_array = [ "JAN","FEB","MAR","APR","MAY","JUNE",
+					"JULY","AUG","SEPT","OCT","NOV","DEC"],
+		movies = {},
 		welcome_visible = true;
 
 
-// When the myCampains have been loaded hide the welcomePage and show the myCampains Page
+	// When the myCampains have been loaded 
+	// hide the welcomePage and show the myCampains Page
 	var got_info_clear_welcome = function() {
 		$('#welcomeScreen').hide();
 		$('#myCampains').show();
@@ -74,17 +64,16 @@ $(document).ready(function(){
 		}	
 	});
 	function listMovies (movie){			
-			var date = movie["info"]["release_date"];
-			var day = date.substring(8,10);
-			var month = month_array[parseInt(date.substring(6,7))-1];		
-			var year = date.substring(0,4);
+			var date = movie["info"]["release_date"],
+				day = date.substring(8,10),
+				month = month_array[parseInt(date.substring(6,7))-1],
+				year = date.substring(0,4),
+				id = movie["info"]['id'];
 
 			if (welcome_visible)  {
 				got_info_clear_welcome();
 			}
 			
-
-
 			$('#campaignMovieList').append("<li>"+
 			'<time datetime="'+date+'">'+
 			'<span class="day">'+day+'</span>'+
@@ -94,9 +83,7 @@ $(document).ready(function(){
 			'<a class="" href="http://image.tmdb.org/t/p/w500/'+movie["info"]["backdrop_path"]+'" data-lightbox="'+movie["info"]["id"]+'"><img alt="" src="http://image.tmdb.org/t/p/w500/'+movie["info"]["backdrop_path"]+'" /></a>'+
 			'<div class="info">'+
 			'<h2 class="title">'+movie["info"]["original_title"]+'</h2>'+
-			'<div class="movieDesc" id="'+movie["info"]['id']+'">'+
-			'<p class="desc">'+movie["info"]["overview"]+'</p>'+
-			'</div>'+
+			'<p class="desc ellipsis">'+movie["info"]["overview"]+'</p>'+
 			'<ul>'+
 			'<li id="sentimentTogg" style="width:25%;">1 <span class="fa fa-smile-o"></span></li>'+
 			'<li style="width:25%;">3 <span class="fa fa-question"></span></li>'+
@@ -112,7 +99,7 @@ $(document).ready(function(){
 			'</ul>'+
 			'</div>'+
 			'</li>')	
-
+			
 			console.log("mycampainsuccess");
 	}
 	function myFailure (){

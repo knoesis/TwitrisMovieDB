@@ -56,9 +56,7 @@ $(document).ready(function(){
 					img+ // either "" or an img element
 					'<div class="info">'+
 					'<h2 class="title">'+result["original_title"]+'</h2>'+
-					'<div class="movieDesc" id="'+result['id']+'">'+
-					'<p class="desc">'+result["overview"]+'</p>'+
-					'</div>'+
+					'<p class="desc ellipsis">'+result["overview"]+'</p>'+
 					'<p class="senti" style="display:none;" id="movieSenti" class="">'+"Sentiment"+'</p>'+
 					gs+  // either <ul></ul> or a list of genres
 					'<ul>'+
@@ -94,23 +92,11 @@ $(document).ready(function(){
 	});
 	$("#new").click(function(){
 		 $("#newReleases").show();
-		 $('.movieDesc').each(function() {
-		 	$('#'+$(this).attr('id')).dotdotdot({
-		 		height:"25px",
-		 		watch: false
-		 	});
-		 })
 		 $("#welcomeScreen").hide();
 		 $("#myCampains").hide();
 	});
 	$("#my").click(function(){
 		 $("#myCampains").show();
-		  $('.movieDesc').each(function() {
-		 	$('#'+$(this).attr('id')).dotdotdot({
-		 		height:"25px",
-		 		watch: false
-		 	});
-		 })
 		 $("#welcomeScreen").hide();
 		 $("#newReleases").hide();
 
