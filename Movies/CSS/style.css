@@ -197,7 +197,8 @@ h1 {text-align: center;
  *  
  */
 .event-list > li > a > img {
-	margin-top: 25%;
+	margin-top: 0%;
+	height: 100%
 }
 
 .event-list > li > time,
