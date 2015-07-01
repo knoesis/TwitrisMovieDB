@@ -31,14 +31,14 @@ $(document).ready(function(){
 					// get the genre ids from the movie
 					gIds = result['genre_ids'],
 					// create a var to store the genre list
-					gs = '<ul>';
+					gs = '';
 
 				// loop through the genres and create the HTML 
 				// for the genre list
 				for (var j=0; j<gIds.length;j++) {
-					gs+='<li><button type="button" class="btn btn-primary btn-round-sm btn-sm">'+genres[gIds[j]]+'</button></li>';
+					gs+='<button type="button" class="btn btn-white btn-round-xs btn-sm"><span class="glyphicon glyphicon-tag"></span>'+genres[gIds[j]]+'</button>&nbsp';
 				}
-				gs+='</ul>'; // close the genre list
+				// gs+=''; // close the genre list
 
 				// stop backgound pic error by only adding the img el if
 				// there is an img to retrieve
@@ -56,9 +56,10 @@ $(document).ready(function(){
 					img+ // either "" or an img element
 					'<div class="info">'+
 					'<h2 class="title">'+result["original_title"]+'</h2>'+
+						gs+ 
 					'<p class="desc ellipsis">'+result["overview"]+'</p>'+
 					'<p class="senti" style="display:none;" id="movieSenti" class="">'+"Sentiment"+'</p>'+
-					gs+  // either <ul></ul> or a list of genres
+					 // either <ul></ul> or a list of genres
 					'<ul>'+
 					// '<li class="sentimentTogg" style="width:25%;">1 <span class="fa fa-smile-o"></span></li>'+
 					// '<li style="width:25%;">3 <span class="fa fa-question"></span></li>'+
