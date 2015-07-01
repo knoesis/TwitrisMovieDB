@@ -102,7 +102,7 @@ $(document).ready(function(){
 			'<li class="facebook" style="width:25%;"><a href="#facebook"><span class="fa fa-facebook"></span></a></li>'+
 			'<li class="twitter" style="width:25%;"><a href="#twitter"><span class="fa fa-twitter"></span></a></li>'+
 			'<li class="google-plus" style="width:25%;"><a href="#google-plus"><span class="fa fa-google-plus"></span></a></li>'+
-			'<li class="power" style="width:25%;"><a href="#facebook"><span class="fa fa-power-off"></span></a></li>'+
+			'<li class="power" style="width:25%;"><a href="#power"><span class="fa fa-power-off"></span></a></li>'+
 			'</ul>'+
 			'</div>'+
 			'</li>')
@@ -111,7 +111,7 @@ $(document).ready(function(){
 		        $("#myModalsenti").modal();
 		    });
 		    $("#myBtnemo").click(function(){
-		        $("#myModalemo	").modal();
+		        $("#myModalemo").modal();
 		    }); 
 		
 			console.log("mycampainsuccess");

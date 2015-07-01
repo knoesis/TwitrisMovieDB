@@ -58,6 +58,8 @@ $(document).ready(function(){
 					'<h2 class="title">'+result["original_title"]+'</h2>'+
 						gs+ 
 					'<p class="desc ellipsis">'+result["overview"]+'</p>'+
+					//rating ratify
+					'<div id="rating'+i+'" data-score="'+result["popularity"]+'"></div>'+
 					'<p class="senti" style="display:none;" id="movieSenti" class="">'+"Sentiment"+'</p>'+
 					 // either <ul></ul> or a list of genres
 					'<ul>'+
@@ -72,10 +74,17 @@ $(document).ready(function(){
 					'<li class="facebook" style="width:25%;"><a href="#facebook"><span class="fa fa-facebook"></span></a></li>'+
 					'<li class="twitter" style="width:25%;"><a href="#twitter"><span class="fa fa-twitter"></span></a></li>'+
 					'<li class="google-plus" style="width:25%;"><a href="#google-plus"><span class="fa fa-google-plus"></span></a></li>'+
-					'<li class="power" style="width:25%;"><a href="#facebook"><span class="fa fa-power-off"></span></a></li>'+
+					'<li class="power" style="width:25%;"><a href="#power"><span class="fa fa-power-off"></span></a></li>'+
 					'</ul>'+
 					'</div>'+
 					'</li>')
+					$('#rating'+i).raty({
+							path: './images',
+							readOnly: true, 					
+							score: function() {
+					    	return $(this).attr('data-score');
+					  		}
+						});
 				}}		
 		},
 		error: function (e) {
@@ -87,6 +96,7 @@ $(document).ready(function(){
 
 
 $(document).ready(function(){
+		
 	$("#home, #home1").click(function(){
 		 $("#welcomeScreen").show();
 		 $("#newReleases").hide();
