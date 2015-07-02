@@ -95,9 +95,20 @@ $(document).ready(function(){
 			'<div class="modal-header">'+
 			'<button type="button" class="close" data-dismiss="modal">&times;</button>'+
 			'<h4 class="modal-title">'+movie["info"]["original_title"]+' : Sentiment Analysis</h4>'+
-			'</div>'+
+			'</div>'+			
 			'<div class="modal-body">'+
-			'<p>CHART GOES HERE</p>'+
+
+			'<ul data-pie-id="my-cool-chart">'+
+// Need to loop throught the emotions array reformat the Json to feed into chart?
+			'<li data-value="'+movie["emotions"]["fear"]+'">Fear</li>'+
+			'<li data-value="'+movie["emotions"]["surprise"]+'">Surprise</li>'+
+			'<li data-value="'+movie["emotions"]["joy"]+'">Joy</li>'+
+			'<li data-value="'+movie["emotions"]["sadness"]+'">Sadness</li>'+
+			'<li data-value="'+movie["emotions"]["anger"]+'">Anger</li>'+
+			'<li data-value="'+movie["emotions"]["disgust"]+'">Disgust</li>'+
+
+			'</ul>'+
+		
 			'</div>'+
 			'<div class="modal-footer">'+
 			'<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>'+

@@ -57,7 +57,7 @@ $(document).ready(function(){
 					'<div class="info">'+
 					'<h2 class="title">'+result["original_title"]+gs+'</h2>'+
 					'<div id="movieInfo'+i+'">'+
-					'<p class="desc ellipsis">'+result["overview"]+'</p><a href=""><p>Read Full [+]</a>'+
+					'<p class="desc ellipsis">'+result["overview"]+'</p><a id="readFull'+i+'"><p>Read Full [+]</a>'+
 					//rating ratify
 					'<div id="rating'+i+'" data-score="'+result["popularity"]+'"></div>'+
 					'<p class="senti" style="display:none;" id="movieSenti" class="">'+"Sentiment"+'</p>'+
