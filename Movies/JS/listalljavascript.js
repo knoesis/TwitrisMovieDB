@@ -56,18 +56,23 @@ $(document).ready(function(){
 					img+ // either "" or an img element
 					'<div class="info">'+
 					'<h2 class="title">'+result["original_title"]+'</h2>'+
+					'<div id="movieInfo'+i+'">'+
 						gs+ 
 					'<p class="desc ellipsis">'+result["overview"]+'</p><a href=""><p>Read Full [+]</a>'+
 					//rating ratify
 					'<div id="rating'+i+'" data-score="'+result["popularity"]+'"></div>'+
 					'<p class="senti" style="display:none;" id="movieSenti" class="">'+"Sentiment"+'</p>'+
 					'</div>'+
+					'<div style="display:none;" id="campaignOn'+i+'">'+
+					'<button>On</button><button>OFF</button>'+
+					'</div>'+
+					'</div>'+
 					'<div class="social">'+
 					'<ul>'+
 					'<li class="facebook" style="width:25%;"><a href="#facebook"><span class="fa fa-facebook"></span></a></li>'+
 					'<li class="twitter" style="width:25%;"><a href="#twitter"><span class="fa fa-twitter"></span></a></li>'+
 					'<li class="google-plus" style="width:25%;"><a href="#google-plus"><span class="fa fa-google-plus"></span></a></li>'+
-					'<li class="power" style="width:25%;"><a href="#power"><span class="fa fa-power-off"></span></a></li>'+
+					'<li class="power" id="power'+i+'" style="width:25%;"><a href="#"><span class="fa fa-power-off"></span></a></li>'+
 					'</ul>'+
 					'</div>'+
 					'</div>'+
@@ -78,7 +83,11 @@ $(document).ready(function(){
 							score: function() {
 					    	return $(this).attr('data-score');
 					  		}
-						});
+						});			
+					$("#power"+i).click({num:i},function (d) {
+					    $('#movieInfo'+d.data.num).toggle(1000);
+					    $('#campaignOn'+d.data.num).toggle(1000);				
+					})
 				}}		
 		},
 		error: function (e) {

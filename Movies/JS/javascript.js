@@ -11,7 +11,7 @@ $(document).ready(function(){
 	var got_info_clear_welcome = function() {
 		$('#welcomeScreen').hide();
 		$(".pageTitle").text("My Twittris Campaigns");
-		$('#myCampains').show();
+		$('#newReleases').show();
 		welcome_visible = false;
 	}
 
