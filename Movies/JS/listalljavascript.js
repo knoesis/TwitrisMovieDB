@@ -57,17 +57,10 @@ $(document).ready(function(){
 					'<div class="info">'+
 					'<h2 class="title">'+result["original_title"]+'</h2>'+
 						gs+ 
-					'<p class="desc ellipsis">'+result["overview"]+'</p>'+
+					'<p class="desc ellipsis">'+result["overview"]+'</p><a href=""><p>Read Full [+]</a>'+
 					//rating ratify
 					'<div id="rating'+i+'" data-score="'+result["popularity"]+'"></div>'+
 					'<p class="senti" style="display:none;" id="movieSenti" class="">'+"Sentiment"+'</p>'+
-					 // either <ul></ul> or a list of genres
-					'<ul>'+
-					// '<li class="sentimentTogg" style="width:25%;">1 <span class="fa fa-smile-o"></span></li>'+
-					// '<li style="width:25%;">3 <span class="fa fa-question"></span></li>'+
-					// '<li style="width:25%;">103 <span class="fa fa-envelope"></span></li>'+
-					// '<li style="width:25%;">3 <span class="fa fa-question"></span></li>'+
-					'</ul>'+
 					'</div>'+
 					'<div class="social">'+
 					'<ul>'+
@@ -76,6 +69,7 @@ $(document).ready(function(){
 					'<li class="google-plus" style="width:25%;"><a href="#google-plus"><span class="fa fa-google-plus"></span></a></li>'+
 					'<li class="power" style="width:25%;"><a href="#power"><span class="fa fa-power-off"></span></a></li>'+
 					'</ul>'+
+					'</div>'+
 					'</div>'+
 					'</li>')
 					$('#rating'+i).raty({
@@ -96,24 +90,24 @@ $(document).ready(function(){
 
 
 $(document).ready(function(){
-		
+	
 	$("#home, #home1").click(function(){
-		 $("#welcomeScreen").show();
-		 $(".pageTitle").text("Twittris Movie Web-Application");
-		 $("#newReleases").hide();
-		 $("#myCampains").hide();
+		 $("#welcomeScreen").show(1000);
+		 $(".pageTitle").text("TWITTRIS: MOVIE WEB-APPLICATION VER 1.0");
+		 $("#newReleases").hide(666);
+		 $("#myCampains").hide(666);
 	});
 	$("#new").click(function(){
-		 $("#newReleases").show();
-		 $(".pageTitle").text("New Movie Releases");
-		 $("#welcomeScreen").hide();
-		 $("#myCampains").hide();
+		 $("#newReleases").show(1000);
+		 $(".pageTitle").text("NEW MOVIE RELEASES");
+		 $("#welcomeScreen").hide(666);
+		 $("#myCampains").hide(666);
 	});
 	$("#my").click(function(){
-		 $("#myCampains").show();
-		 $(".pageTitle").text("My Twittris Campaigns");
-		 $("#welcomeScreen").hide();
-		 $("#newReleases").hide();
+		 $("#myCampains").show(1000);
+		 $(".pageTitle").text("MY CAMPAIGN'S");
+		 $("#welcomeScreen").hide(666);
+		 $("#newReleases").hide(666);
 
 	});
 	$("#home, #home1").click(function(){
