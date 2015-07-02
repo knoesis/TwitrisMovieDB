@@ -14,13 +14,13 @@ body {
     -o-text-overflow: ellipsis;  
 }
 
-body.modal-open #page{
+/*body.modal-open .content{
     -webkit-filter: blur(7px);
     -moz-filter: blur(15px);
     -o-filter: blur(15px);
     -ms-filter: blur(15px);
     filter: blur(15px);
-}
+}*/
   
 .modal-backdrop {background: black;}
 

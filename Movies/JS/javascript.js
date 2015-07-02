@@ -84,19 +84,44 @@ $(document).ready(function(){
 			'<a class="" href="http://image.tmdb.org/t/p/w500/'+movie["info"]["poster_path"]+'" data-lightbox="'+movie["info"]["id"]+'" data-title="'+movie["info"]["overview"]+'"><img alt="" src="http://image.tmdb.org/t/p/original/'+movie["info"]["poster_path"]+'" /></a>'+
 			'<div class="info">'+
 			'<h2 class="title">'+movie["info"]["original_title"]+'</h2>'+
-			'<p class="desc ellipsis">'+movie["info"]["overview"]+'</p>'+
+			'<p class="desc ellipsis">'+movie["info"]["overview"]+'</p><a href=""><p>Read Full [+]</a>'+
 			'<ul>'+
-			'<li id="sentimentTogg" style="width:25%;">1 <span id="myBtnsenti" class="fa fa-smile-o">&nbspSentiment</span></li>'+
-			'<div class="modal fade" id="myModalsenti" aria-hidden="true" tabindex="-1" role="dialog">'+
-			'<h1>TEST sentimentT MODAL</h1>'+
+// SENTIMENT BUTTON		
+			'<li id="sentimentTogg" style="width:25%;"><span id="myBtnsenti" class="fa fa-smile-o"> Sentiment Analysis</span></li>'+
+// SENTIMENT MODAL
+			'<div class="modal fade" id="myModalsenti" role="dialog">'+
+			'<div class="modal-dialog">'+
+			'<div class="modal-content">'+
+			'<div class="modal-header">'+
+			'<button type="button" class="close" data-dismiss="modal">&times;</button>'+
+			'<h4 class="modal-title">'+movie["info"]["original_title"]+' : Sentiment Analysis</h4>'+
 			'</div>'+
-			'<li style="width:25%;"><span id="myBtnemo" class="fa fa-question">&nbspEmotion</span></li>'+
+			'<div class="modal-body">'+
+			'<p>CHART GOES HERE</p>'+
+			'</div>'+
+			'<div class="modal-footer">'+
+			'<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>'+
+			'</div></div></div></div>'+
+// EMOTIONS BUTTON
+			'<li style="width:25%;"><span id="myBtnemo" class="fa fa-bar-chart"> Emotional Analysis</span></li>'+
+// EMOTIONS MODAL			
 			'<div class="modal fade" id="myModalemo" role="dialog">'+
-			'<h1>TEST EMOTIONS MODAL</h1>'+
+			'<div class="modal-dialog">'+
+			'<div class="modal-content">'+
+			'<div class="modal-header">'+
+			'<button type="button" class="close" data-dismiss="modal">&times;</button>'+
+			'<h4 class="modal-title">'+movie["info"]["original_title"]+' : Emotional Analysis</h4>'+
 			'</div>'+
-			'<li style="width:25%;">103 <span class="fa fa-envelope">&nbspTweet\'s</span></li>'+
-			// '<li style="width:15%;"><span class="fa fa-question">&nbspOn/Off</span></li>'+
-			// '</ul>'+
+			'<div class="modal-body">'+
+			'<p>CHART GOES HERE</p>'+
+			'</div>'+
+			'<div class="modal-footer">'+
+			'<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>'+
+			'</div></div></div></div>'+
+		
+			'<li style="width:25%;">103 <span class="fa fa-twitter-square"> Live Tweet\'s</span></li>'+
+
+			'</ul>'+
 			'</div>'+
 			'<div class="social">'+
 			'<ul>'+
