@@ -36,7 +36,7 @@ $(document).ready(function(){
 				// loop through the genres and create the HTML 
 				// for the genre list
 				for (var j=0; j<gIds.length;j++) {
-					gs+='<button type="button" class="btn nohover btn-white btn-round-xs btn-sm"><span class="glyphicon glyphicon-tag"></span>'+genres[gIds[j]]+'</button>&nbsp';
+					gs+='<button style="float:right;" type="button" class="btn nohover btn-default btn-round-xs btn-sm"><span class="glyphicon glyphicon-tag"></span>'+genres[gIds[j]]+'</button>&nbsp';
 				}
 				// gs+=''; // close the genre list
 
@@ -55,9 +55,8 @@ $(document).ready(function(){
 					'</time>'+
 					img+ // either "" or an img element
 					'<div class="info">'+
-					'<h2 class="title">'+result["original_title"]+'</h2>'+
+					'<h2 class="title">'+result["original_title"]+gs+'</h2>'+
 					'<div id="movieInfo'+i+'">'+
-						gs+ 
 					'<p class="desc ellipsis">'+result["overview"]+'</p><a href=""><p>Read Full [+]</a>'+
 					//rating ratify
 					'<div id="rating'+i+'" data-score="'+result["popularity"]+'"></div>'+
@@ -103,20 +102,20 @@ $(document).ready(function(){
 	$("#home, #home1").click(function(){
 		 $("#welcomeScreen").show(1000);
 		 $(".pageTitle").text("TWITTRIS: MOVIE WEB-APPLICATION VER 1.0");
-		 $("#newReleases").hide(666);
-		 $("#myCampains").hide(666);
+		 $("#newReleases").hide(667);
+		 $("#myCampains").hide(667);
 	});
 	$("#new").click(function(){
 		 $("#newReleases").show(1000);
 		 $(".pageTitle").text("NEW MOVIE RELEASES");
-		 $("#welcomeScreen").hide(666);
-		 $("#myCampains").hide(666);
+		 $("#welcomeScreen").hide(667);
+		 $("#myCampains").hide(667);
 	});
 	$("#my").click(function(){
 		 $("#myCampains").show(1000);
 		 $(".pageTitle").text("MY CAMPAIGN'S");
-		 $("#welcomeScreen").hide(666);
-		 $("#newReleases").hide(666);
+		 $("#welcomeScreen").hide(667);
+		 $("#newReleases").hide(667);
 
 	});
 	$("#home, #home1").click(function(){
