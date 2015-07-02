@@ -10,6 +10,7 @@ $(document).ready(function(){
 	// hide the welcomePage and show the myCampains Page
 	var got_info_clear_welcome = function() {
 		$('#welcomeScreen').hide();
+		$(".pageTitle").text("My Twittris Campaigns");
 		$('#myCampains').show();
 		welcome_visible = false;
 	}
@@ -80,14 +81,14 @@ $(document).ready(function(){
 			'<span class="month">'+month +'</span>'+
 			'<span class="year">'+year+'</span>'+
 			'</time>'+
-			'<a class="" href="http://image.tmdb.org/t/p/w500/'+movie["info"]["poster_path"]+'" data-lightbox="'+movie["info"]["id"]+'"><img alt="" src="http://image.tmdb.org/t/p/w500/'+movie["info"]["poster_path"]+'" /></a>'+
+			'<a class="" href="http://image.tmdb.org/t/p/w500/'+movie["info"]["poster_path"]+'" data-lightbox="'+movie["info"]["id"]+'" data-title="'+movie["info"]["overview"]+'"><img alt="" src="http://image.tmdb.org/t/p/w500/'+movie["info"]["poster_path"]+'" /></a>'+
 			'<div class="info">'+
 			'<h2 class="title">'+movie["info"]["original_title"]+'</h2>'+
 			'<p class="desc ellipsis">'+movie["info"]["overview"]+'</p>'+
 			'<ul>'+
 			'<li id="sentimentTogg" style="width:25%;">1 <span id="myBtnsenti" class="fa fa-smile-o">&nbspSentiment</span></li>'+
-			'<div class="modal fade" id="myModalsenti" role="dialog">'+
-			'<h1>TEST SENTIMENT MODAL</h1>'+
+			'<div class="modal fade" id="myModalsenti" aria-hidden="true"  tabindex="-1"  role="dialog">'+
+			'<h1>TEST sentimentT MODAL</h1>'+
 			'</div>'+
 			'<li style="width:25%;"><span id="myBtnemo" class="fa fa-question">&nbspEmotion</span></li>'+
 			'<div class="modal fade" id="myModalemo" role="dialog">'+

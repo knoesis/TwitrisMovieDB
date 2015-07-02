@@ -1,4 +1,4 @@
-$(document).ready(function(){	
+$(document).ready(function(){		
 	$.ajax({
 		type: 'GET',
 		"content-type": "Application/JSON",
@@ -36,7 +36,7 @@ $(document).ready(function(){
 				// loop through the genres and create the HTML 
 				// for the genre list
 				for (var j=0; j<gIds.length;j++) {
-					gs+='<button type="button" class="btn btn-white btn-round-xs btn-sm"><span class="glyphicon glyphicon-tag"></span>'+genres[gIds[j]]+'</button>&nbsp';
+					gs+='<button type="button" class="btn nohover btn-white btn-round-xs btn-sm"><span class="glyphicon glyphicon-tag"></span>'+genres[gIds[j]]+'</button>&nbsp';
 				}
 				// gs+=''; // close the genre list
 
@@ -44,7 +44,7 @@ $(document).ready(function(){
 				// there is an img to retrieve
 				var img = '';
 				if (result["backdrop_path"] !== null) {
-					img = '<a href="http://image.tmdb.org/t/p/w500/'+result["poster_path"]+'" data-lightbox="'+result["id"]+'"><img src="http://image.tmdb.org/t/p/w500'+result["poster_path"]+'" /></a>'
+					img = '<a href="http://image.tmdb.org/t/p/w500/'+result["poster_path"]+'" data-lightbox="'+result["id"]+'" data-title="'+result["overview"]+'"><img src="http://image.tmdb.org/t/p/w500'+result["poster_path"]+'" /></a>'
 				}
 
 				$('#movieList').append("<li>"+
@@ -99,16 +99,19 @@ $(document).ready(function(){
 		
 	$("#home, #home1").click(function(){
 		 $("#welcomeScreen").show();
+		 $(".pageTitle").text("Twittris Movie Web-Application");
 		 $("#newReleases").hide();
 		 $("#myCampains").hide();
 	});
 	$("#new").click(function(){
 		 $("#newReleases").show();
+		 $(".pageTitle").text("New Movie Releases");
 		 $("#welcomeScreen").hide();
 		 $("#myCampains").hide();
 	});
 	$("#my").click(function(){
 		 $("#myCampains").show();
+		 $(".pageTitle").text("My Twittris Campaigns");
 		 $("#welcomeScreen").hide();
 		 $("#newReleases").hide();
 
