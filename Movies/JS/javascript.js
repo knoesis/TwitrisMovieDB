@@ -52,6 +52,7 @@ $(document).ready(function(){
 												"content-type": "Application/JSON",
 												url:"http://127.0.0.1:5200/twitris-movie-ext/api/v1.0/get_reviews/"+movie_id,
 												success: function(results) {
+													movies[name]["reviews"]=results['reviews']['results'];
 													listMovies(movies[name])
 												}
 											});
@@ -69,8 +70,32 @@ $(document).ready(function(){
 				day = date.substring(8,10),
 				month = month_array[parseInt(date.substring(6,7))-1],
 				year = date.substring(0,4),
-				id = movie["info"]['id'];
+				id = movie["info"]['id'],
+				series = [],
+				data = _.pluck(_.flatten(_.pluck(movie['emotions'], "data")), "count");
 
+			// reg ex explanation
+			// everything between "/" IS the reg ex 
+			// "\(" means that we are going to escape the reg ex meaning of "(" and look for an actual exsisting "("
+			// the yellow () mean that we want to save what is found 
+			// . means any char
+			// + means one or more of the preceeding chars 
+			str = "string 'something'"			
+			var re = RegExp(/\((.+)\)/);
+
+			_.each(_.pluck(movie['emotions'], "name"), function(val) {
+				// at each step, val == "something (emotion)"
+				// match uses the reg ex to find "(emotion)""
+				// it returns ["(emotion)", "emotion"]
+				series.push({"name":val.match(re)[1]}); 
+			});	
+
+
+			// loop through and add the count of each emotion to the object in the series
+			_.each(data, function(val, i) {
+				series[i]["value"] = val; 
+			});
+			
 			if (welcome_visible)  {
 				got_info_clear_welcome();
 			}
@@ -116,7 +141,7 @@ $(document).ready(function(){
 // EMOTIONS BUTTON
 			'<li style="width:25%;"><span id="myBtnemo" class="fa fa-bar-chart"> Emotional Analysis</span></li>'+
 // EMOTIONS MODAL			
-			'<div class="modal fade" id="myModalemo" role="dialog">'+
+			'<div class="modal fade" id="myModalemo_'+id+'" role="dialog">'+
 			'<div class="modal-dialog">'+
 			'<div class="modal-content">'+
 			'<div class="modal-header">'+
