@@ -15,6 +15,8 @@ $(document).ready(function(){
 					9648:"Mystery",10749:"Romance",878:"Science Fiction",
 					10770:"TV Movie",53:"Thriller",10752:"War",37:"Western"}
 
+			results = _.sortBy(results, "release_date");
+
 			for (var i = 0; i < results.length; i++) {
 				// store a copy of results[i] as results so 
 				// we don't waste cycles accessing the list
@@ -35,7 +37,7 @@ $(document).ready(function(){
 
 				// loop through the genres and create the HTML 
 				// for the genre list
-				for (var j=0; j<gIds.length;j++) {
+				for (var j=0; j<gIds.length&&j<3;j++) {
 					gs+='<button style="float:right;" type="button" class="btn nohover btn-default btn-round-xs btn-sm"><span class="glyphicon glyphicon-tag"></span>'+genres[gIds[j]]+'</button>&nbsp';
 				}
 				// gs+=''; // close the genre list

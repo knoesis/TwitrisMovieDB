@@ -33,7 +33,7 @@ def getOptions(includeTime=False):
 	options+=str(sd)
 	options+="&primary_release_date.lte="
 	options+=str(ed)
-	options+="&sort_by=primary_release_date.asc"
+	options+="&sort_by=popularity.desc"
 	# "&keyword="+ Cannabis
 	return options
 
