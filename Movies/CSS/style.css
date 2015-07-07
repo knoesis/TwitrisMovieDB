@@ -229,7 +229,7 @@ h1 {text-align: center;
  * give it the same dimensions as the date
  */
 .event-list > li > a {
-	width: 120px;
+	width: 100px;
 	height: 130px;
 	float: left;
 }
