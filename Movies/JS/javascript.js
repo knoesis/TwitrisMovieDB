@@ -15,6 +15,37 @@ $(document).ready(function(){
 		welcome_visible = false;
 	}
 
+	var display_analysis = function(name, type) {
+		if (!_.isUndefined(movies[name])) {
+			var series = movies[name][type];
+			$("#modal_title").text(name+' '+type+' Analysis');
+			$('#modal_body').empty();
+			$("#multi_modal").modal();
+			$('#multi_modal').on('shown.bs.modal', function (e) {
+			    if (type==="emotions") {
+				    new Chartist.Pie('#modal_body', { 
+					   	series:_.pluck(series['series'], 'value'), 
+					   	labels:_.pluck(series['series'], 'name')
+				    });
+				} else {
+					new Chartist.Line('#modal_body', {
+					  labels: ['1', '2', '3', '4', '5', '6'],
+					  series: [
+					    {
+					      name: 'Fibonacci sequence',
+					      data: [1, 2, 3, 5, 8, 13]
+					    },
+					    {
+					      name: 'Golden section',
+					      data: [1, 1.618, 2.618, 4.236, 6.854, 11.09]
+					    }
+					  ]
+					})
+				}
+			});
+		}
+	}
+
 	$.ajax({
 		type: 'GET',
 		"content-type": "Application/JSON",
@@ -24,8 +55,9 @@ $(document).ready(function(){
 			for (var i=0; i<resp.length; i++) {
 				var name = resp[i]['event'],
 					id = resp[i]['id'];
-
-					movies[name]= {};						
+					movies[name] = {
+						c_id : id
+					};						
 
 				$.ajax({
 						type: 'GET',
@@ -33,18 +65,19 @@ $(document).ready(function(){
 						url:"http://127.0.0.1:5200/twitris-movie-ext/api/v1.0/get_info/"+name,
 						success: function(results) {
 							var name = results['info']['original_title'],
-								movie_id = results['info']['id'];
+								movie_id = results['info']['id']
+								c_id = movies[name]['c_id'];
 							movies[name]["info"]=results["info"];
 							$.ajax({
 								type: 'GET',
 								"content-type": "Application/JSON",
-								url:"http://localhost:5200/twitris-movie-ext/api/v1.0/sentiment/"+id,
+								url:"http://localhost:5200/twitris-movie-ext/api/v1.0/sentiment/"+c_id,
 								success: function(results) {
 									movies[name]["sentiment"]=results['data'];
 									$.ajax({
 										type: 'GET',
 										"content-type": "Application/JSON",
-										url:"http://localhost:5200/twitris-movie-ext/api/v1.0/emotions/"+id,
+										url:"http://localhost:5200/twitris-movie-ext/api/v1.0/emotions/"+c_id,
 										success: function(results) {
 											movies[name]["emotions"]=results['data'];
 											$.ajax({
@@ -54,13 +87,17 @@ $(document).ready(function(){
 												success: function(results) {
 													movies[name]["reviews"]=results['reviews']['results'];
 													listMovies(movies[name])
-												}
+												},
+												error: myFailure
 											});
-										}
+										},
+										error: myFailure
 									})
-								}
+								},
+								error: myFailure
 							})
-						}	
+						},
+						error: myFailure
 					})		
 			};
 		}	
@@ -70,7 +107,8 @@ $(document).ready(function(){
 				day = date.substring(8,10),
 				month = month_array[parseInt(date.substring(6,7))-1],
 				year = date.substring(0,4),
-				id = movie["info"]['id'],
+				title = movie["info"]["original_title"],
+				id = movie["info"]["id"],
 				series = [],
 				data = _.pluck(_.flatten(_.pluck(movie['emotions'], "data")), "count");
 
@@ -90,6 +128,7 @@ $(document).ready(function(){
 				series.push({"name":val.match(re)[1]}); 
 			});	
 
+			movies[title]["emotions"] = {series:series};
 
 			// loop through and add the count of each emotion to the object in the series
 			_.each(data, function(val, i) {
@@ -108,55 +147,15 @@ $(document).ready(function(){
 			'</time>'+
 			'<a class="" href="http://image.tmdb.org/t/p/w500/'+movie["info"]["poster_path"]+'" data-lightbox="'+movie["info"]["id"]+'" data-title="'+movie["info"]["overview"]+'"><img alt="" src="http://image.tmdb.org/t/p/original/'+movie["info"]["poster_path"]+'" /></a>'+
 			'<div class="info">'+
-			'<h2 class="title">'+movie["info"]["original_title"]+'</h2>'+
+			'<h2 class="title">'+title+'</h2>'+
 			'<p class="desc ellipsis">'+movie["info"]["overview"]+'</p><a href=""><p>Read Full [+]</a>'+
 			'<ul>'+
 // SENTIMENT BUTTON		
-			'<li id="sentimentTogg" style="width:25%;"><span id="myBtnsenti" class="fa fa-smile-o"> Sentiment Analysis</span></li>'+
-// SENTIMENT MODAL
-			'<div class="modal fade" id="myModalsenti" role="dialog">'+
-			'<div class="modal-dialog">'+
-			'<div class="modal-content">'+
-			'<div class="modal-header">'+
-			'<button type="button" class="close" data-dismiss="modal">&times;</button>'+
-			'<h4 class="modal-title">'+movie["info"]["original_title"]+' : Sentiment Analysis</h4>'+
-			'</div>'+			
-			'<div class="modal-body">'+
-
-			'<ul data-pie-id="my-cool-chart">'+
-// Need to loop throught the emotions array reformat the Json to feed into chart?
-			'<li data-value="'+movie["emotions"]["fear"]+'">Fear</li>'+
-			'<li data-value="'+movie["emotions"]["surprise"]+'">Surprise</li>'+
-			'<li data-value="'+movie["emotions"]["joy"]+'">Joy</li>'+
-			'<li data-value="'+movie["emotions"]["sadness"]+'">Sadness</li>'+
-			'<li data-value="'+movie["emotions"]["anger"]+'">Anger</li>'+
-			'<li data-value="'+movie["emotions"]["disgust"]+'">Disgust</li>'+
-
-			'</ul>'+
-		
-			'</div>'+
-			'<div class="modal-footer">'+
-			'<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>'+
-			'</div></div></div></div>'+
+			'<li style="width:25%;"><span class="fa fa-smile-o" id="show_sentiment_'+id+'" data-title="'+title+'"> Sentiment Analysis</span></li>'+
 // EMOTIONS BUTTON
-			'<li style="width:25%;"><span id="myBtnemo" class="fa fa-bar-chart"> Emotional Analysis</span></li>'+
-// EMOTIONS MODAL			
-			'<div class="modal fade" id="myModalemo_'+id+'" role="dialog">'+
-			'<div class="modal-dialog">'+
-			'<div class="modal-content">'+
-			'<div class="modal-header">'+
-			'<button type="button" class="close" data-dismiss="modal">&times;</button>'+
-			'<h4 class="modal-title">'+movie["info"]["original_title"]+' : Emotional Analysis</h4>'+
-			'</div>'+
-			'<div class="modal-body">'+
-			'<p>CHART GOES HERE</p>'+
-			'</div>'+
-			'<div class="modal-footer">'+
-			'<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>'+
-			'</div></div></div></div>'+
-		
-			'<li style="width:25%;">103 <span class="fa fa-twitter-square"> Live Tweet\'s</span></li>'+
+			'<li style="width:25%;"><span class="fa fa-bar-chart" id="show_emotions_'+id+'" data-title="'+title+'"> Emotional Analysis</span></li>'+
 
+			'<li style="width:25%;">103 <span class="fa fa-twitter-square"> Live Tweet\'s</span></li>'+
 			'</ul>'+
 			'</div>'+
 			'<div class="social">'+
@@ -169,12 +168,12 @@ $(document).ready(function(){
 			'</div>'+
 			'</li>')
 
-		   $("#myBtnsenti").click(function(){
-		        $("#myModalsenti").modal();
+		    $("#show_sentiment_"+id).click(function(e){
+		    	display_analysis($(this)[0].getAttribute("data-title"), "sentiment");
 		    });
-		    $("#myBtnemo").click(function(){
-		        $("#myModalemo").modal();
-		    }); 
+		    $("#show_emotions_"+id).click(function(e){
+		    	display_analysis($(this)[0].getAttribute("data-title"), "emotions");
+		   	});
 		
 			console.log("mycampainsuccess");
 	}
