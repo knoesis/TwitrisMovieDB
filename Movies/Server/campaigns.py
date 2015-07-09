@@ -108,14 +108,15 @@ def list_campaigns():
 		if curl:
 			curl.close()
 
-def get_tweets():
-
-	text = request.args.get('text').encode('ascii', 'ignore')
+def get_movie_reviews(c_id):
+	curl = None
 	try:
-		curl, buffer = generateRequest('http://twitris.knoesis.org/api/v1/utilities/twitter_search?query='+
-			text)
+		url = 'http://twitris.knoesis.org/api/v1.1/campaigns/'+c_id+'/movieReviews'
+		curl, buffer = generateRequest(url)
 		curl.perform()
-		return make_response(buffer.getvalue(), curl.getinfo(curl.RESPONSE_CODE))
+		print "performed data"
+		data = json.loads(buffer.getvalue())['reviews'][0]
+		return make_response(jsonify(data), curl.getinfo(curl.RESPONSE_CODE))
 	except:
 		return serverError("error")
 	finally:
