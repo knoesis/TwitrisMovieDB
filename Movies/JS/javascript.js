@@ -83,9 +83,9 @@ $(document).ready(function(){
 											$.ajax({
 												type: 'GET',
 												"content-type": "Application/JSON",
-												url:"http://127.0.0.1:5200/twitris-movie-ext/api/v1.0/get_reviews/"+movie_id,
+												url:"http://127.0.0.1:5200/twitris-movie-ext/api/v1.0/get_reviews/"+c_id,
 												success: function(results) {
-													movies[name]["reviews"]=results['reviews']['results'];
+													movies[name]["reviews"]=results['reviews'];
 													listMovies(movies[name])
 												},
 												error: myFailure
