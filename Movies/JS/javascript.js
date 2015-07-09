@@ -118,33 +118,36 @@ $(document).ready(function(){
 								movie_id = results['info']['id']
 								c_id = movies[name]['c_id'];
 							movies[name]["info"]=results["info"];
-							$.ajax({
-								type: 'GET',
-								"content-type": "Application/JSON",
-								url:"http://localhost:5200/twitris-movie-ext/api/v1.0/sentiment/"+c_id,
-								success: function(results) {
-									movies[name]["sentiment"]=results['data'];
-									$.ajax({
-										type: 'GET',
-										"content-type": "Application/JSON",
-										url:"http://localhost:5200/twitris-movie-ext/api/v1.0/emotions/"+c_id,
-										success: function(results) {
-											movies[name]["emotions"]=results['data'];
-											$.ajax({
-												type: 'GET',
-												"content-type": "Application/JSON",
-												url:"http://127.0.0.1:5200/twitris-movie-ext/api/v1.0/get_reviews/"+movie_id,
-												success: function(results) {
-													movies[name]["reviews"]=results['reviews']['results'];
-													listMovies(movies[name])
-												},
-												error: myFailure
-											});
-										},
-										error: myFailure
-									})
-								},
-								error: myFailure
+							$.when(
+								$.ajax({
+									type: 'GET',
+									"content-type": "Application/JSON",
+									url:"http://localhost:5200/twitris-movie-ext/api/v1.0/sentiment/"+c_id,
+									success: function(results) {
+										movies[name]["sentiment"]=results['data'];
+									},
+									error: myFailure
+								}),
+								$.ajax({
+									type: 'GET',
+									"content-type": "Application/JSON",
+									url:"http://localhost:5200/twitris-movie-ext/api/v1.0/emotions/"+c_id,
+									success: function(results) {
+										movies[name]["emotions"]=results['data'];
+									},
+									error: myFailure
+								}),
+								$.ajax({
+									type: 'GET',
+									"content-type": "Application/JSON",
+									url:"http://127.0.0.1:5200/twitris-movie-ext/api/v1.0/get_reviews/"+c_id,
+									success: function(results) {
+										movies[name]["reviews"]=results['reviews'];
+									},
+									error: myFailure
+								})
+							).done(function() {
+								listMovies(movies[name])
 							})
 						},
 						error: myFailure
