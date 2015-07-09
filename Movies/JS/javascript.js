@@ -11,36 +11,86 @@ $(document).ready(function(){
 	var got_info_clear_welcome = function() {
 		$('#welcomeScreen').hide();
 		$(".pageTitle").text("My Twittris Campaigns");
-		$('#newReleases').show();
+		$('#myCampains').show();
 		welcome_visible = false;
 	}
 
 	var display_analysis = function(name, type) {
 		if (!_.isUndefined(movies[name])) {
 			var series = movies[name][type];
-			$("#modal_title").text(name+' '+type+' Analysis');
+			// $("#modal_title").text(name+' '+type+' Analysis');
 			$('#modal_body').empty();
 			$("#multi_modal").modal();
 			$('#multi_modal').on('shown.bs.modal', function (e) {
 			    if (type==="emotions") {
-				    new Chartist.Pie('#modal_body', { 
-					   	series:_.pluck(series['series'], 'value'), 
-					   	labels:_.pluck(series['series'], 'name')
-				    });
-				} else {
-					new Chartist.Line('#modal_body', {
-					  labels: ['1', '2', '3', '4', '5', '6'],
-					  series: [
-					    {
-					      name: 'Fibonacci sequence',
-					      data: [1, 2, 3, 5, 8, 13]
-					    },
-					    {
-					      name: 'Golden section',
-					      data: [1, 1.618, 2.618, 4.236, 6.854, 11.09]
-					    }
-					  ]
-					})
+			    	 $('#modal_body').highcharts({
+					        chart: {
+					            type: 'pie',
+					            options3d: {
+					                enabled: true,
+					                alpha: 45
+					            }
+					        },
+					         credits: {
+							      enabled: false
+							  },
+					        title: {
+					            text: name + " Emotional Analysis"
+					        },
+					        subtitle: {
+					            text: ''
+					        },
+					        plotOptions: {
+					            pie: {
+					                innerSize: 100,
+					                depth: 45
+					            }
+					        },
+					        series: [{
+					            name: 'Reviews',
+					            data: _.zip(_.pluck(series['series'], 'name'), _.pluck(series['series'], 'value'))
+					            
+					        }]
+					    });	
+			    } else {
+			    	 $('#modal_body').highcharts({
+        title: {
+            text: 'Monthly Average Temperature',
+            x: -20 //center
+        },
+        subtitle: {
+            text: 'Source: WorldClimate.com',
+            x: -20
+        },
+        xAxis: {
+            categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+                'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+        },
+        yAxis: {
+            title: {
+                text: 'Temperature (°C)'
+            },
+            plotLines: [{
+                value: 0,
+                width: 1,
+                color: '#808080'
+            }]
+        },
+        tooltip: {
+            valueSuffix: '°C'
+        },
+        legend: {
+            layout: 'vertical',
+            align: 'right',
+            verticalAlign: 'middle',
+            borderWidth: 0
+        },
+        series: [{
+            name: 'Tokyo',
+            data: [7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6]
+        }]
+    });
+					
 				}
 			});
 		}
@@ -169,7 +219,7 @@ $(document).ready(function(){
 			'</li>')
 
 		    $("#show_sentiment_"+id).click(function(e){
-		    	display_analysis($(this)[0].getAttribute("data-title"), "sentiment");
+		    	display_analysis($(this)[0].getAttribute("data-title"), "Sentiment");
 		    });
 		    $("#show_emotions_"+id).click(function(e){
 		    	display_analysis($(this)[0].getAttribute("data-title"), "emotions");
