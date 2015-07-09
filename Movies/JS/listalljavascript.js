@@ -47,7 +47,7 @@ $(document).ready(function(){
 				var img = '';
 				if (result["backdrop_path"] !== null) {
 					img = '<a href="http://image.tmdb.org/t/p/w500/'+result["poster_path"]+'" data-lightbox="'+result["id"]+'" data-title="'+result["overview"]+'"><img src="http://image.tmdb.org/t/p/w500'+result["poster_path"]+'" /></a>'
-				}
+				}	
 
 				$('#movieList').append("<li>"+
 					'<time datetime="'+date+'">'+
@@ -59,20 +59,20 @@ $(document).ready(function(){
 					'<div class="info">'+
 					'<h2 class="title">'+result["original_title"]+gs+'</h2>'+
 					'<div id="movieInfo'+i+'">'+
-					'<p class="desc ellipsis">'+result["overview"]+'</p><a id="readFull'+i+'"><p>Read Full [+]</a>'+
-					//rating ratify
+					'<p class="desc ellipsis">'+result["overview"]+'<a id="readFull'+i+'"><p>Read Full [+]</a></p>'+
 					'<div id="rating'+i+'" data-score="'+result["popularity"]+'"></div>'+
 					'<p class="senti" style="display:none;" id="movieSenti" class="">'+"Sentiment"+'</p>'+
 					'</div>'+
 					'<div style="display:none;" id="campaignOn'+i+'">'+
-					'<button>On</button><button>OFF</button>'+
+					'<h5>Would You Like To Start A Campaign On This Film?</h5>'+
+					'<button class="btn btn-fresh text-uppercase">Yes</button><button id="goBack'+i+'" class="btn btn-sunny text-uppercase">Cancel</button>'+
 					'</div>'+
 					'</div>'+
 					'<div class="social">'+
 					'<ul>'+
-					'<li class="facebook" style="width:25%;"><a href="#facebook"><span class="fa fa-facebook"></span></a></li>'+
-					'<li class="twitter" style="width:25%;"><a href="#twitter"><span class="fa fa-twitter"></span></a></li>'+
-					'<li class="google-plus" style="width:25%;"><a href="#google-plus"><span class="fa fa-google-plus"></span></a></li>'+
+					// '<li class="facebook" style="width:25%;"><a href="#facebook"><span class="fa fa-facebook"></span></a></li>'+
+					// '<li class="twitter" style="width:25%;"><a href="#twitter"><span class="fa fa-twitter"></span></a></li>'+
+					// '<li class="google-plus" style="width:25%;"><a href="#google-plus"><span class="fa fa-google-plus"></span></a></li>'+
 					'<li class="power" id="power'+i+'" style="width:25%;"><a href="#"><span class="fa fa-power-off"></span></a></li>'+
 					'</ul>'+
 					'</div>'+
@@ -86,8 +86,12 @@ $(document).ready(function(){
 					  		}
 						});			
 					$("#power"+i).click({num:i},function (d) {
-					    $('#movieInfo'+d.data.num).toggle(1000);
-					    $('#campaignOn'+d.data.num).toggle(1000);				
+					    $('#movieInfo'+d.data.num).slideToggle("fast");
+					    $('#campaignOn'+d.data.num).slideToggle("fast");				
+					})
+					$("#goBack"+i).click({num:i},function (d) {
+					    $('#movieInfo'+d.data.num).slideToggle("fast");
+					    $('#campaignOn'+d.data.num).slideToggle("fast");				
 					})
 				}}		
 		},
