@@ -46,7 +46,7 @@ $(document).ready(function(){
 				// there is an img to retrieve
 				var img = '';
 				if (result["backdrop_path"] !== null) {
-					img = '<a href="http://image.tmdb.org/t/p/w500/'+result["poster_path"]+'" data-lightbox="'+result["id"]+'" data-title="'+result["overview"]+'"><img src="http://image.tmdb.org/t/p/w500'+result["poster_path"]+'" /></a>'
+					img = '<a data-href="http://image.tmdb.org/t/p/w500/'+result["poster_path"]+'" data-toggle="modal" data-target="#movie_desc_modal" data-lightbox="'+result["id"]+'" data-title="'+result["overview"]+'"><img src="http://image.tmdb.org/t/p/w500'+result["poster_path"]+'" /></a>'
 				}	
 
 				$('#movieList').append("<li>"+

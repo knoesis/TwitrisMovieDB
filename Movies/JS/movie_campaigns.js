@@ -1,6 +1,4 @@
 $(function(){	
-	lightbox.init();
-
 	var facebook_share = 'http://www.facebook.com/sharer.php?u='+window.location.href,
 		gplus_share = 'https://plus.google.com/share?url='+window.location.href,
 		twitter_share = 'http://twitter.com/share?text=Check%20out%20this%20Twitris%20analysis&url='+window.location.href,
@@ -24,11 +22,11 @@ $(function(){
 	var display_analysis = function(name, type) {
 		if (!_.isUndefined(movies[name])) {
 			var series = movies[name][type];
-			$('#modal_body').empty();
+			$('#chart_body').empty();
 			$("#multi_modal").modal();
 			$('#multi_modal').on('shown.bs.modal', function (e) {
 				var title = [name,(type==="emotions"?"Emotions":"Sentiment"),"Analysis"].join(" "),
-			    	built_graph = buildChart(modal_body, title, series, (type==="emotions"?true:false)),
+			    	built_graph = buildChart("chart_body", title, series, (type==="emotions"?true:false)),
 					chart = new Highcharts.Chart( built_graph );
 			});
 		}
@@ -114,7 +112,8 @@ $(function(){
 			'<span class="month">'+month +'</span>'+
 			'<span class="year">'+year+'</span>'+
 			'</time>'+
-			'<a class="" href="http://image.tmdb.org/t/p/w500/'+movie["info"]["poster_path"]+'" data-lightbox="'+movie["info"]["id"]+'" data-title="'+movie["info"]["overview"]+'"><img alt="" src="http://image.tmdb.org/t/p/original/'+movie["info"]["poster_path"]+'" /></a>'+
+			'<a class="" data-href="http://image.tmdb.org/t/p/w500/'+movie["info"]["poster_path"]+'"  data-toggle="modal" data-target="#movie_desc_modal" data-lightbox="'+movie["info"]["id"]+'" data-title="'+movie["info"]["overview"]+'">'+
+			'<img alt="" src="http://image.tmdb.org/t/p/original/'+movie["info"]["poster_path"]+'" /></a>'+
 			'<div class="info">'+
 			'<h2 class="title">'+title+'</h2>'+
 			'<p class="desc ellipsis">'+movie["info"]["overview"]+'</p><a href=""><p>Read Full [+]</a>'+
