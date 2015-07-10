@@ -43,14 +43,14 @@ def generateStartEndDates(includeTime=False):
 		date_string = str(datetime.utcnow()).split(" ")[0]
 		date_format = "%Y-%m-%d"
 		date = datetime.strptime(date_string, date_format)
-		start_date = "T".join(str(date).split(" "))
+		start_date = "T".join(str(date-timedelta(days=7)).split(" "))
 		end_date = "T".join(str(date+timedelta(days=1)).split(" "))
 	else:
 		t = datetime.today()
 		date_string = str(t.year)+'-'+str(t.month)+'-'+str(t.day)	
 		date_format = "%Y-%m-%d"
 		date = datetime.strptime(date_string, date_format)
-		start_date = str(date).split(" ")[0]
+		start_date = str(date-timedelta(days=7)).split(" ")[0]
 		end_date = str(date+timedelta(days=1)).split(" ")[0]
 	return start_date, end_date
 

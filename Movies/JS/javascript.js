@@ -1,5 +1,11 @@
 $(function(){	
 	lightbox.init();
+
+	var facebook_share = 'http://www.facebook.com/sharer.php?u='+window.location.href,
+		gplus_share = 'https://plus.google.com/share?url='+window.location.href,
+		twitter_share = 'http://twitter.com/share?text=Check%20out%20this%20Twitris%20analysis&url='+window.location.href,
+		email_share = 'mailto:?Subject=Check%20out%20this%20Twitris%20analysis&Body='+window.location.href
+
 	var month_array = [ "JAN","FEB","MAR","APR","MAY","JUNE",
 					"JULY","AUG","SEPT","OCT","NOV","DEC"],
 		movies = {},

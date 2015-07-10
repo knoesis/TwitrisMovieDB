@@ -18,17 +18,18 @@ var graph_data = function( name_point_data, graph_type ) {
 		var re = RegExp(/\((.+)\)/);
 		for ( i = 0; i < name_point_data.length; i++)
 		{
+			var datum = {
+				name:name_point_data[i].name.match(re)[1],
+				y: 0,
+                color: Highcharts.getOptions().colors[i],
+                sliced: false,
+            	selected: false
+			}
 			for (var j = 0; j < name_point_data[i]['data'].length; j++)
 			{
-				data_array.push( 
-				{
-                    name: name_point_data[i].name.match(re)[1],
-                    y: name_point_data[i]['data'][j]['count'],
-                    color: Highcharts.getOptions().colors[i],
-                    sliced: false,
-                	selected: false
-                });
+				datum['y']+=name_point_data[i]['data'][j]['count'];
 			}		
+			data_array.push(datum)
 		}		
 		
 		seriesArray.push( new Array({ 
