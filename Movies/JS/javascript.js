@@ -1,4 +1,4 @@
-$(document).ready(function(){	
+$(function(){	
 	lightbox.init();
 	var month_array = [ "JAN","FEB","MAR","APR","MAY","JUNE",
 					"JULY","AUG","SEPT","OCT","NOV","DEC"],
@@ -18,80 +18,12 @@ $(document).ready(function(){
 	var display_analysis = function(name, type) {
 		if (!_.isUndefined(movies[name])) {
 			var series = movies[name][type];
-			// $("#modal_title").text(name+' '+type+' Analysis');
 			$('#modal_body').empty();
 			$("#multi_modal").modal();
 			$('#multi_modal').on('shown.bs.modal', function (e) {
-			    if (type==="emotions") {
-			    	 $('#modal_body').highcharts({
-					        chart: {
-					            type: 'pie',
-					            options3d: {
-					                enabled: true,
-					                alpha: 45
-					            }
-					        },
-					         credits: {
-							      enabled: false
-							  },
-					        title: {
-					            text: name + " Emotional Analysis"
-					        },
-					        subtitle: {
-					            text: ''
-					        },
-					        plotOptions: {
-					            pie: {
-					                innerSize: 100,
-					                depth: 45
-					            }
-					        },
-					        series: [{
-					            name: 'Reviews',
-					            data: _.zip(_.pluck(series['series'], 'name'), _.pluck(series['series'], 'value'))
-					            
-					        }]
-					    });	
-			    } else {
-			    	 $('#modal_body').highcharts({
-        title: {
-            text: 'Monthly Average Temperature',
-            x: -20 //center
-        },
-        subtitle: {
-            text: 'Source: WorldClimate.com',
-            x: -20
-        },
-        xAxis: {
-            categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-                'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-        },
-        yAxis: {
-            title: {
-                text: 'Temperature (°C)'
-            },
-            plotLines: [{
-                value: 0,
-                width: 1,
-                color: '#808080'
-            }]
-        },
-        tooltip: {
-            valueSuffix: '°C'
-        },
-        legend: {
-            layout: 'vertical',
-            align: 'right',
-            verticalAlign: 'middle',
-            borderWidth: 0
-        },
-        series: [{
-            name: 'Tokyo',
-            data: [7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6]
-        }]
-    });
-					
-				}
+				var title = [name,(type==="emotions"?"Emotions":"Sentiment"),"Analysis"].join(" "),
+			    	built_graph = buildChart(modal_body, title, series, (type==="emotions"?true:false)),
+					chart = new Highcharts.Chart( built_graph );
 			});
 		}
 	}
@@ -155,39 +87,17 @@ $(document).ready(function(){
 			};
 		}	
 	});
-	function listMovies (movie){			
+	var listMovies = function(movie){			
 			var date = movie["info"]["release_date"],
 				day = date.substring(8,10),
 				month = month_array[parseInt(date.substring(6,7))-1],
 				year = date.substring(0,4),
 				title = movie["info"]["original_title"],
-				id = movie["info"]["id"],
-				series = [],
-				data = _.pluck(_.flatten(_.pluck(movie['emotions'], "data")), "count");
+				id = movie["info"]["id"];
 
-			// reg ex explanation
-			// everything between "/" IS the reg ex 
-			// "\(" means that we are going to escape the reg ex meaning of "(" and look for an actual exsisting "("
-			// the yellow () mean that we want to save what is found 
-			// . means any char
-			// + means one or more of the preceeding chars 
-			str = "string 'something'"			
-			var re = RegExp(/\((.+)\)/);
-
-			_.each(_.pluck(movie['emotions'], "name"), function(val) {
-				// at each step, val == "something (emotion)"
-				// match uses the reg ex to find "(emotion)""
-				// it returns ["(emotion)", "emotion"]
-				series.push({"name":val.match(re)[1]}); 
-			});	
-
-			movies[title]["emotions"] = {series:series};
-
-			// loop through and add the count of each emotion to the object in the series
-			_.each(data, function(val, i) {
-				series[i]["value"] = val; 
-			});
-			
+			movies[title]['emotions'] = graph_data(movie['emotions'], 'pie')
+			movies[title]['sentiment'] = graph_data(movie['sentiment'], 'line')
+	        
 			if (welcome_visible)  {
 				got_info_clear_welcome();
 			}
@@ -221,16 +131,16 @@ $(document).ready(function(){
 			'</div>'+
 			'</li>')
 
-		    $("#show_sentiment_"+id).click(function(e){
-		    	display_analysis($(this)[0].getAttribute("data-title"), "Sentiment");
+		    $("#show_sentiment_"+id).on('click', function(e){
+		    	display_analysis($(this)[0].getAttribute("data-title"), "sentiment");
 		    });
-		    $("#show_emotions_"+id).click(function(e){
+		    $("#show_emotions_"+id).on('click', function(e){
 		    	display_analysis($(this)[0].getAttribute("data-title"), "emotions");
 		   	});
 		
 			console.log("mycampainsuccess");
 	}
-	function myFailure (){
+	var myFailure = function(){
 		alert ("ERROR")
 	}
 
