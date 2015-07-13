@@ -5,7 +5,7 @@ $(document).ready(function(){
 		url:"http://127.0.0.1:5200/twitris-movie-ext/api/v1.0/new_releases",
 		success: function listMovies (results) {
 			results = results["results"];
-			var movieTitle = ""
+			var movieTitle = "",
 				month_array = [ "JAN","FEB","MAR","APR","MAY","JUNE",
 					"JULY","AUG","SEPT","OCT","NOV","DEC"],
 				genres={28:"Action",12:"Adventure",16:"Animation",
@@ -13,14 +13,19 @@ $(document).ready(function(){
 					10751:"Family",14:"Fantasy",10769:"Foreign",
 					36:"History",27:"Horror",10402:"Music",
 					9648:"Mystery",10749:"Romance",878:"Science Fiction",
-					10770:"TV Movie",53:"Thriller",10752:"War",37:"Western"}
+					10770:"TV Movie",53:"Thriller",10752:"War",37:"Western"};
 
 			results = _.sortBy(results, "release_date");
 
 			for (var i = 0; i < results.length; i++) {
 				// store a copy of results[i] as results so 
 				// we don't waste cycles accessing the list
-				var result = results[i];
+				var result = results[i],
+					title = result["original_title"],
+					info = result['overview'],
+					id = result["id"],
+					poster = result['poster_path'];
+
 				// only parse if the movie is in english
 				if (result["original_language"]==="en" && 
 						result["release_date"] !== null) {
@@ -33,7 +38,10 @@ $(document).ready(function(){
 					// get the genre ids from the movie
 					gIds = result['genre_ids'],
 					// create a var to store the genre list
-					gs = '';
+					gs = '',
+					data_attrs = 'data-href="http://image.tmdb.org/t/p/w500/'+poster+
+						'" data-toggle="modal" data-target="#movie_desc_modal"'+
+						'" data-info="'+info+'" data-title="'+title+'"'
 
 				// loop through the genres and create the HTML 
 				// for the genre list
@@ -46,7 +54,8 @@ $(document).ready(function(){
 				// there is an img to retrieve
 				var img = '';
 				if (result["backdrop_path"] !== null) {
-					img = '<a data-href="http://image.tmdb.org/t/p/w500/'+result["poster_path"]+'" data-toggle="modal" data-target="#movie_desc_modal" data-lightbox="'+result["id"]+'" data-title="'+result["overview"]+'"><img src="http://image.tmdb.org/t/p/w500'+result["poster_path"]+'" /></a>'
+					img = '<a id="image_'+id+'" '+data_attrs+'><img src="http://image.tmdb.org/t/p/w500'+poster+
+						'" data-title="'+title+'"/></a>'
 				}	
 
 				$('#movieList').append("<li>"+
@@ -57,9 +66,9 @@ $(document).ready(function(){
 					'</time>'+
 					img+ // either "" or an img element
 					'<div class="info">'+
-					'<h2 class="title">'+result["original_title"]+gs+'</h2>'+
+					'<h2 class="title">'+title+gs+'</h2>'+
 					'<div id="movieInfo'+i+'">'+
-					'<p class="desc ellipsis">'+result["overview"]+'<a id="readFull'+i+'"><p>Read Full [+]</a></p>'+
+					'<p class="desc ellipsis">'+result["overview"]+'<a id="readFull'+i+'" '+data_attrs+'><p>Read Full [+]</a></p>'+
 					'<div id="rating'+i+'" data-score="'+result["popularity"]+'"></div>'+
 					'<p class="senti" style="display:none;" id="movieSenti" class="">'+"Sentiment"+'</p>'+
 					'</div>'+

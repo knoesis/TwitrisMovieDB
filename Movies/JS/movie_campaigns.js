@@ -28,6 +28,8 @@ $(function(){
 				var title = [name,(type==="emotions"?"Emotions":"Sentiment"),"Analysis"].join(" "),
 			    	built_graph = buildChart("chart_body", title, series, (type==="emotions"?true:false)),
 					chart = new Highcharts.Chart( built_graph );
+					var redraw = _.debounce(function(){chart.redraw()}, 300);
+					$(window).resize(redraw);
 			});
 		}
 	}
@@ -97,7 +99,12 @@ $(function(){
 				month = month_array[parseInt(date.substring(6,7))-1],
 				year = date.substring(0,4),
 				title = movie["info"]["original_title"],
-				id = movie["info"]["id"];
+				id = movie["info"]["id"],
+				poster = movie["info"]["poster_path"],
+				info = movie['info']['overview'],
+				data_attrs = 'data-href="http://image.tmdb.org/t/p/w500/'+poster+
+						'" data-toggle="modal" data-target="#movie_desc_modal"'+
+						'" data-info="'+info+'" data-title="'+title+'"'
 
 			movies[title]['emotions'] = graph_data(movie['emotions'], 'pie')
 			movies[title]['sentiment'] = graph_data(movie['sentiment'], 'line')
@@ -112,11 +119,11 @@ $(function(){
 			'<span class="month">'+month +'</span>'+
 			'<span class="year">'+year+'</span>'+
 			'</time>'+
-			'<a class="" data-href="http://image.tmdb.org/t/p/w500/'+movie["info"]["poster_path"]+'"  data-toggle="modal" data-target="#movie_desc_modal" data-lightbox="'+movie["info"]["id"]+'" data-title="'+movie["info"]["overview"]+'">'+
-			'<img alt="" src="http://image.tmdb.org/t/p/original/'+movie["info"]["poster_path"]+'" /></a>'+
+			'<a id="image_'+id+'" '+data_attrs+'>'+
+			'<img alt="" src="http://image.tmdb.org/t/p/original/'+poster+'" /></a>'+
 			'<div class="info">'+
 			'<h2 class="title">'+title+'</h2>'+
-			'<p class="desc ellipsis">'+movie["info"]["overview"]+'</p><a href=""><p>Read Full [+]</a>'+
+			'<p class="desc ellipsis">'+info+'</p><a id="readmore_'+id+'" '+data_attrs+'><p>Read Full [+]</a>'+
 			'<ul>'+
 // SENTIMENT BUTTON		
 			'<li style="width:25%;"><span class="fa fa-smile-o" id="show_sentiment_'+id+'" data-title="'+title+'"> Sentiment Analysis</span></li>'+

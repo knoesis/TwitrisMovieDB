@@ -3,7 +3,6 @@ var buildChart = function(el, title, series, emo) {
 	    chart: {
 	        renderTo: el,
 	        zoomType: 'x',
-	        width: 600,
 	        height: 350,
 	        options3d: (emo ? {
                 enabled: true,
