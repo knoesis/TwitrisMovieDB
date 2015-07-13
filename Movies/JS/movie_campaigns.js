@@ -4,6 +4,31 @@ $(function(){
 		twitter_share = 'http://twitter.com/share?text=Check%20out%20this%20Twitris%20analysis&url='+window.location.href,
 		email_share = 'mailto:?Subject=Check%20out%20this%20Twitris%20analysis&Body='+window.location.href
 
+
+
+  $('.sweet-12').on('click', function(){
+    swal({
+      title: "Are you sure?",
+      text: "You will not be able to recover this imaginary file!",
+      type: "success",
+      showCancelButton: true,
+      confirmButtonClass: 'btn-success',
+      confirmButtonText: 'Success!'
+    });
+  });  
+
+  $('.sweet-14').on('click', function(){
+    swal({
+      title: "Are you sure?",
+      text: "You will not be able to recover this imaginary file!",
+      type: "error",
+      showCancelButton: true,
+      confirmButtonClass: 'btn-danger',
+      confirmButtonText: 'Danger!'
+    });
+  });
+
+
 	var month_array = [ "JAN","FEB","MAR","APR","MAY","JUNE",
 					"JULY","AUG","SEPT","OCT","NOV","DEC"],
 		movies = {},
@@ -132,6 +157,10 @@ $(function(){
 
 			'<li style="width:25%;">103 <span class="fa fa-twitter-square"> Live Tweet\'s</span></li>'+
 			'</ul>'+
+			'<div style="display:none;" id="campaignOn'+id+'">'+
+			'<h5>Would You Like To Delete The Campaign?</h5>'+
+			'<button class="btn btn-fresh text-uppercase">Yes</button><button id="goBack'+id+'" class="btn btn-sunny text-uppercase">Cancel</button>'+
+			'</div>'+
 			'</div>'+
 			'<div class="social">'+
 			'<ul>'+
@@ -142,6 +171,15 @@ $(function(){
 			'</ul>'+
 			'</div>'+
 			'</li>')
+
+			$("#power"+id).click(function() {
+				    $('#movieInfo'+id).slideToggle("fast");
+				    $('#campaignOn'+id).slideToggle("fast");				
+				});
+				$("#goBack"+id).click(function () {
+				    $('#movieInfo'+id).slideToggle("fast");
+				    $('#campaignOn'+id).slideToggle("fast");				
+				});
 
 		    $("#show_sentiment_"+id).on('click', function(e){
 		    	display_analysis($(this)[0].getAttribute("data-title"), "sentiment");

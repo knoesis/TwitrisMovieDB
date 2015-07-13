@@ -301,9 +301,9 @@ h1 {text-align: center;
 }
 
 /*JS MENU*/
-#menu {
+#menu /*{
 			background: #eee;
-		}
+		}*/
 		.mm-panel {
 			padding: 0 !important;
 		}
@@ -335,12 +335,12 @@ h1 {text-align: center;
 		.mm-listview > li > a:hover {
 			padding-left: 40px;
 		}
-		.mm-listview li:nth-child( 1 ) { background: #D1D1E8; }
+/*		.mm-listview li:nth-child( 1 ) { background: #D1D1E8; }
 		.mm-listview li:nth-child( 2 ) { background: #FFFFFF; }
 		.mm-listview li:nth-child( 3 ) { background: #E8D7D1; }
 		.mm-listview li:nth-child( 4 ) { background: #CCCCB8; }
 		.mm-listview li:nth-child( 5 ) { background: #FFF8E5; }
-
+*/
 <---- Buttons ---->
 
 @import url(http://fonts.googleapis.com/css?family=Oswald);

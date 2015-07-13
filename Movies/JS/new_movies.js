@@ -78,11 +78,8 @@ $(document).ready(function(){
 					'</div>'+
 					'</div>'+
 					'<div class="social">'+
-					'<ul>'+
-					// '<li class="facebook" style="width:25%;"><a href="#facebook"><span class="fa fa-facebook"></span></a></li>'+
-					// '<li class="twitter" style="width:25%;"><a href="#twitter"><span class="fa fa-twitter"></span></a></li>'+
-					// '<li class="google-plus" style="width:25%;"><a href="#google-plus"><span class="fa fa-google-plus"></span></a></li>'+
-					'<li class="power" id="power'+i+'" style="width:25%;"><a href="#"><span class="fa fa-power-off"></span></a></li>'+
+					'<ul>'+					
+					'<li class="power" id="power'+i+'" style="width:25%;"><a href=""><span class="fa fa-power-off"></span></a></li>'+
 					'</ul>'+
 					'</div>'+
 					'</div>'+
@@ -141,7 +138,7 @@ $(document).ready(function(){
 
 $(function() {
 	$("#menu").mmenu({
-		extensions : [ "theme-white", "border-full", "effect-slide-listitems" ],
+		extensions : [ "theme-dark", "border-full", "effect-slide-listitems","effect-zoom-menu", "effect-zoom-panels"],
 		navbar : false
 	}).on('click','a[href^="#/"]',function() {
 		return true; // close the menu
