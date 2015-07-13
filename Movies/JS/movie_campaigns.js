@@ -128,11 +128,11 @@ $(function(){
 			'</div>'+
 			'<ul>'+
 // SENTIMENT BUTTON		
-			'<li style="width:25%;"><span class="fa fa-bar-chart" id="show_sentiment_'+id+'" data-title="'+title+'"> Sentiment Analysis</span></li>'+
+			'<li style="width:25%;"><span class="fa fa-bar-chart	" id="show_sentiment_'+id+'" data-title="'+title+'"> Sentiment Analysis</span></li>'+
 // EMOTIONS BUTTON
 			'<li style="width:25%;"><span class="fa fa-pie-chart" id="show_emotions_'+id+'" data-title="'+title+'"> Emotional Analysis</span></li>'+
 
-			'<li style="width:25%;">103 <span class="fa fa-twitter-square"> Live Tweet\'s</span></li>'+
+			'<li style="width:25%;"><span class="fa fa-twitter-square"> Live Tweet\'s</span></li>'+
 			'</ul>'+
 			'<div style="display:none;" id="campaignOn'+id+'">'+
 			'<h5>Would You Like To Delete The Campaign?</h5>'+
