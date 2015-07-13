@@ -74,30 +74,52 @@ $(document).ready(function(){
 					'</div>'+
 					'<div style="display:none;" id="campaignOn'+i+'">'+
 					'<h5>Would You Like To Start A Campaign On This Film?</h5>'+
-					'<button class="btn btn-fresh text-uppercase">Yes</button><button id="goBack'+i+'" class="btn btn-sunny text-uppercase">Cancel</button>'+
+					'<button id="confirmCampaign'+i+'" class="btn btn-lg btn-success sweet-12 confirmCampaign'+i+'" onclick="_gaq.push(["_trackEvent", "example", "try", "confirmCampaign'+i+'"]);">Add</button><button id="goBack'+i+'" class="btn btn-sunny text-uppercase">Cancel</button>'+
 					'</div>'+
 					'</div>'+
 					'<div class="social">'+
 					'<ul>'+					
-					'<li class="power" id="power'+i+'" style="width:25%;"><a href=""><span class="fa fa-power-off"></span></a></li>'+
+					'<li class="power" id="power'+i+'" style="width:25%;"><a hr><span class="fa fa-power-off"></span></a></li>'+
 					'</ul>'+
 					'</div>'+
 					'</div>'+
 					'</li>')
-					$('#rating'+i).raty({
-							path: './images',
-							readOnly: true, 					
-							score: function() {
-					    	return $(this).attr('data-score');
-					  		}
-						});			
-					$("#power"+i).click({num:i},function (d) {
-					    $('#movieInfo'+d.data.num).slideToggle("fast");
-					    $('#campaignOn'+d.data.num).slideToggle("fast");				
-					})
-					$("#goBack"+i).click({num:i},function (d) {
-					    $('#movieInfo'+d.data.num).slideToggle("fast");
-					    $('#campaignOn'+d.data.num).slideToggle("fast");				
+							$('#rating'+i).raty({
+									path: './images',
+									readOnly: true, 					
+									score: function() {
+							    	return $(this).attr('data-score');
+							  		}
+								});			
+							$("#power"+i).click({num:i},function (d) {
+							    $('#movieInfo'+d.data.num).slideToggle("fast");
+							    $('#campaignOn'+d.data.num).slideToggle("fast");				
+							})
+							$("#goBack"+i).click({num:i},function (d) {
+							    $('#movieInfo'+d.data.num).slideToggle("fast");
+							    $('#campaignOn'+d.data.num).slideToggle("fast");
+
+
+							$("#confirmCampaign"+i).on('click', function(){
+					    swal({
+							  title: "Are You Sure?",
+							  text: "You Will Be Starting A Campaign!",
+							  type: "warning",
+							  showCancelButton: true,
+							  confirmButtonClass: "btn-success",
+							  confirmButtonText: "Yes",
+							  cancelButtonText: "No",
+							  closeOnConfirm: false,
+							  closeOnCancel: false
+							},
+							function(isConfirm) {
+							  if (isConfirm) {
+							    swal("Deleted!", "Your Campaign Has Been Started", "success");
+							  } else {
+							    swal("Cancelled", "We Have Not Started A Campaign", "error");
+							  }
+							});
+					  });				
 					})
 				}}		
 		},

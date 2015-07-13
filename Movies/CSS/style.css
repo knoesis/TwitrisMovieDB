@@ -6,6 +6,8 @@ body {
 	background-color: black;
 
 }
+
+text {fill:#FFF;}
 .ellipsis {
     white-space: nowrap;
     overflow: hidden;

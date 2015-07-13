@@ -4,31 +4,6 @@ $(function(){
 		twitter_share = 'http://twitter.com/share?text=Check%20out%20this%20Twitris%20analysis&url='+window.location.href,
 		email_share = 'mailto:?Subject=Check%20out%20this%20Twitris%20analysis&Body='+window.location.href
 
-
-
-  $('.sweet-12').on('click', function(){
-    swal({
-      title: "Are you sure?",
-      text: "You will not be able to recover this imaginary file!",
-      type: "success",
-      showCancelButton: true,
-      confirmButtonClass: 'btn-success',
-      confirmButtonText: 'Success!'
-    });
-  });  
-
-  $('.sweet-14').on('click', function(){
-    swal({
-      title: "Are you sure?",
-      text: "You will not be able to recover this imaginary file!",
-      type: "error",
-      showCancelButton: true,
-      confirmButtonClass: 'btn-danger',
-      confirmButtonText: 'Danger!'
-    });
-  });
-
-
 	var month_array = [ "JAN","FEB","MAR","APR","MAY","JUNE",
 					"JULY","AUG","SEPT","OCT","NOV","DEC"],
 		movies = {},
@@ -148,18 +123,20 @@ $(function(){
 			'<img alt="" src="http://image.tmdb.org/t/p/original/'+poster+'" /></a>'+
 			'<div class="info">'+
 			'<h2 class="title">'+title+'</h2>'+
+			'<div id="movieInfo'+id+'">'+
 			'<p class="desc ellipsis">'+info+'</p><a id="readmore_'+id+'" '+data_attrs+'><p>Read Full [+]</a>'+
+			'</div>'+
 			'<ul>'+
 // SENTIMENT BUTTON		
-			'<li style="width:25%;"><span class="fa fa-smile-o" id="show_sentiment_'+id+'" data-title="'+title+'"> Sentiment Analysis</span></li>'+
+			'<li style="width:25%;"><span class="fa fa-bar-chart" id="show_sentiment_'+id+'" data-title="'+title+'"> Sentiment Analysis</span></li>'+
 // EMOTIONS BUTTON
-			'<li style="width:25%;"><span class="fa fa-bar-chart" id="show_emotions_'+id+'" data-title="'+title+'"> Emotional Analysis</span></li>'+
+			'<li style="width:25%;"><span class="fa fa-pie-chart" id="show_emotions_'+id+'" data-title="'+title+'"> Emotional Analysis</span></li>'+
 
 			'<li style="width:25%;">103 <span class="fa fa-twitter-square"> Live Tweet\'s</span></li>'+
 			'</ul>'+
 			'<div style="display:none;" id="campaignOn'+id+'">'+
 			'<h5>Would You Like To Delete The Campaign?</h5>'+
-			'<button class="btn btn-fresh text-uppercase">Yes</button><button id="goBack'+id+'" class="btn btn-sunny text-uppercase">Cancel</button>'+
+			'<button class="btn btn-hot text-uppercase sweet-14 deleteCampaign" onclick="_gaq.push(["_trackEvent", "example", "try", "deleteCampaign"]);">Delete<button id="goBack'+id+'" class="btn btn-sunny text-uppercase">Cancel</button>'+
 			'</div>'+
 			'</div>'+
 			'<div class="social">'+
@@ -167,7 +144,7 @@ $(function(){
 			'<li class="facebook" style="width:25%;"><a href="#facebook"><span class="fa fa-facebook"></span></a></li>'+
 			'<li class="twitter" style="width:25%;"><a href="#twitter"><span class="fa fa-twitter"></span></a></li>'+
 			'<li class="google-plus" style="width:25%;"><a href="#google-plus"><span class="fa fa-google-plus"></span></a></li>'+
-			'<li class="power" style="width:25%;"><a href="#power"><span class="fa fa-power-off"></span></a></li>'+
+			'<li class="power" id="power'+id+'" style="width:25%;"><a><span class="fa fa-power-off"></span></a></li>'+
 			'</ul>'+
 			'</div>'+
 			'</li>')
@@ -178,8 +155,30 @@ $(function(){
 				});
 				$("#goBack"+id).click(function () {
 				    $('#movieInfo'+id).slideToggle("fast");
-				    $('#campaignOn'+id).slideToggle("fast");				
+				    $('#campaignOn'+id).slideToggle("fast");	
 				});
+
+			  
+			  $('.deleteCampaign').on('click', function(){
+			    swal({
+					  title: "Are You Sure?",
+					  text: "You will not be able to get the campaign data back!",
+					  type: "warning",
+					  showCancelButton: true,
+					  confirmButtonClass: "btn-danger",
+					  confirmButtonText: "Yes",
+					  cancelButtonText: "No",
+					  closeOnConfirm: false,
+					  closeOnCancel: false
+					},
+					function(isConfirm) {
+					  if (isConfirm) {
+					    swal("Deleted!", "Your Campaign Has Been Deleted", "success");
+					  } else {
+					    swal("Cancelled", "Your Campaign Is Safe", "error");
+					  }
+					});
+			  });
 
 		    $("#show_sentiment_"+id).on('click', function(e){
 		    	display_analysis($(this)[0].getAttribute("data-title"), "sentiment");
