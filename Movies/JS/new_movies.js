@@ -74,7 +74,7 @@ $(document).ready(function(){
 					'</div>'+
 					'<div style="display:none;" id="campaignOn'+i+'">'+
 					'<h5>Would You Like To Start A Campaign On This Film?</h5>'+
-					'<button id="confirmCampaign'+i+'" class="btn btn-lg btn-success sweet-12 confirmCampaign'+i+'" onclick="_gaq.push(["_trackEvent", "example", "try", "confirmCampaign'+i+'"]);">Add</button><button id="goBack'+i+'" class="btn btn-sunny text-uppercase">Cancel</button>'+
+					'<button class="btn btn-hot text-uppercase sweet-14 confirmCampaign" onclick="_gaq.push(["_trackEvent", "example", "try", "confirmCampaign"]);">Add</button><button id="goBack'+i+'" class="btn btn-sunny text-uppercase">Cancel</button>'+
 					'</div>'+
 					'</div>'+
 					'<div class="social">'+
@@ -100,7 +100,7 @@ $(document).ready(function(){
 							    $('#campaignOn'+d.data.num).slideToggle("fast");
 
 
-							$("#confirmCampaign"+i).on('click', function(){
+							$(".confirmCampaign").on('click', function(){
 					    swal({
 							  title: "Are You Sure?",
 							  text: "You Will Be Starting A Campaign!",
