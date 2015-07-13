@@ -132,7 +132,7 @@ $(document).ready(function(){
 
 $(function() {
 	$("#menu").mmenu({
-		extensions : [ "theme-white", "border-full", "effect-slide-listitems" ],
+		extensions : [ "theme-dark", "border-full", "effect-slide-listitems","effect-zoom-menu", "effect-zoom-panels"],
 		navbar : false
 	}).on('click','a[href^="#/"]',function() {
 		return true; // close the menu
