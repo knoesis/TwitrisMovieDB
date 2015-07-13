@@ -74,7 +74,7 @@ $(document).ready(function(){
 					'</div>'+
 					'<div style="display:none;" id="campaignOn'+i+'">'+
 					'<h5>Would You Like To Start A Campaign On This Film?</h5>'+
-					'<button class="btn btn-hot text-uppercase sweet-14 confirmCampaign" onclick="_gaq.push(["_trackEvent", "example", "try", "confirmCampaign"]);">Add</button><button id="goBack'+i+'" class="btn btn-sunny text-uppercase">Cancel</button>'+
+					'<button class="btn btn-fresh text-uppercase sweet-14 confirmCampaign" onclick="_gaq.push(["_trackEvent", "example", "try", "confirmCampaign"]);">Add</button><button id="goBack'+i+'" class="btn btn-sunny text-uppercase">Cancel</button>'+
 					'</div>'+
 					'</div>'+
 					'<div class="social">'+
@@ -119,7 +119,8 @@ $(document).ready(function(){
 							    swal("Cancelled", "We Have Not Started A Campaign", "error");
 							  }
 							});
-					  });				
+					  });
+
 					})
 				}}		
 		},
@@ -138,18 +139,40 @@ $(document).ready(function(){
 		 $(".pageTitle").text("TWITTRIS: MOVIE WEB-APPLICATION VER 1.0");
 		 $("#newReleases").hide(667);
 		 $("#myCampains").hide(667);
+		 $("#tvReleases").hide(667);
+		 $("#mySupport").hide(667);
 	});
 	$("#new").click(function(){
 		 $("#newReleases").show(1000);
 		 $(".pageTitle").text("NEW MOVIE RELEASES");
 		 $("#welcomeScreen").hide(667);
 		 $("#myCampains").hide(667);
+		 $("#tvReleases").hide(667);
+		 $("#mySupport").hide(667);
+	});
+	$("#tv").click(function(){
+		 $("#tvReleases").show(1000);
+		 $(".pageTitle").text("TV SHOWS");
+		 $("#welcomeScreen").hide(667);
+		 $("#newReleases").hide(667);
+		 $("#myCampains").hide(667);
+		 $("#mySupport").hide(667);
 	});
 	$("#my").click(function(){
 		 $("#myCampains").show(1000);
 		 $(".pageTitle").text("MY CAMPAIGN'S");
 		 $("#welcomeScreen").hide(667);
 		 $("#newReleases").hide(667);
+		 $("#tvReleases").hide(667);
+		 $("#mySupport").hide(667);
+	});
+	$("#sup").click(function(){
+		 $("#mySupport").show(1000);
+		 $(".pageTitle").text("SUPPORT");
+		 $("#welcomeScreen").hide(667);
+		 $("#newReleases").hide(667);
+		 $("#tvReleases").hide(667);
+		 $("#myCampains").hide(667);
 
 	});
 	$("#home, #home1").click(function(){
