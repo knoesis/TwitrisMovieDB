@@ -136,7 +136,7 @@ $(document).ready(function(){
 
 	$("#home, #home1").click(function(){
 		 $("#welcomeScreen").show(1000);
-		 $(".pageTitle").text("SilverBox -  ");
+		 $(".pageTitle").text("SilverBox - MVP DEMO");
 		 $("#newReleases").hide(667);
 		 $("#myCampains").hide(667);
 		 $("#tvReleases").hide(667);
