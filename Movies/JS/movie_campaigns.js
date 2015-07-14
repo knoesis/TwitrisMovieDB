@@ -31,12 +31,7 @@ $(function(){
 					var redraw = _.debounce(function(){chart.redraw()}, 300);
 					$(window).resize(redraw);
 			});
-			$.('multi_modal').append("
-				 <select class="selectpicker" data-style="btn-primary" data-width="auto" style="display: none;">
-				      <option data-icon="glyphicon glyphicon-music">Bar</option>
-				      <option data-icon="glyphicon glyphicon-star">Pie</option>
-				      <option data-icon="glyphicon glyphicon-heart">Plot</option>
-				 </select><br>")
+		
 		}
 	}
 
