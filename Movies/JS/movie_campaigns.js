@@ -14,7 +14,7 @@ $(function(){
 	// hide the welcomePage and show the myCampains Page
 	var got_info_clear_welcome = function() {
 		$('#welcomeScreen').hide();
-		$(".pageTitle").text("My Twittris Campaigns");
+		$(".pageTitle").text("Silver Box Campaigns");
 		$('#myCampains').show();
 		welcome_visible = false;
 	}
@@ -31,6 +31,12 @@ $(function(){
 					var redraw = _.debounce(function(){chart.redraw()}, 300);
 					$(window).resize(redraw);
 			});
+			$.('multi_modal').append("
+				 <select class="selectpicker" data-style="btn-primary" data-width="auto" style="display: none;">
+				      <option data-icon="glyphicon glyphicon-music">Bar</option>
+				      <option data-icon="glyphicon glyphicon-star">Pie</option>
+				      <option data-icon="glyphicon glyphicon-heart">Plot</option>
+				 </select><br>")
 		}
 	}
 
@@ -122,7 +128,7 @@ $(function(){
 			'<a id="image_'+id+'" '+data_attrs+'>'+
 			'<img alt="" src="http://image.tmdb.org/t/p/original/'+poster+'" /></a>'+
 			'<div class="info">'+
-			'<h2 class="title">'+title+'</h2>'+
+			'<h2 class="title ellipsis">'+title+'</h2>'+
 			'<div id="movieInfo'+id+'">'+
 			'<p class="desc ellipsis">'+info+'</p><a id="readmore_'+id+'" '+data_attrs+'><p>Read Full [+]</a>'+
 			'</div>'+

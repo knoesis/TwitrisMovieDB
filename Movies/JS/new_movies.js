@@ -66,7 +66,7 @@ $(document).ready(function(){
 					'</time>'+
 					img+ // either "" or an img element
 					'<div class="info">'+
-					'<h2 class="title">'+title+gs+'</h2>'+
+					'<h2 class="title ellipsis">'+title+gs+'</h2>'+
 					'<div id="movieInfo'+i+'">'+
 					'<p class="desc ellipsis">'+result["overview"]+'<a id="readFull'+i+'" '+data_attrs+'><p>Read Full [+]</a></p>'+
 					'<div id="rating'+i+'" data-score="'+result["popularity"]+'"></div>'+
@@ -74,7 +74,7 @@ $(document).ready(function(){
 					'</div>'+
 					'<div style="display:none;" id="campaignOn'+i+'">'+
 					'<h5>Would You Like To Start A Campaign On This Film?</h5>'+
-					'<button class="btn btn-fresh text-uppercase sweet-14 confirmCampaign" onclick="_gaq.push(["_trackEvent", "example", "try", "confirmCampaign"]);">Add</button><button id="goBack'+i+'" class="btn btn-sunny text-uppercase">Cancel</button>'+
+					'<button class="btn btn-hot text-uppercase sweet-14 confirmCampaign'+i+'" );">Delete</button><button id="goBack'+i+'" class="btn btn-sunny text-uppercase">Cancel</button>'+
 					'</div>'+
 					'</div>'+
 					'<div class="social">'+
@@ -100,17 +100,17 @@ $(document).ready(function(){
 							    $('#campaignOn'+d.data.num).slideToggle("fast");
 
 
-							$(".confirmCampaign").on('click', function(){
-					    swal({
-							  title: "Are You Sure?",
-							  text: "You Will Be Starting A Campaign!",
-							  type: "warning",
-							  showCancelButton: true,
-							  confirmButtonClass: "btn-success",
-							  confirmButtonText: "Yes",
-							  cancelButtonText: "No",
-							  closeOnConfirm: false,
-							  closeOnCancel: false
+							$(".confirmCampaign"+i).on('click', function(){
+							    swal({
+									  title: "Are You Sure?",
+									  text: "You Will Be Starting A Campaign!",
+									  type: "warning",
+									  showCancelButton: true,
+									  confirmButtonClass: "btn-success",
+									  confirmButtonText: "Yes",
+									  cancelButtonText: "No",
+									  closeOnConfirm: false,
+									  closeOnCancel: false
 							},
 							function(isConfirm) {
 							  if (isConfirm) {
@@ -133,10 +133,10 @@ $(document).ready(function(){
 
 
 $(document).ready(function(){
-	
+
 	$("#home, #home1").click(function(){
 		 $("#welcomeScreen").show(1000);
-		 $(".pageTitle").text("TWITTRIS: MOVIE WEB-APPLICATION VER 1.0");
+		 $(".pageTitle").text("SilverBox -  ");
 		 $("#newReleases").hide(667);
 		 $("#myCampains").hide(667);
 		 $("#tvReleases").hide(667);

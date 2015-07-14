@@ -5,8 +5,8 @@ $(function() {
 		var info = $("#"+e.relatedTarget.id)[0].getAttribute("data-info"),
 			title = $("#"+e.relatedTarget.id)[0].getAttribute("data-title"),
 			img = $("#"+e.relatedTarget.id)[0].getAttribute("data-href"),
-			rating = $("#"+e.relatedTarget.id)[0].getAttribute("data-href"),
-			rottenTom = movies[title]["reviews"];
+
+		
 		$('#movie_desc_body').html(
 			$('<div>').addClass("row-fluid").html(
 				$('<div>').addClass('col-lg-8').html($('<img>').attr('src',img))).append(
