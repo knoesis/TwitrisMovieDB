@@ -58,7 +58,7 @@ $(document).ready(function(){
 						'" data-title="'+title+'"/></a>'
 				}	
 
-				$('#movieList').append("<li>"+
+				$('#movieList').append('<li data-id="'+title+'">'+
 					'<time datetime="'+date+'">'+
 					'<span class="day">'+day+'</span>'+
 					'<span class="month">'+month +'</span>'+
