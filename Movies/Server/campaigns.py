@@ -64,17 +64,18 @@ def create(name):
 
 
 def remove(c_id):
-	curl = None
-	try:
-		curl, buffer = generateRequest('http://twitris.knoesis.org/api/v1/campaigns/'+c_id, \
-					method="DELETE")
-		curl.perform()
-		return make_response(jsonify({ "status": str(buffer.getvalue()) }), curl.getinfo(curl.RESPONSE_CODE))
-	except:
-		return serverError("error")
-	finally:
-		if curl:
-			curl.close()
+	return make_response(jsonify({'success': 'Campaign Deleted' }), 200)
+	# curl = None
+	# try:
+	# 	curl, buffer = generateRequest('http://twitris.knoesis.org/api/v1/campaigns/'+c_id, \
+	# 				method="DELETE")
+	# 	curl.perform()
+	# 	return make_response(jsonify({ "status": str(buffer.getvalue()) }), curl.getinfo(curl.RESPONSE_CODE))
+	# except:
+	# 	return serverError("error")
+	# finally:
+	# 	if curl:
+	# 		curl.close()
 
 
 def retrieve(c_id):

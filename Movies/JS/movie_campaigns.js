@@ -7,7 +7,8 @@ $(function(){
 	var month_array = [ "JAN","FEB","MAR","APR","MAY","JUNE",
 					"JULY","AUG","SEPT","OCT","NOV","DEC"],
 		movies = {},
-		welcome_visible = true;
+		welcome_visible = true,
+		toDelete = "";
 
 
 	// When the myCampains have been loaded 
@@ -94,6 +95,7 @@ $(function(){
 			};
 		}	
 	});
+
 	var listMovies = function(movie){			
 			var date = movie["info"]["release_date"],
 				day = date.substring(8,10),
@@ -137,7 +139,7 @@ $(function(){
 			'</ul>'+
 			'<div style="display:none;" id="campaignOn'+id+'">'+
 			'<h5>Would You Like To Delete The Campaign?</h5>'+
-			'<button class="btn btn-hot text-uppercase sweet-14 deleteCampaign" onclick="_gaq.push(["_trackEvent", "example", "try", "deleteCampaign"]);">Delete</button><button id="goBack'+id+'" class="btn btn-sunny text-uppercase">Cancel</button>'+
+			'<button class="btn btn-hot text-uppercase sweet-14 deleteCampaign" data-c_id="'+movies[title]['c_id']+'">Delete</button><button id="goBack'+id+'" class="btn btn-sunny text-uppercase">Cancel</button>'+
 			'</div>'+
 			'</div>'+
 			'<div class="social">'+
@@ -151,17 +153,19 @@ $(function(){
 			'</li>')
 
 			$("#power"+id).click(function() {
-				    $('#movieInfo'+id).slideToggle("fast");
-				    $('#campaignOn'+id).slideToggle("fast");				
-				});
-				$("#goBack"+id).click(function () {
-				    $('#movieInfo'+id).slideToggle("fast");
-				    $('#campaignOn'+id).slideToggle("fast");	
-				});
+			    $('#movieInfo'+id).slideToggle("fast");
+			    $('#campaignOn'+id).slideToggle("fast");				
+			});
+			$("#goBack"+id).click(function () {
+			    $('#movieInfo'+id).slideToggle("fast");
+			    $('#campaignOn'+id).slideToggle("fast");	
+			});
 
 			  
-			  $('.deleteCampaign').on('click', function(){
+			$('.deleteCampaign').on('click', function(e){
+				toDelete = e.target.getAttribute("data-c_id");
 			    swal({
+			    	  name: c_id,
 					  title: "Are You Sure?",
 					  text: "You will not be able to get the campaign data back!",
 					  type: "warning",
@@ -171,15 +175,26 @@ $(function(){
 					  cancelButtonText: "No",
 					  closeOnConfirm: false,
 					  closeOnCancel: false
-					},
-					function(isConfirm) {
-					  if (isConfirm) {
-					    swal("Deleted!", "Your Campaign Has Been Deleted", "success");
-					  } else {
+				},
+				function(isConfirm) {
+					if (isConfirm && toDelete !== "") {
+					  	$.ajax({
+							type: 'DELETE',
+							"content-type": "Application/JSON",
+							url:"http://localhost:5200/twitris-movie-ext/api/v1.0/remove/"+toDelete,
+							success: function(results) {
+								swal("Deleted!", "Your Campaign Has Been Deleted", "success");
+							},
+							error: function() {
+								swal("Error!", "There Was An Error Deleting Your Campaign", "error");
+							}
+						})
+					} else {
 					    swal("Cancelled", "Your Campaign Is Safe", "error");
-					  }
-					});
-			  });
+					}
+					toDelete = "";
+				});
+			});
 
 		    $("#show_sentiment_"+id).on('click', function(e){
 		    	display_analysis($(this)[0].getAttribute("data-title"), "sentiment");
