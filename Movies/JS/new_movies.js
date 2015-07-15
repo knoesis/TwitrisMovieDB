@@ -1,4 +1,7 @@
-$(document).ready(function(){		
+$(document).ready(function(){	
+
+	var toAdd = "";
+
 	$.ajax({
 		type: 'GET',
 		"content-type": "Application/JSON",
@@ -74,7 +77,7 @@ $(document).ready(function(){
 					'</div>'+
 					'<div style="display:none;" id="campaignOn'+i+'">'+
 					'<h5>Would You Like To Start A Campaign On This Film?</h5>'+
-					'<button class="btn btn-hot text-uppercase sweet-14 confirmCampaign'+i+'" );">Delete</button><button id="goBack'+i+'" class="btn btn-sunny text-uppercase">Cancel</button>'+
+					'<button class="btn btn-hot text-uppercase sweet-14 addCampaign" data-title="'+title+'">Add</button><button id="goBack'+i+'" class="btn btn-sunny text-uppercase">Cancel</button>'+
 					'</div>'+
 					'</div>'+
 					'<div class="social">'+
@@ -98,31 +101,42 @@ $(document).ready(function(){
 							$("#goBack"+i).click({num:i},function (d) {
 							    $('#movieInfo'+d.data.num).slideToggle("fast");
 							    $('#campaignOn'+d.data.num).slideToggle("fast");
-
-
-							$(".confirmCampaign"+i).on('click', function(){
-							    swal({
-									  title: "Are You Sure?",
-									  text: "You Will Be Starting A Campaign!",
-									  type: "warning",
-									  showCancelButton: true,
-									  confirmButtonClass: "btn-success",
-									  confirmButtonText: "Yes",
-									  cancelButtonText: "No",
-									  closeOnConfirm: false,
-									  closeOnCancel: false
-							},
-							function(isConfirm) {
-							  if (isConfirm) {
-							    swal("Deleted!", "Your Campaign Has Been Started", "success");
-							  } else {
-							    swal("Cancelled", "We Have Not Started A Campaign", "error");
-							  }
-							});
-					  });
-
 					})
-				}}		
+				}
+				$(".addCampaign").on('click', function(e){
+					toAdd = e.target.getAttribute('data-title');
+				    swal({
+						  title: "Are You Sure?",
+						  text: "You Will Be Starting A Campaign!",
+						  type: "warning",
+						  showCancelButton: true,
+						  confirmButtonClass: "btn-success",
+						  confirmButtonText: "Yes",
+						  cancelButtonText: "No",
+						  closeOnConfirm: false,
+						  closeOnCancel: false
+					},
+					function(isConfirm) {
+						if (isConfirm && toAdd !== "") {
+						  	$.ajax({
+								type: 'POST',
+								data: {'name': toAdd},
+								"content-type": "Application/JSON",
+								url:"http://localhost:5200/twitris-movie-ext/api/v1.0/create",
+								success: function(results) {
+									swal("Started!", "Your Campaign Has Been Started", "success");
+								},
+								error: function() {
+									swal("Error!", "There Was An Error Adding Your Campaign", "error");
+								}
+							})
+						} else {
+					    	swal("Cancelled", "We Have Not Started A Campaign", "error");
+						}
+						toAdd = "";
+					});
+			 	});
+			}		
 		},
 		error: function (e) {
 			console.log(e.message);
