@@ -45,7 +45,7 @@ $(document).ready(function(){
 					data_attrs = 'data-href="http://image.tmdb.org/t/p/w500/'+poster+
 						'" data-toggle="modal" data-target="#movie_desc_modal"'+
 						'" data-info="'+info+'" data-title="'+title+'"'
-
+						
 				// loop through the genres and create the HTML 
 				// for the genre list
 				for (var j=0; j<gIds.length&&j<3;j++) {
@@ -77,7 +77,7 @@ $(document).ready(function(){
 					'</div>'+
 					'<div style="display:none;" id="campaignOn'+i+'">'+
 					'<h5>Would You Like To Start A Campaign On This Film?</h5>'+
-					'<button class="btn btn-hot text-uppercase sweet-14 addCampaign" data-title="'+title+'">Add</button><button id="goBack'+i+'" class="btn btn-sunny text-uppercase">Cancel</button>'+
+					'<button class="btn btn-fresh text-uppercase sweet-14 addCampaign" data-title="'+title+'">Add</button><button id="goBack'+i+'" class="btn btn-sunny text-uppercase">Cancel</button>'+
 					'</div>'+
 					'</div>'+
 					'<div class="social">'+
@@ -103,39 +103,39 @@ $(document).ready(function(){
 							    $('#campaignOn'+d.data.num).slideToggle("fast");
 					})
 				}
-				$(".addCampaign").on('click', function(e){
-					toAdd = e.target.getAttribute('data-title');
-				    swal({
-						  title: "Are You Sure?",
-						  text: "You Will Be Starting A Campaign!",
-						  type: "warning",
-						  showCancelButton: true,
-						  confirmButtonClass: "btn-success",
-						  confirmButtonText: "Yes",
-						  cancelButtonText: "No",
-						  closeOnConfirm: false,
-						  closeOnCancel: false
-					},
-					function(isConfirm) {
-						if (isConfirm && toAdd !== "") {
-						  	$.ajax({
-								type: 'POST',
-								data: {'name': toAdd},
-								"content-type": "Application/JSON",
-								url:"http://localhost:5200/twitris-movie-ext/api/v1.0/create",
-								success: function(results) {
-									swal("Started!", "Your Campaign Has Been Started", "success");
-								},
-								error: function() {
-									swal("Error!", "There Was An Error Adding Your Campaign", "error");
-								}
-							})
-						} else {
-					    	swal("Cancelled", "We Have Not Started A Campaign", "error");
-						}
-						toAdd = "";
-					});
-			 	});
+				// $(".addCampaign").on('click', function(e){
+				// 	toAdd = e.target.getAttribute('data-title');
+				//     swal({
+				// 		  title: "Are You Sure?",
+				// 		  text: "You Will Be Starting A Campaign!",
+				// 		  type: "warning",
+				// 		  showCancelButton: true,
+				// 		  confirmButtonClass: "btn-success",	
+				// 		  confirmButtonText: "Yes",
+				// 		  cancelButtonText: "No",
+				// 		  closeOnConfirm: false,
+				// 		  closeOnCancel: false
+				// 	},
+				// 	function(isConfirm) {
+				// 		if (isConfirm && toAdd !== "") {
+				// 		  	$.ajax({
+				// 				type: 'POST',
+				// 				data: {'name': toAdd},
+				// 				"content-type": "Application/JSON",
+				// 				url:"http://localhost:5200/twitris-movie-ext/api/v1.0/create",
+				// 				success: function(results) {
+				// 					swal("Started!", "Your Campaign Has Been Started", "success");
+				// 				},
+				// 				error: function() {
+				// 					swal("Error!", "There Was An Error Adding Your Campaign", "error");
+				// 				}
+				// 			})
+				// 		} else {
+				// 	    	swal("Cancelled", "We Have Not Started A Campaign", "error");
+				// 		}
+				// 		toAdd = "";
+				// 	});
+			 // 	});
 			}		
 		},
 		error: function (e) {
@@ -173,7 +173,7 @@ $(document).ready(function(){
 		 $("#mySupport").hide(667);
 	});
 	$("#my").click(function(){
-		 $("#myCampains").show(1000);
+		 $("#myCampains").show(1000);_
 		 $(".pageTitle").text("MY CAMPAIGN'S");
 		 $("#welcomeScreen").hide(667);
 		 $("#newReleases").hide(667);
