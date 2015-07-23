@@ -15,7 +15,7 @@ $(function(){
 	// hide the welcomePage and show the myCampains Page
 	var got_info_clear_welcome = function() {
 		$('#welcomeScreen').hide();
-		$(".pageTitle").text("Silver Box Campaigns");
+		$(".pageTitle").text("My Campaign's");
 		$('#myCampains').show();
 		welcome_visible = false;
 	}
@@ -47,9 +47,8 @@ $(function(){
 					id = resp[i]['id'];
 					movies[name] = {
 						c_id : id
-					};						
-
-				$.ajax({
+					};	
+					$.ajax({
 						type: 'GET',
 						"content-type": "Application/JSON",
 						url:"http://127.0.0.1:5200/twitris-movie-ext/api/v1.0/get_info/"+name,
@@ -59,6 +58,42 @@ $(function(){
 								c_id = movies[name]['c_id'];
 							movies[name]["info"]=results["info"];
 							$.when(
+								$.ajax({
+									type: 'GET',
+									"content-type": "Application/JSON",
+									url:"http://127.0.0.1:5200/twitris-movie-ext/api/v1.0/get_credits/"+name,
+									success: function(results) {
+										var name = results['info']['original_title'],
+											movie_id = results['info']['id']
+											c_id = movies[name]['c_id'];
+										movies[name]["info"]=results["info"];
+									},
+									error: myFailure
+								}),
+								$.ajax({
+									type: 'GET',
+									"content-type": "Application/JSON",
+									url:"http://127.0.0.1:5200/twitris-movie-ext/api/v1.0/get_videos/"+name,
+									success: function(results) {
+										var name = results['info']['original_title'],
+											movie_id = results['info']['id']
+											c_id = movies[name]['c_id'];
+										movies[name]["info"]=results["info"];
+									},
+									error: myFailure
+								}),
+								$.ajax({
+									type: 'GET',
+									"content-type": "Application/JSON",
+									url:"http://127.0.0.1:5200/twitris-movie-ext/api/v1.0/get_keywords/"+name,
+									success: function(results) {
+										var name = results['info']['original_title'],
+											movie_id = results['info']['id']
+											c_id = movies[name]['c_id'];
+										movies[name]["info"]=results["info"];
+									},
+									error: myFailure
+								}),
 								$.ajax({
 									type: 'GET',
 									"content-type": "Application/JSON",
@@ -127,7 +162,7 @@ $(function(){
 			'<div class="info">'+
 			'<h2 class="title ellipsis">'+title+'</h2>'+
 			'<div id="movieInfo'+id+'">'+
-			'<p class="desc ellipsis">'+info+'</p><a id="readmore_'+id+'" '+data_attrs+'><p>Read Full [+]</a>'+
+			'<p class="desc ellipsis">'+info+'</p><a id="readmore_'+id+'" '+data_attrs+'><p>More Info[+]</a>'+
 			'</div>'+
 			'<ul>'+
 // SENTIMENT BUTTON		
@@ -213,6 +248,7 @@ $(function(){
 			title = $("#"+e.relatedTarget.id)[0].getAttribute("data-title"),
 			img = $("#"+e.relatedTarget.id)[0].getAttribute("data-href");
 
+
 		
 		$('#movie_desc_body').html(
 			$('<div>').addClass("row-fluid").html(
@@ -226,11 +262,10 @@ $(function(){
 				'<a data-slide="next" href="#quote-carousel" class="right carousel-control"><i class="fa fa-chevron-right"></i></a> </div>');
 
 
-				var resultNumb = movies[title]["reviews"];
+			
+//If the modal is "my campaign show the rotten tomatoes review"
+			var resultNumb = movies[title]["reviews"];
 
-
-
-				
 			for ( var i = 0; i < resultNumb.length ; i++) {
 				var rottonImg = "";
 				var hFresh = movies[title]["reviews"][i]["freshness"];

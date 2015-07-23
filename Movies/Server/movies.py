@@ -83,3 +83,48 @@ def get_reviews(id):
 		return make_response(jsonify({"reviews":response_body}), 200)
 	except:
 		return serverError("error")
+
+		
+def get_credits(id):
+	try:	
+		url = TMDB_API_ROOT+"movie/"+id+"/credits?api_key="+TMDB_API_KEY
+		headers = {
+		  'Accept': 'application/json'
+		}
+		request = Request(url, headers=HEADERS)
+		response_body = json.loads(urlopen(request).read())
+		print response_body
+
+		return make_response(jsonify({"credits":response_body}), 200)
+	except:
+		return serverError("error")
+
+def get_videos(id):
+	try:	
+		url = TMDB_API_ROOT+"movie/"+id+"/videos?api_key="+TMDB_API_KEY
+		headers = {
+		  'Accept': 'application/json'
+		}
+		request = Request(url, headers=HEADERS)
+		response_body = json.loads(urlopen(request).read())
+		print response_body
+
+		return make_response(jsonify({"videos":response_body}), 200)
+	except:
+		return serverError("error")
+
+def get_keywords(id):
+	try:	
+		url = TMDB_API_ROOT+"movie/"+id+"/keywords?api_key="+TMDB_API_KEY
+		headers = {
+		  'Accept': 'application/json'
+		}
+		request = Request(url, headers=HEADERS)
+		response_body = json.loads(urlopen(request).read())
+		print response_body
+
+		return make_response(jsonify({"keywords":response_body}), 200)
+	except:
+		return serverError("error")
+
+

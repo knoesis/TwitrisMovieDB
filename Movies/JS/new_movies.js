@@ -150,23 +150,23 @@ $(document).ready(function(){
 
 	$("#home, #home1").click(function(){
 		 $("#welcomeScreen").show(1000);
-		 $(".pageTitle").text("SilverBox - MVP DEMO");
+		 $(".pageTitle").text("Silver Box");
 		 $("#newReleases").hide(667);
 		 $("#myCampains").hide(667);
-		 $("#tvReleases").hide(667);
+		 $("#upComming").hide(667);
 		 $("#mySupport").hide(667);
 	});
 	$("#new").click(function(){
 		 $("#newReleases").show(1000);
-		 $(".pageTitle").text("NEW MOVIE RELEASES");
+		 $(".pageTitle").text("Now Playing");
 		 $("#welcomeScreen").hide(667);
 		 $("#myCampains").hide(667);
-		 $("#tvReleases").hide(667);
-		 $("#mySupport").hide(667);
+		 $("#upComming").hide(667);
+		 $("#mySupport").hide(667);	
 	});
-	$("#tv").click(function(){
-		 $("#tvReleases").show(1000);
-		 $(".pageTitle").text("TV SHOWS");
+	$("#up").click(function(){
+		 $("#upComming").show(1000);
+		 $(".pageTitle").text("Upcomming");
 		 $("#welcomeScreen").hide(667);
 		 $("#newReleases").hide(667);
 		 $("#myCampains").hide(667);
@@ -174,18 +174,18 @@ $(document).ready(function(){
 	});
 	$("#my").click(function(){
 		 $("#myCampains").show(1000);_
-		 $(".pageTitle").text("MY CAMPAIGN'S");
+		 $(".pageTitle").text("My Campaign's");
 		 $("#welcomeScreen").hide(667);
 		 $("#newReleases").hide(667);
-		 $("#tvReleases").hide(667);
+		 $("#upComming").hide(667);
 		 $("#mySupport").hide(667);
 	});
 	$("#sup").click(function(){
 		 $("#mySupport").show(1000);
-		 $(".pageTitle").text("SUPPORT");
+		 $(".pageTitle").text("Support");
 		 $("#welcomeScreen").hide(667);
 		 $("#newReleases").hide(667);
-		 $("#tvReleases").hide(667);
+		 $("#upComming").hide(667);
 		 $("#myCampains").hide(667);
 
 	});
@@ -203,3 +203,8 @@ $(function() {
 		return true; // close the menu
 	});
 });
+
+$(function () {
+	$('.tlt').textillate();
+});
+

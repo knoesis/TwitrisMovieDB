@@ -4,11 +4,137 @@
 body {
 	
 	background-color: black;
-
 }
 
-h5 {margin-bottom: 15px;}
- /*Search */
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+  position: relative;
+  min-height: 100%;
+}
+body {
+  /* Margin bottom by footer height */
+  margin-bottom: 60px;
+}
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 60px;
+  background-color: #f5f5f5;
+}
+
+
+/* Custom page CSS
+-------------------------------------------------- */
+/* Not required for template or sticky footer method. */
+
+.container {
+  width: auto;
+  max-width: 680px;
+  padding: 0 15px;
+}
+.container .text-muted {
+  margin: 20px 0;
+}
+
+h5 {padding-bottom: 5px;}
+
+.modal-header {
+    padding:9px 15px;
+    border-bottom:1px solid #313131;
+    background-color: #313131;
+    color: white;
+    -webkit-border-top-left-radius: 5px;
+    -webkit-border-top-right-radius: 5px;
+    -moz-border-radius-topleft: 5px;
+    -moz-border-radius-topright: 5px;
+     border-top-left-radius: 5px;
+     border-top-right-radius: 5px;
+ }
+
+ .modal-backdrop {background: white;}
+
+ .modal-container {color:white;}
+
+
+
+ .fa.pull-right {
+    margin-left: 0.1em;   
+}
+
+.date-picker,
+.date-container {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    color: rgb(75, 77, 78);
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+.date-container {
+    padding: 0px 40px;   
+}
+.date-picker h2, .date-picker h4 {
+    margin: 0px;
+    padding: 0px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 200;
+}
+.date-container .date {
+    text-align: center;
+}
+.date-picker span.fa {
+    position: absolute;
+    font-size: 4em;
+    font-weight: 100;
+    padding: 8px 0px 7px;
+    cursor: pointer;
+    top: 0px;
+}
+.date-picker span.fa[data-type="subtract"] {
+    left: 0px;
+}
+.date-picker span.fa[data-type="add"] {
+    right: 0px;
+}
+.date-picker span[data-toggle="calendar"] {
+    display: block;
+    position: absolute;
+    top: -7px;
+    right: 45px;
+    font-size: 1em !important;
+    cursor: pointer;
+}
+
+.date-picker .input-datepicker {
+    display: none;
+    position: absolute;
+    top: 50%;
+    margin-top: -17px;
+    width:100%;
+}
+.date-picker .input-datepicker.show-input {
+    display: table;
+}
+
+@media (min-width: 768px) and (max-width: 1010px) {
+    .date-picker h2{
+        font-size: 1.5em; 
+        font-weight: 400;  
+    }    
+    .date-picker h4 {
+        font-size: 1.1em;
+    }  
+    .date-picker span.fa {
+        font-size: 3em;
+    } 
+}
+
 
  #custom-search-input{
     padding: 3px;
@@ -57,7 +183,7 @@ h5 {margin-bottom: 15px;}
     filter: blur(15px);
 }*/
   
-.modal-backdrop {background: black;}
+
 
 input[type=submit]:hover {
      background-position: 0px;

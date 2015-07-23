@@ -19,17 +19,15 @@
     <link href="CSS/remodal-default-theme.css" rel="stylesheet">
     <link href="CSS/style.css" rel="stylesheet">
     <link rel="stylesheet" href="http://lipis.github.io/bootstrap-sweetalert/lib/sweet-alert.css">
-
-
 </head>
 
-
+    
 <body>
     <div id="page">
 
         <div class="header">
             <a href="#menu"></a>
-            <p id="home" class="pageTitle">SilverBox - Powered By Twittris : Movie Web-Aplication Ver 1.1</p>
+            <p id="home" class="pageTitle">Silver Box</p>
         </div>
 
         <div class="content">
@@ -38,90 +36,14 @@
             <div id="welcomeScreen"> 
                 <div class="row">
                     <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-lg-8 col-lg-offset-2">
-                        <h1>Silver Box</h1>
-                        <p> What are we missing? Age, Gender, genre WEEKEND GROSS   # OF THEATERS   THEATER AVERAGE WEEKS RELEASED  TOTAL GROSS What do we need? Prediction Analysis. </p>
-                        <h2>We provide research data and market intelligence to anyone with an interest in the US film industry and film culture.</h2>
+                        <h1 class="tlt">Silver Box</h1>
+                       <h2>We provide research data and market intelligence to anyone with an interest in the US film industry and film culture.</h2>
                         <h3>REAL-TIME, scalable analyses of social data streams provide you with DEEP INSIGHTS and ACTIONABLE INFORMATION for better decision-making.</h3>
-
-                    <div class="row db-padding-btm db-attached">
-                        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
-                            <div class="db-wrapper">
-                                <div class="db-pricing-eleven db-bk-color-one">
-                                    <div class="price">
-                                        <sup>$</sup>99
-                                            <small>per quarter</small>
-                                    </div>
-                                    <div class="type">
-                                        SMALL PLAN
-                                    </div>
-                                    <ul>
-
-                                        <li><i class="glyphicon glyphicon-print"></i>30+ Accounts </li>
-                                        <li><i class="glyphicon glyphicon-time"></i>150+ Projects </li>
-                                        <li><i class="glyphicon glyphicon-trash"></i>Lead Required</li>
-                                    </ul>
-                                    <div class="pricing-footer">
-
-                                        <a href="#" class="btn db-button-color-square btn-lg">BOOK ORDER</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
-                             <div class="db-wrapper">
-                            <div class="db-pricing-eleven db-bk-color-two popular">
-                                <div class="price">
-                                    <sup>$</sup>159
-                                            <small>per quarter</small>
-                                </div>
-                                <div class="type">
-                                    MEDIUM PLAN
-                                </div>
-                                <ul>
-
-                                    <li><i class="glyphicon glyphicon-print"></i>30+ Accounts </li>
-                                    <li><i class="glyphicon glyphicon-time"></i>150+ Projects </li>
-                                    <li><i class="glyphicon glyphicon-trash"></i>Lead Required</li>
-                                </ul>
-                                <div class="pricing-footer">
-
-                                    <a href="#" class="btn db-button-color-square btn-lg">BOOK ORDER</a>
-                                </div>
-                            </div>
-                                 </div>
-                        </div>
-                        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
-                             <div class="db-wrapper">
-                            <div class="db-pricing-eleven db-bk-color-three">
-                                <div class="price">
-                                    <sup>$</sup>799
-                                            <small>per quarter</small>
-                                </div>
-                                <div class="type">
-                                    ADVANCE PLAN
-                                </div>
-                                <ul>
-
-                                    <li><i class="glyphicon glyphicon-print"></i>30+ Accounts </li>
-                                    <li><i class="glyphicon glyphicon-time"></i>150+ Projects </li>
-                                    <li><i class="glyphicon glyphicon-trash"></i>Lead Required</li>
-                                </ul>
-                                <div class="pricing-footer">
-
-                                    <a href="#" class="btn db-button-color-square btn-lg">BOOK ORDER</a>
-                                </div>
-                            </div>
-                                 </div>
-                        </div>
-
-                    </div>
-
-
-                    </div>
+                   </div>
                 </div>
             </div>
 
-            <!-- New Release's Page -->
+            <!-- Now Playing Page -->
             <div id="newReleases" style="display:none">
                 <div class="row">
                     <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-lg-8 col-lg-offset-2">
@@ -142,8 +64,8 @@
                 </div>
             </div>
 
-            <!-- TV Shows Page-->
-            <div id="tvReleases" style="display:none">
+            <!-- Upcomming Movies Page-->
+            <div id="upComming" style="display:none">
                 <div class="row">
                     <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-lg-8 col-lg-offset-2">
 
@@ -187,8 +109,8 @@
     <nav id="menu">
         <ul>
             <li><a href="#/" id="home1">Home</a></li>
-            <li><a href="#/" id="new">New Movie Releases</a></li>
-            <li><a href="#/" id="tv">TV Show's</a></li>
+            <li><a href="#/" id="new">New Releases</a></li>
+            <li><a href="#/" id="upss">Upcoming</a></li>
             <li><a href="#/" id="my">My Campaign's</a></li>
             <li><a href="#/" id="sup">Support</a></li>
 
@@ -209,26 +131,63 @@
                                 <div id="chart_body" class="item active">
                                   
                                 </div>
-                                <div class="item">
-                                    <div class="btn-group">
-                                      <button class="btn">Left</button>
-                                      <button class="btn">Middle</button>
-
-                                        <button class="btn">Left</button>
-                                      <button class="btn">Middle</button>
-                                      <button class="btn">Right</button>
+                                <div class="item" style="text-align:center;">
+                                    <h3> Type of Graph: </h3></br>
+                                    <div class="btn-group" data-toggle="buttons">
+                                        <label class="btn btn-info btn-lg active"><input type="radio" name="mode" id="option1">Column</label>
+                                        <label class="btn btn-info btn-lg"><input type="radio" name="mode" id="option1">Bar</label>
+                                        <label class="btn btn-info btn-lg"><input type="radio" name="mode" id="option1">Line</label>
+                                        <label class="btn btn-info btn-lg"><input type="radio" name="mode" id="option1">Spline</label>
+                                        <label class="btn btn-info btn-lg"><input type="radio" name="mode" id="option1">Area Spline</label>
+                                        <label class="btn btn-info btn-lg"><input type="radio" name="mode" id="option1">Scatter</label>                                            
                                     </div>
+                            
+                                <div class="col-sm-6"></br>
+                                  
+                                        <div class="date-picker"  data-date="2014/09/02" data-keyboard="true">
+                                            <div class="date-container pull-left">
+                                                <h4 class="weekday">Monday</h4>
+                                                <h2 class="date">Februray 4th</h2>
+                                                <h4 class="year pull-right">2014</h4>
+                                            </div>
+                                            <span data-toggle="datepicker" data-type="subtract" class="fa fa-angle-left"></span>
+                                            <span data-toggle="datepicker" data-type="add" class="fa fa-angle-right"></span>
+                                            <div class="input-group input-datepicker">
+                                                <input type="text" class="form-control" data-format="YYYY/MM/DD" placeholder="YYYY/MM/DD">
+                                                <span class="input-group-btn">
+                                                    <button class="btn btn-default" type="button">Go!</button>
+                                                </span>
+                                            </div>
+                                            <span data-toggle="calendar" class="fa fa-calendar"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6"></br> 
+                                  
+                                        <div class="date-picker"  data-date="2014/09/02" data-keyboard="true">
+                                            <div class="date-container pull-left">
+                                                <h4 class="weekday">Monday</h4>
+                                                <h2 class="date">Februray 4th</h2>
+                                                <h4 class="year pull-right">2014</h4>
+                                            </div>
+                                            <span data-toggle="datepicker" data-type="subtract" class="fa fa-angle-left"></span>
+                                            <span data-toggle="datepicker" data-type="add" class="fa fa-angle-right"></span>
+                                            <div class="input-group input-datepicker">
+                                                <input type="text" class="form-control" data-format="YYYY/MM/DD" placeholder="YYYY/MM/DD">
+                                                <span class="input-group-btn">
+                                                    <button class="btn btn-default" type="button">Go!</button>
+                                                </span>
+                                            </div>
+                                            <span data-toggle="calendar" class="fa fa-calendar"></span>
+                                        </div>
+                                    </div>
+
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <select class="selectpicker" data-style="btn-primary" data-width="auto" style="display: none;">
-                      <option data-icon="glyphicon glyphicon-music">Bar</option>
-                      <option data-icon="glyphicon glyphicon-star">Pie</option>
-                      <option data-icon="glyphicon glyphicon-heart">Plot</option>
-                 </select><br>
-                        <button class="btn btn-default" href="#chart_carousel" role="button" data-slide="prev">back</button>
+                        <button class="btn btn-info">Reset Default Settings</button>
+                         <button class="btn btn-default" href="#chart_carousel" role="button" data-slide="prev">back</button>
                         <button class="btn btn-default" href="#chart_carousel" role="button" data-slide="next">options</button>
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                     </div>
@@ -249,7 +208,15 @@
             </div>
         </div>
 
-   
+          <div class="navbar navbar-default navbar-fixed-bottom">
+    <div class="container">
+      <p class="navbar-text">© 2014 - <script>document.write(new Date().getFullYear())</script> Built By Jeremy Brunn & Surag Sheth &nbsp&nbsp </br>
+           <a href="http://www.knoesis.org/" target="_blank" >Kno.e.sis - Amit P. Sheth</a>
+      </p>
+    </div>
+    
+
+   <script src="http://cdnjs.cloudflare.com/ajax/libs/moment.js/2.5.1/moment.min.js"></script>  
     <script src="http://lipis.github.io/bootstrap-sweetalert/lib/sweet-alert.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
@@ -261,6 +228,9 @@
     <script src="Library/jquery.mmenu.min.all.js"></script>
     <script src="Library/jquery.raty.js"></script>
     <script src="Library/datepicker.js"></script>
+    <script src="Library/jquery.fittext.js"></script>
+    <script src="Library/jquery.lettering.js"></script>
+    <script src="Library/jquery.textillate.js"></script>
     <script src="JS/build_chart_data.js"></script>
     <script src="JS/chart_base.js"></script>
     <script src="JS/movie_campaigns.js"></script>
