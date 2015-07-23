@@ -10,11 +10,11 @@ import urllib2
 import re
 import pycurl
 
-from campaigns import (create, remove, list_campaigns, retrieve, get_movie_reviews)
+from campaigns import (create, remove, list_campaigns, retrieve)
 
 from analysis import (tweets, topics, sentiment, emotions)
 
-from movies import (new_releases, get_info)
+from movies import (new_releases, get_info, get_movie_reviews)
 
 
 app = Flask(__name__)
@@ -40,9 +40,6 @@ def get(c_id):
 def list():
 	return list_campaigns()
 
-@app.route('/twitris-movie-ext/api/v1.0/get_reviews/<path:c_id>', methods=['GET'])
-def reviews(c_id):
-	return get_movie_reviews(c_id)
 
 """
 TWITRIS ANALYSIS APIS
@@ -74,6 +71,9 @@ def releases():
 def info(name):
 	return get_info(name)
 
+@app.route('/twitris-movie-ext/api/v1.0/get_reviews/<path:title>', methods=['GET'])
+def reviews(title):
+	return get_movie_reviews(title)
 
 	
 

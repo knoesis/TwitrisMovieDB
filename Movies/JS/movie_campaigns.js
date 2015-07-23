@@ -76,15 +76,6 @@ $(function(){
 										movies[name]["emotions"]=results['data'];
 									},
 									error: myFailure
-								}),
-								$.ajax({
-									type: 'GET',
-									"content-type": "Application/JSON",
-									url:"http://127.0.0.1:5200/twitris-movie-ext/api/v1.0/get_reviews/"+c_id,
-									success: function(results) {
-										movies[name]["reviews"]=results['reviews'];
-									},
-									error: myFailure
 								})
 							).done(function() {
 								listMovies(movies[name])
@@ -208,54 +199,6 @@ $(function(){
 	var myFailure = function(){
 		alert ("ERROR")
 	}
-	$('#movie_desc_modal').on('show.bs.modal', function (e) {
-		var info = $("#"+e.relatedTarget.id)[0].getAttribute("data-info"),
-			title = $("#"+e.relatedTarget.id)[0].getAttribute("data-title"),
-			img = $("#"+e.relatedTarget.id)[0].getAttribute("data-href");
-
-		
-		$('#movie_desc_body').html(
-			$('<div>').addClass("row-fluid").html(
-				$('<div>').addClass('col-lg-8').html($('<img>').attr('src',img))).append(
-				$('<div>').addClass('col-lg-4').html($('<p>').text(info))))
-			.append('<img src="images/rtlogo.png" alt="Rotton Tomatoes Logo">'+
-				'<div class="carousel slide row-fluid" data-ride="carousel" id="quote-carousel">'+
-				'<ol class="carousel-indicators"></ol>'+
-				'<div id="carousel_inner" class="carousel-inner"></div>'+
-				'<!-- Carousel Buttons Next/Prev --> <a data-slide="prev" href="#quote-carousel" class="left carousel-control"><i class="fa fa-chevron-left"></i></a> '+
-				'<a data-slide="next" href="#quote-carousel" class="right carousel-control"><i class="fa fa-chevron-right"></i></a> </div>');
-
-
-				var resultNumb = movies[title]["reviews"];
-
-
-
-				
-			for ( var i = 0; i < resultNumb.length ; i++) {
-				var rottonImg = "";
-				var hFresh = movies[title]["reviews"][i]["freshness"];
-
-				if (hFresh === "fresh") {
-					rottonImg = "images/fresh.png"
-				} else {
-					rottonImg = "images/gonebad.png" 
-				}
-
-
-				$('#carousel_inner').append(
-				// <!-- Quote --> 
-				'<div class="item '+(i===0?"active":"")+'"> <blockquote> '+
-				'<div class="row-fluid"> '+
-				'<div class="col-sm-12 text-center"> '+
-				'<img class="img-circle" src="'+rottonImg+'" style="width: 100px;height:100px;"> '+				
-				'<div class="col-sm-9"> <p>'+movies[title]["reviews"][i]["quote"]+'</p> <small>'+movies[title]["reviews"][i]["critic"]+' from [ '+movies[title]["reviews"][i]["publication"]+' ]</small>'+
-				'</div> '+
-				'</div> </blockquote> '+
-				'</div>')
-			}
-    $('#modal_title').text(title);
-
-  	})
 
 });
 

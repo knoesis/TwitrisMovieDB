@@ -10,6 +10,9 @@ from datetime import datetime, timedelta
 
 TMDB_API_ROOT = "http://api.themoviedb.org/3/"
 TMDB_API_KEY = "8bd778c68dccc25fb46b1850046f4f00"
+RT_API_ROOT = "http://api.rottentomatoes.com/api/public/v1.0/"
+RT_API_KEY = "nh7pnpwkmbznkmss2vd4uq69"
+
 HEADERS = {
   'Accept': 'application/json'
 }
@@ -70,16 +73,25 @@ def get_info(text):
 	except:
 		return serverError("error")
 
-def get_reviews(id):
-	try:	
-		url = TMDB_API_ROOT+"movie/"+id+"/reviews?api_key="+TMDB_API_KEY
-		headers = {
-		  'Accept': 'application/json'
-		}
+def get_movie_id(movie_title):	
+	try:		
+		url = RT_API_ROOT+"movies.json?q="+urllib.quote(movie_title)+"&page_limit=10&page=1&apikey="+RT_API_KEY
 		request = Request(url, headers=HEADERS)
-		response_body = json.loads(urlopen(request).read())
-		print response_body
+		response_body = urlopen(request).read()
+		return json.loads(response_body)['movies'][0]['id']
+	except:
+		print("error")
+		return ""
 
-		return make_response(jsonify({"reviews":response_body}), 200)
+def get_movie_reviews(movie_title):
+	movie_id = get_movie_id(movie_title)
+	try:		
+		options = "movies/"+movie_id+"/reviews.json"
+		options+= "?apikey="+RT_API_KEY
+		url = RT_API_ROOT+options
+		request = Request(url, headers=HEADERS)
+		response_body = urlopen(request).read()
+		return make_response(jsonify({"reviews":json.loads(response_body)['reviews']}), 200)
 	except:
 		return serverError("error")
+
