@@ -95,8 +95,6 @@ def get_movie_reviews(movie_title):
 	except:
 		return serverError("error")
 
-<<<<<<< HEAD
-		
 def get_credits(id):
 	try:	
 		url = TMDB_API_ROOT+"movie/"+id+"/credits?api_key="+TMDB_API_KEY
@@ -139,6 +137,3 @@ def get_keywords(id):
 	except:
 		return serverError("error")
 
-
-=======
->>>>>>> 4861a15f93aa00101311a8dd990f938e0cd7ab27

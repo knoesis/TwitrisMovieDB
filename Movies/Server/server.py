@@ -14,11 +14,9 @@ from campaigns import (create, remove, list_campaigns, retrieve)
 
 from analysis import (tweets, topics, sentiment, emotions)
 
-<<<<<<< HEAD
-from movies import (new_releases, get_info, get_credits, get_videos, get_keywords)
-=======
-from movies import (new_releases, get_info, get_movie_reviews)
->>>>>>> 4861a15f93aa00101311a8dd990f938e0cd7ab27
+from movies import (new_releases, get_info, get_movie_reviews, \
+	get_credits, get_videos, get_keywords)
+
 
 
 app = Flask(__name__)
@@ -75,25 +73,21 @@ def releases():
 def info(name):
 	return get_info(name)
 
-<<<<<<< HEAD
-@app.route('/twitris-movie-ext/api/v1.0/get_credits/<path:name>', methods=['GET'])
-def info(name):
-	return get_credits()
+@app.route('/twitris-movie-ext/api/v1.0/get_credits/<path:m_id>', methods=['GET'])
+def credits(m_id):
+	return get_credits(m_id)
 
-@app.route('/twitris-movie-ext/api/v1.0/get_videos/<path:name>', methods=['GET'])
-def info(name):
-	return get_videos()
+@app.route('/twitris-movie-ext/api/v1.0/get_videos/<path:m_id>', methods=['GET'])
+def videos(m_id):
+	return get_videos(m_id)
 
-@app.route('/twitris-movie-ext/api/v1.0/get_keywords/<path:name>', methods=['GET'])
-def info(name):
-	return get_keywords()
+@app.route('/twitris-movie-ext/api/v1.0/get_keywords/<path:m_id>', methods=['GET'])
+def keywords(m_id):
+	return get_keywords(m_id)
 
-
-=======
 @app.route('/twitris-movie-ext/api/v1.0/get_reviews/<path:title>', methods=['GET'])
 def reviews(title):
 	return get_movie_reviews(title)
->>>>>>> 4861a15f93aa00101311a8dd990f938e0cd7ab27
 
 	
 

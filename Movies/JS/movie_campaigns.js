@@ -51,7 +51,7 @@ $(function(){
 					$.ajax({
 						type: 'GET',
 						"content-type": "Application/JSON",
-						url:"http://127.0.0.1:5200/twitris-movie-ext/api/v1.0/get_info/"+name,
+						url:"http://localhost:5200/twitris-movie-ext/api/v1.0/get_info/"+name,
 						success: function(results) {
 							var name = results['info']['original_title'],
 								movie_id = results['info']['id']
@@ -61,36 +61,27 @@ $(function(){
 								$.ajax({
 									type: 'GET',
 									"content-type": "Application/JSON",
-									url:"http://127.0.0.1:5200/twitris-movie-ext/api/v1.0/get_credits/"+name,
+									url:"http://localhost:5200/twitris-movie-ext/api/v1.0/get_credits/"+movie_id,
 									success: function(results) {
-										var name = results['info']['original_title'],
-											movie_id = results['info']['id']
-											c_id = movies[name]['c_id'];
-										movies[name]["info"]=results["info"];
+										movies[name]["info"]['credits'] = results["credits"];
 									},
 									error: myFailure
 								}),
 								$.ajax({
 									type: 'GET',
 									"content-type": "Application/JSON",
-									url:"http://127.0.0.1:5200/twitris-movie-ext/api/v1.0/get_videos/"+name,
+									url:"http://localhost:5200/twitris-movie-ext/api/v1.0/get_videos/"+movie_id,
 									success: function(results) {
-										var name = results['info']['original_title'],
-											movie_id = results['info']['id']
-											c_id = movies[name]['c_id'];
-										movies[name]["info"]=results["info"];
+										movies[name]["info"]['videos'] = results["videos"];
 									},
 									error: myFailure
 								}),
 								$.ajax({
 									type: 'GET',
 									"content-type": "Application/JSON",
-									url:"http://127.0.0.1:5200/twitris-movie-ext/api/v1.0/get_keywords/"+name,
+									url:"http://localhost:5200/twitris-movie-ext/api/v1.0/get_keywords/"+movie_id,
 									success: function(results) {
-										var name = results['info']['original_title'],
-											movie_id = results['info']['id']
-											c_id = movies[name]['c_id'];
-										movies[name]["info"]=results["info"];
+										movies[name]["info"]['keywords'] = results["keywords"];
 									},
 									error: myFailure
 								}),
@@ -232,59 +223,8 @@ $(function(){
 			console.log("mycampainsuccess");
 	}
 	var myFailure = function(){
-		alert ("ERROR")
+		console.log("ERROR")
 	}
-<<<<<<< HEAD
-	$('#movie_desc_modal').on('show.bs.modal', function (e) {
-		var info = $("#"+e.relatedTarget.id)[0].getAttribute("data-info"),
-			title = $("#"+e.relatedTarget.id)[0].getAttribute("data-title"),
-			img = $("#"+e.relatedTarget.id)[0].getAttribute("data-href");
-
-
-		
-		$('#movie_desc_body').html(
-			$('<div>').addClass("row-fluid").html(
-				$('<div>').addClass('col-lg-8').html($('<img>').attr('src',img))).append(
-				$('<div>').addClass('col-lg-4').html($('<p>').text(info))))
-			.append('<img src="images/rtlogo.png" alt="Rotton Tomatoes Logo">'+
-				'<div class="carousel slide row-fluid" data-ride="carousel" id="quote-carousel">'+
-				'<ol class="carousel-indicators"></ol>'+
-				'<div id="carousel_inner" class="carousel-inner"></div>'+
-				'<!-- Carousel Buttons Next/Prev --> <a data-slide="prev" href="#quote-carousel" class="left carousel-control"><i class="fa fa-chevron-left"></i></a> '+
-				'<a data-slide="next" href="#quote-carousel" class="right carousel-control"><i class="fa fa-chevron-right"></i></a> </div>');
-
-
-			
-//If the modal is "my campaign show the rotten tomatoes review"
-			var resultNumb = movies[title]["reviews"];
-
-			for ( var i = 0; i < resultNumb.length ; i++) {
-				var rottonImg = "";
-				var hFresh = movies[title]["reviews"][i]["freshness"];
-
-				if (hFresh === "fresh") {
-					rottonImg = "images/fresh.png"
-				} else {
-					rottonImg = "images/gonebad.png" 
-				}
-
-
-				$('#carousel_inner').append(
-				// <!-- Quote --> 
-				'<div class="item '+(i===0?"active":"")+'"> <blockquote> '+
-				'<div class="row-fluid"> '+
-				'<div class="col-sm-12 text-center"> '+
-				'<img class="img-circle" src="'+rottonImg+'" style="width: 100px;height:100px;"> '+				
-				'<div class="col-sm-9"> <p>'+movies[title]["reviews"][i]["quote"]+'</p> <small>'+movies[title]["reviews"][i]["critic"]+' from [ '+movies[title]["reviews"][i]["publication"]+' ]</small>'+
-				'</div> '+
-				'</div> </blockquote> '+
-				'</div>')
-			}
-    $('#modal_title').text(title);
-
-  	})
-=======
->>>>>>> 4861a15f93aa00101311a8dd990f938e0cd7ab27
 
 });
 

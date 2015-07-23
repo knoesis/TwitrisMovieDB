@@ -108,20 +108,3 @@ def list_campaigns():
 	finally:
 		if curl:
 			curl.close()
-
-def get_movie_reviews(c_id):
-	curl = None
-	try:
-		url = 'http://twitris.knoesis.org/api/v1.1/campaigns/'+c_id+'/movieReviews'
-		curl, buffer = generateRequest(url)
-		curl.perform()
-		print "performed data"
-		data = json.loads(buffer.getvalue())['reviews'][0]
-		return make_response(jsonify(data), curl.getinfo(curl.RESPONSE_CODE))
-	except:
-		# empty list instead of error
-		return make_response(jsonify({'reviews':[]}), 200)
-		# return serverError("error")
-	finally:
-		if curl:
-			curl.close()
