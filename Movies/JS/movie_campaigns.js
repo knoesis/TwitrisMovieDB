@@ -111,15 +111,6 @@ $(function(){
 										movies[name]["emotions"]=results['data'];
 									},
 									error: myFailure
-								}),
-								$.ajax({
-									type: 'GET',
-									"content-type": "Application/JSON",
-									url:"http://127.0.0.1:5200/twitris-movie-ext/api/v1.0/get_reviews/"+c_id,
-									success: function(results) {
-										movies[name]["reviews"]=results['reviews'];
-									},
-									error: myFailure
 								})
 							).done(function() {
 								listMovies(movies[name])
@@ -243,6 +234,7 @@ $(function(){
 	var myFailure = function(){
 		alert ("ERROR")
 	}
+<<<<<<< HEAD
 	$('#movie_desc_modal').on('show.bs.modal', function (e) {
 		var info = $("#"+e.relatedTarget.id)[0].getAttribute("data-info"),
 			title = $("#"+e.relatedTarget.id)[0].getAttribute("data-title"),
@@ -291,6 +283,8 @@ $(function(){
     $('#modal_title').text(title);
 
   	})
+=======
+>>>>>>> 4861a15f93aa00101311a8dd990f938e0cd7ab27
 
 });
 
