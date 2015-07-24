@@ -44,152 +44,119 @@ $(function(){
 			var resp = response['campaigns'];
 			for (var i=0; i<resp.length; i++) {
 				var result = resp[i],
-					name = resp[i]['event'],
-					id = resp[i]['id'];
+					title = resp[i]['event'],
+					id = resp[i]['id']
+					movie = {};
 				movies[name] = {
 					c_id : id
 				}
-				movies[name]['info'] = result['info']['info']
-				movies[name]['credits'] = result['info']['credits']
-				movies[name]['videos'] = result['info']['videos']
-				movies[name]["sentiment"]=result['sentiment'];
-				movies[name]["emotions"]=result['emotions'];
-				listMovies(movies[name]);
-					
-			};
-		}, error: myFailure	
-	});
+				movie['info'] = result['info']['info']
+				movie['credits'] = result['info']['credits']
+				movie['videos'] = result['info']['videos']
+				movie["sentiment"]=graph_data(result['emotions'], 'line');
+				movie["emotions"]=graph_data(result['emotions'], 'pie');
+				var date = movie["info"]["release_date"],
+					day = date.substring(8,10),
+					month = month_array[parseInt(date.substring(6,7))-1],
+					year = date.substring(0,4),
+					poster = movie["info"]["poster_path"],
+					info = movie['info']['overview'],
+					cast = _.zip( _.pluck(movie['credits']['cast'], "character"),
+							_.pluck(movie['credits']['cast'], "name"),
+							_.pluck(movie['credits']['cast'], "profile_path")).toString(),					
+					crew = [];
 
-	var listMovies = function(movie){			
-			var date = movie["info"]["release_date"],
-				day = date.substring(8,10),
-				month = month_array[parseInt(date.substring(6,7))-1],
-				year = date.substring(0,4),
-				title = movie["info"]["original_title"],
-				id = movie["info"]["id"],
-				poster = movie["info"]["poster_path"],
-				info = movie['info']['overview'],
-				cast = _.zip( _.pluck(movie['credits']['cast'], "character"),
-						_.pluck(movie['credits']['cast'], "name"),
-						_.pluck(movie['credits']['cast'], "profile_path")).toString(),
-				
-				crew = [];
-
-			_.each(movie['credits']['crew'], function(item){
-				if(item['job']==='Director' || item['job']==='Writer' || item['job']==='Producer'){
-				    crew.push(item)
-				}
-			})
-			crew = _.zip(_.pluck(crew, "name"),_.pluck(crew, "job"),_.pluck(crew, "profile_path")).toString()
-			
-
-			var videos = _.pluck(movie['videos']['results'], "key").toString(),
-				data_attrs = 'data-href="http://image.tmdb.org/t/p/w500/'+poster+
-					'" data-toggle="modal" data-target="#movie_desc_modal"'+
-					'" data-info="'+info+'" data-title="'+title+'" '+
-					'data-cast="'+cast+'" data-crew="'+crew+'" '+
-					'data-videos="'+videos+'"'
-					// data-keywords="'+keywords+'"'
-
-			movie['emotions'] = graph_data(movie['emotions'], 'pie')
-			movie['sentiment'] = graph_data(movie['sentiment'], 'line')
-	        
-			if (welcome_visible)  {
-				got_info_clear_welcome();
-			}
-			
-			$('#campaignMovieList').append("<li>"+
-			'<time datetime="'+date+'">'+
-			'<span class="day">'+day+'</span>'+
-			'<span class="month">'+month +'</span>'+
-			'<span class="year">'+year+'</span>'+
-			'</time>'+
-			'<a id="image_'+id+'" '+data_attrs+'>'+
-			'<img alt="" src="http://image.tmdb.org/t/p/original/'+poster+'" /></a>'+
-			'<div class="info">'+
-			'<h2 class="title ellipsis">'+title+'</h2>'+
-			'<div id="movieInfo'+id+'">'+
-			'<p class="desc ellipsis">'+info+'</p><a id="readmore_'+id+'" '+data_attrs+'><p>More Info[+]</a>'+
-			'</div>'+
-			'<ul>'+
-// SENTIMENT BUTTON		
-			'<li style="width:33.3%;"><span class="fa fa-bar-chart" id="show_sentiment_'+id+'" data-title="'+title+'"> Sentiment</span></li>'+
-// EMOTIONS BUTTON
-			'<li style="width:33.3%;"><span class="fa fa-pie-chart" id="show_emotions_'+id+'" data-title="'+title+'"> Emotional</span></li>'+
-
-			'<li style="width:33.3%;"><span class="fa fa-twitter-square"> Live Tweet\'s</span></li>'+
-			'</ul>'+
-			'<div style="display:none;" id="campaignOn'+id+'">'+
-			'<h5>Would You Like To Delete The Campaign?</h5>'+
-			'<button class="btn btn-hot text-uppercase sweet-14 deleteCampaign" data-c_id="'+movie['c_id']+'">Delete</button><button id="goBack'+id+'" class="btn btn-sunny text-uppercase">Cancel</button>'+
-			'</div>'+
-			'</div>'+
-			'<div class="social">'+
-			'<ul>'+
-			'<li class="facebook" style="width:25%;"><a href="#facebook"><span class="fa fa-facebook"></span></a></li>'+
-			'<li class="twitter" style="width:25%;"><a href="#twitter"><span class="fa fa-twitter"></span></a></li>'+
-			'<li class="google-plus" style="width:25%;"><a href="#google-plus"><span class="fa fa-google-plus"></span></a></li>'+
-			'<li class="power" id="power'+id+'" style="width:25%;"><a><span class="fa fa-power-off"></span></a></li>'+
-			'</ul>'+
-			'</div>'+
-			'</li>')
-
-			$("#power"+id).click(function() {
-			    $('#movieInfo'+id).slideToggle("fast");
-			    $('#campaignOn'+id).slideToggle("fast");				
-			});
-			$("#goBack"+id).click(function () {
-			    $('#movieInfo'+id).slideToggle("fast");
-			    $('#campaignOn'+id).slideToggle("fast");	
-			});
-
-			  
-			$('.deleteCampaign').on('click', function(e){
-				toDelete = e.target.getAttribute("data-c_id");
-			    swal({
-			    	  name: c_id,
-					  title: "Are You Sure?",
-					  text: "You will not be able to get the campaign data back!",
-					  type: "warning",
-					  showCancelButton: true,
-					  confirmButtonClass: "btn-danger",
-					  confirmButtonText: "Yes",
-					  cancelButtonText: "No",
-					  closeOnConfirm: false,
-					  closeOnCancel: false
-				},
-				function(isConfirm) {
-					if (isConfirm && toDelete !== "") {
-					  	$.ajax({
-							type: 'DELETE',
-							"content-type": "Application/JSON",
-							url:"http://localhost:5200/twitris-movie-ext/api/v1.0/remove/"+toDelete,
-							success: function(results) {
-								swal("Deleted!", "Your Campaign Has Been Deleted", "success");
-							},
-							error: function() {
-								swal("Error!", "There Was An Error Deleting Your Campaign", "error");
-							}
-						})
-					} else {
-					    swal("Cancelled", "Your Campaign Is Safe", "error");
+				_.each(movie['credits']['crew'], function(item){
+					if(item['job']==='Director' || item['job']==='Writer' || item['job']==='Producer'){
+					    crew.push(item)
 					}
-					toDelete = "";
-				});
-			});
+				})
+				crew = _.zip(_.pluck(crew, "name"),_.pluck(crew, "job"),_.pluck(crew, "profile_path")).toString()
 
-		    $("#show_sentiment_"+id).on('click', function(e){
-		    	display_analysis($(this)[0].getAttribute("data-title"), "sentiment");
-		    });
-		    $("#show_emotions_"+id).on('click', function(e){
-		    	display_analysis($(this)[0].getAttribute("data-title"), "emotions");
-		   	});
-		
-			console.log("mycampainsuccess");
-	}
-	var myFailure = function(){
-		console.log("ERROR")
-	}
+				var videos = _.pluck(movie['videos']['results'], "key").toString(),
+					data_attrs = 'data-href="http://image.tmdb.org/t/p/w500/'+poster+
+						'" data-toggle="modal" data-target="#movie_desc_modal"'+
+						'" data-info="'+info+'" data-title="'+title+'" '+
+						'data-cast="'+cast+'" data-crew="'+crew+'" '+
+						'data-videos="'+videos+'"';
+
+				if (welcome_visible)  {
+					got_info_clear_welcome();
+				}
+				
+				$('#campaignMovieList').append("<li>"+
+				'<time datetime="'+date+'"><span class="day">'+day+'</span><span class="month">'+month +'</span><span class="year">'+year+'</span>'+
+				'</time><a id="image_'+id+'" '+data_attrs+'><img alt="" src="http://image.tmdb.org/t/p/original/'+poster+'" /></a>'+
+				'<div class="info"><h2 class="title ellipsis">'+title+'</h2><div id="movieInfo'+id+'">'+
+				'<p class="desc ellipsis">'+info+'</p><a id="readmore_'+id+'" '+data_attrs+'><p>More Info[+]</a></div><ul>'+
+				'<li style="width:33.3%;"><span class="fa fa-bar-chart" id="show_sentiment_'+id+'" data-title="'+title+'"> Sentiment</span></li>'+
+				'<li style="width:33.3%;"><span class="fa fa-pie-chart" id="show_emotions_'+id+'" data-title="'+title+'"> Emotional</span></li>'+
+				'<li style="width:33.3%;"><span class="fa fa-twitter-square"> Live Tweet\'s</span></li></ul>'+
+				'<div style="display:none;" id="campaignOn'+id+'"><h5>Would You Like To Delete The Campaign?</h5>'+
+				'<button class="btn btn-hot text-uppercase sweet-14 deleteCampaign" data-c_id="'+movie['c_id']+
+				'">Delete</button><button id="goBack'+id+'" class="btn btn-sunny text-uppercase">Cancel</button>'+
+				'</div></div><div class="social"><ul>'+
+				'<li class="facebook" style="width:25%;"><a href="#facebook"><span class="fa fa-facebook"></span></a></li>'+
+				'<li class="twitter" style="width:25%;"><a href="#twitter"><span class="fa fa-twitter"></span></a></li>'+
+				'<li class="google-plus" style="width:25%;"><a href="#google-plus"><span class="fa fa-google-plus"></span></a></li>'+
+				'<li class="power" id="power'+id+'" style="width:25%;"><a><span class="fa fa-power-off"></span></a></li>'+
+				'</ul></div></li>')
+
+				$("#power"+id).click(function() {
+				    $('#movieInfo'+id).slideToggle("fast");
+				    $('#campaignOn'+id).slideToggle("fast");				
+				});
+				$("#goBack"+id).click(function () {
+				    $('#movieInfo'+id).slideToggle("fast");
+				    $('#campaignOn'+id).slideToggle("fast");	
+				});
+
+				  
+				$('.deleteCampaign').on('click', function(e){
+					toDelete = e.target.getAttribute("data-c_id");
+				    swal({
+				    	  name: c_id,
+						  title: "Are You Sure?",
+						  text: "You will not be able to get the campaign data back!",
+						  type: "warning",
+						  showCancelButton: true,
+						  confirmButtonClass: "btn-danger",
+						  confirmButtonText: "Yes",
+						  cancelButtonText: "No",
+						  closeOnConfirm: false,
+						  closeOnCancel: false
+					},
+					function(isConfirm) {
+						if (isConfirm && toDelete !== "") {
+						  	$.ajax({
+								type: 'DELETE',
+								"content-type": "Application/JSON",
+								url:"http://localhost:5200/twitris-movie-ext/api/v1.0/remove/"+toDelete,
+								success: function(results) {
+									swal("Deleted!", "Your Campaign Has Been Deleted", "success");
+								},
+								error: function() {
+									swal("Error!", "There Was An Error Deleting Your Campaign", "error");
+								}
+							})
+						} else {
+						    swal("Cancelled", "Your Campaign Is Safe", "error");
+						}
+						toDelete = "";
+					});
+				});
+
+			    $("#show_sentiment_"+id).on('click', function(e){
+			    	display_analysis($(this)[0].getAttribute("data-title"), "sentiment");
+			    });
+			    $("#show_emotions_"+id).on('click', function(e){
+			    	display_analysis($(this)[0].getAttribute("data-title"), "emotions");
+			   	});					
+			};
+		}, error: function(){
+			console.log("ERROR")
+		}
+	});
 
 });
 

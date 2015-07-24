@@ -32,13 +32,12 @@ def generateStartEndDates():
 def getOptions(includeTime=False):
 	sd, ed = generateStartEndDates()
 	options = "?language=en&api_key="+TMDB_API_KEY
-	options+="&append_to_response=credits,videos,images"
 	# "&keyword="+ Cannabis
 	return options
 
-def new_releases():
+def get_movies(name):
 	try:		
-		url = TMDB_API_ROOT+"movie/now_playing"+getOptions()
+		url = TMDB_API_ROOT+"movie/"+name+getOptions()
 		headers = {
 		  'Accept': 'application/json'
 		}

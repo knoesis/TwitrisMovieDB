@@ -14,7 +14,7 @@ from campaigns import (create, remove, list_campaigns, retrieve)
 
 from analysis import (tweets, topics, sentiment, emotions)
 
-from movies import (new_releases, get_info, get_movie_reviews, \
+from movies import (get_movies, get_info, get_movie_reviews, \
 	get_credits, get_videos, get_upcoming)
 
 
@@ -65,9 +65,9 @@ def get_emotions(c_id):
 """
 MOVIE APIS
 """
-@app.route('/twitris-movie-ext/api/v1.0/new_releases', methods=['GET'])
-def releases():
-	return new_releases()
+@app.route('/twitris-movie-ext/api/v1.0/movies/<path:t>', methods=['GET'])
+def releases(t):
+	return get_movies(t)
 
 @app.route('/twitris-movie-ext/api/v1.0/upcoming', methods=['GET'])
 def upcoming():

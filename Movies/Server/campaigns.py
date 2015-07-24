@@ -10,8 +10,7 @@ except ImportError:
 
 from analysis import (tweets, topics, sentiment, emotions)
 
-from movies import (new_releases, get_info, get_movie_reviews, \
-	get_credits, get_videos, get_upcoming)
+from movies import get_info
 
 
 CLIENT_ID = "bnTnsANzdDVI9U1CYCrt8ErCz6pu2FSMXcyZONEz"
