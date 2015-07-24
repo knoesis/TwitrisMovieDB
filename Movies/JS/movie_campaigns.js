@@ -122,9 +122,16 @@ $(function(){
 				id = movie["info"]["id"],
 				poster = movie["info"]["poster_path"],
 				info = movie['info']['overview'],
+				cast = _.zip( _.pluck(movies[title]['info']['credits']['cast'], "character"),
+						_.pluck(movies[title]['info']['credits']['cast'], "name"),
+						_.pluck(movies[title]['info']['credits']['cast'], "profile_path")).toString()
+				videos = _.pluck(movies[title]['info']['videos']['results'], "key").toString()
 				data_attrs = 'data-href="http://image.tmdb.org/t/p/w500/'+poster+
 						'" data-toggle="modal" data-target="#movie_desc_modal"'+
-						'" data-info="'+info+'" data-title="'+title+'"'
+						'" data-info="'+info+'" data-title="'+title+'" '+
+						'data-cast="'+cast+'" '+
+						'data-videos="'+videos+'"'
+						// data-keywords="'+keywords+'"'
 
 			movies[title]['emotions'] = graph_data(movie['emotions'], 'pie')
 			movies[title]['sentiment'] = graph_data(movie['sentiment'], 'line')

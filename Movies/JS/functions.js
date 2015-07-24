@@ -20,7 +20,31 @@ $(function() {
   $('#movie_desc_modal').on('show.bs.modal', function (e) {
     var info = $("#"+e.relatedTarget.id)[0].getAttribute("data-info"),
         title = $("#"+e.relatedTarget.id)[0].getAttribute("data-title"),
-        img = $("#"+e.relatedTarget.id)[0].getAttribute("data-href");
+        img = $("#"+e.relatedTarget.id)[0].getAttribute("data-href"),
+        cast = $("#"+e.relatedTarget.id)[0].getAttribute("data-cast").split(","),
+        videos = $("#"+e.relatedTarget.id)[0].getAttribute("data-videos").split(","),
+        $cast_members = $('<div>').attr('id',"cast_members");
+
+
+    for (var i=0; i<cast.length;) {
+      var member = {
+        character: cast[i++],
+        name: cast[i++],
+        profile_pic: cast[i++]
+      }
+        $cast_members.append(
+        '<div class="media">'+
+        '<div class="media-left">'+
+        '<a>'+
+        '<img class="media-object" src="https://image.tmdb.org/t/p/w45'+member['profile_pic']+'" alt="...">'+
+        '</a>'+
+        '</div>'+
+        '<div class="media-body">'+
+        '<h4 class="media-heading">'+member['name']+'</h4>'+
+        '<p>'+member['character']+'</p>'+
+        '</div>'+
+        '</div>')
+    }
 
     $.ajax({
       type: 'GET',
@@ -30,7 +54,9 @@ $(function() {
           $('#movie_desc_body').html(
             $('<div>').addClass("row-fluid").html(
               $('<div>').addClass('col-lg-8').html($('<img>').attr('src',img))).append(
-              $('<div>').addClass('col-lg-4').html($('<p>').text(info))))
+              $('<div>').addClass('col-lg-4')
+                .html($('<p>').text(info))
+                  .append($cast_members)))
             .append('<img src="images/rtlogo.png" alt="Rotton Tomatoes Logo">'+
               '<div class="carousel slide row-fluid" data-ride="carousel" id="quote-carousel">'+
               '<ol class="carousel-indicators"></ol>'+

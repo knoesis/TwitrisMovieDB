@@ -52,6 +52,19 @@ def new_releases():
 	except:
 		return serverError("error")
 
+
+def get_upcoming():
+	try:		
+		url = TMDB_API_ROOT+"discover/movie"+getOptions()
+		headers = {
+		  'Accept': 'application/json'
+		}
+		request = Request(url, headers=HEADERS)
+		response_body = urlopen(request).read()
+		return make_response(jsonify(json.loads(response_body)), 200)
+	except:
+		return serverError("error")
+
 def get_info(text):
 	try:	
 		ogText = text

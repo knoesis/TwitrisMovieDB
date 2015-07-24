@@ -27,7 +27,12 @@ $(document).ready(function(){
 					title = result["original_title"],
 					info = result['overview'],
 					id = result["id"],
-					poster = result['poster_path'];
+					poster = result['poster_path'],
+					// cast = _.zip( _.pluck(movies[title]['info']['credits']['cast'], "character"),
+					// 	_.pluck(movies[title]['info']['credits']['cast'], "name"),
+					// 	_.pluck(movies[title]['info']['credits']['cast'], "profile_path")).toString()
+					// videos = _.pluck(movies[title]['info']['videos']['results'], "key").toString();
+				
 
 				// only parse if the movie is in english
 				if (result["original_language"]==="en" && 
@@ -44,7 +49,9 @@ $(document).ready(function(){
 					gs = '',
 					data_attrs = 'data-href="http://image.tmdb.org/t/p/w500/'+poster+
 						'" data-toggle="modal" data-target="#movie_desc_modal"'+
-						'" data-info="'+info+'" data-title="'+title+'"'
+						'" data-info="'+info+'" data-title="'+title+'" '+
+						'data-cast="'+cast+'" '+
+						'data-videos="'+videos+'"'
 						
 				// loop through the genres and create the HTML 
 				// for the genre list
