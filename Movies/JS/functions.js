@@ -1,10 +1,10 @@
 $(function() {
 	$('#datepicker').datepicker({});
 
-  $('#search_new_movies').on('keyup', function(e){
+  var scroll = function(e, id) {
     var text = e.target.value,
-      $children = $('#movieList > li'),
-      $parent = $('#movieList');
+      $children = $(id+' > li'),
+      $parent = $(id);
 
     var $movie = $children.filter(function(){
       return $(this).attr('data-id').toLowerCase().indexOf(text.toLowerCase()) === 0; 
@@ -15,6 +15,13 @@ $(function() {
         scrollTop: $movie.first().offset().top - $parent.offset().top + $parent.scrollTop()
       });
     }
+  }
+
+  $('#search_now_playing').on('keyup', function(e){
+      scroll(e, "#movies_now_playing_list");
+  });
+  $('#search_upcoming').on('keyup', function(e){
+      scroll(e, "#movies_upcoming_list");
   });
 
   $('#movie_desc_modal').on('show.bs.modal', function (e) {
