@@ -90,8 +90,9 @@ $(function(){
 						'<div class="info">'+
 						'<h2 class="title ellipsis">'+title+gs+'</h2>'+
 						'<div id="movieInfo'+i+'">'+
-						'<p class="desc ellipsis">'+result["overview"]+'<a id="readFull'+i+'" '+data_attrs+'><p>Read Full [+]</a></p>'+
-						'<div id="rating'+i+'" data-score="'+result["popularity"]+'"></div>'+
+						'<p class="desc ellipsis">'+result["overview"]+'<a id="readFull'+i+'" '+data_attrs+'><p>More Info[+]</a></p>'+
+						'<div style="float="left;" id="rating'+i+'" data-score="'+result["vote_average"]/2+'"></div>'+
+						'<p style="float="right;">( '+result["vote_count"]+' )</p>'+
 						'<p class="senti" style="display:none;" id="movieSenti" class="">'+"Sentiment"+'</p>'+
 						'</div>'+
 						'<div style="display:none;" id="campaignOn'+i+'">'+

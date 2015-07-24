@@ -118,7 +118,7 @@ $(function() {
             '<div class="row-fluid"> '+
             '<div class="col-sm-12 text-center"> '+
             '<img class="img-circle" src="'+rottonImg+'" style="width: 100px;height:100px;"> '+       
-            '<div class="col-sm-9"> <p>'+resultNumb[i]["quote"]+'</p> <small>'+resultNumb[i]["critic"]+' from [ '+resultNumb[i]["publication"]+' ]</small>'+
+            '<div class="col-sm-9"> <p>'+resultNumb[i]["quote"]+'</p> <small>'+resultNumb[i]["critic"]+' from [ '+resultNumb[i]["publication"]+' ] ['+resultNumb[i][""]+']</small>'+
             '</div> '+
             '</div> </blockquote> '+
             '</div>')
