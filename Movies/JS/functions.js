@@ -23,7 +23,7 @@ $(function() {
         img = $("#"+e.relatedTarget.id)[0].getAttribute("data-href"),
         cast = $("#"+e.relatedTarget.id)[0].getAttribute("data-cast").split(","),
         videos = $("#"+e.relatedTarget.id)[0].getAttribute("data-videos").split(","),
-        $cast_members = $('<div>').attr('id',"cast_members");
+        $cast_members = $('<div>').attr('id',"cast_members").html('<h5>Cast</h5>');
 
 
     for (var i=0; i<cast.length;) {

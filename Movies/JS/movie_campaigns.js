@@ -47,68 +47,42 @@ $(function(){
 					id = resp[i]['id'];
 					movies[name] = {
 						c_id : id
-					};	
-					$.ajax({
-						type: 'GET',
-						"content-type": "Application/JSON",
-						url:"http://localhost:5200/twitris-movie-ext/api/v1.0/get_info/"+name,
-						success: function(results) {
-							var name = results['info']['original_title'],
-								movie_id = results['info']['id']
-								c_id = movies[name]['c_id'];
-							movies[name]["info"]=results["info"];
-							$.when(
-								$.ajax({
-									type: 'GET',
-									"content-type": "Application/JSON",
-									url:"http://localhost:5200/twitris-movie-ext/api/v1.0/get_credits/"+movie_id,
-									success: function(results) {
-										movies[name]["info"]['credits'] = results["credits"];
-									},
-									error: myFailure
-								}),
-								$.ajax({
-									type: 'GET',
-									"content-type": "Application/JSON",
-									url:"http://localhost:5200/twitris-movie-ext/api/v1.0/get_videos/"+movie_id,
-									success: function(results) {
-										movies[name]["info"]['videos'] = results["videos"];
-									},
-									error: myFailure
-								}),
-								$.ajax({
-									type: 'GET',
-									"content-type": "Application/JSON",
-									url:"http://localhost:5200/twitris-movie-ext/api/v1.0/get_keywords/"+movie_id,
-									success: function(results) {
-										movies[name]["info"]['keywords'] = results["keywords"];
-									},
-									error: myFailure
-								}),
-								$.ajax({
-									type: 'GET',
-									"content-type": "Application/JSON",
-									url:"http://localhost:5200/twitris-movie-ext/api/v1.0/sentiment/"+c_id,
-									success: function(results) {
-										movies[name]["sentiment"]=results['data'];
-									},
-									error: myFailure
-								}),
-								$.ajax({
-									type: 'GET',
-									"content-type": "Application/JSON",
-									url:"http://localhost:5200/twitris-movie-ext/api/v1.0/emotions/"+c_id,
-									success: function(results) {
-										movies[name]["emotions"]=results['data'];
-									},
-									error: myFailure
-								})
-							).done(function() {
-								listMovies(movies[name])
-							})
-						},
-						error: myFailure
-					})		
+					}
+					c_id = movies[name]['c_id'];
+
+					$.when(		
+						$.ajax({
+							type: 'GET',
+							"content-type": "Application/JSON",
+							url:"http://127.0.0.1:5200/twitris-movie-ext/api/v1.0/get_info/"+name,
+							success: function listMovies (results) {	
+								movies[name]['info'] = results['info']
+								movies[name]['credits'] = results['credits']
+								movies[name]['videos'] = results['videos']
+							},
+							error: myFailure
+						}),
+						$.ajax({
+							type: 'GET',
+							"content-type": "Application/JSON",
+							url:"http://localhost:5200/twitris-movie-ext/api/v1.0/sentiment/"+c_id,
+							success: function(results) {
+								movies[name]["sentiment"]=results['data'];
+							},
+							error: myFailure
+						}),
+						$.ajax({
+							type: 'GET',
+							"content-type": "Application/JSON",
+							url:"http://localhost:5200/twitris-movie-ext/api/v1.0/emotions/"+c_id,
+							success: function(results) {
+								movies[name]["emotions"]=results['data'];
+							},
+							error: myFailure
+						})
+					).done(function() {
+						listMovies(movies[name])
+					})	
 			};
 		}	
 	});
@@ -122,19 +96,30 @@ $(function(){
 				id = movie["info"]["id"],
 				poster = movie["info"]["poster_path"],
 				info = movie['info']['overview'],
-				cast = _.zip( _.pluck(movies[title]['info']['credits']['cast'], "character"),
-						_.pluck(movies[title]['info']['credits']['cast'], "name"),
-						_.pluck(movies[title]['info']['credits']['cast'], "profile_path")).toString()
-				videos = _.pluck(movies[title]['info']['videos']['results'], "key").toString()
-				data_attrs = 'data-href="http://image.tmdb.org/t/p/w500/'+poster+
-						'" data-toggle="modal" data-target="#movie_desc_modal"'+
-						'" data-info="'+info+'" data-title="'+title+'" '+
-						'data-cast="'+cast+'" '+
-						'data-videos="'+videos+'"'
-						// data-keywords="'+keywords+'"'
+				cast = _.zip( _.pluck(movie['credits']['cast'], "character"),
+						_.pluck(movie['credits']['cast'], "name"),
+						_.pluck(movie['credits']['cast'], "profile_path")).toString(),
+				
+				crew = [];
 
-			movies[title]['emotions'] = graph_data(movie['emotions'], 'pie')
-			movies[title]['sentiment'] = graph_data(movie['sentiment'], 'line')
+			_.each(movie['credits']['crew'], function(item){
+				if(item['job']==='Director' || item['job']==='Writer' || item['job']==='Producer'){
+				    crew.push(item)
+				}
+			})
+			crew = _.zip(_.pluck(crew, "name"),_.pluck(crew, "job"),_.pluck(crew, "profile_path")).toString()
+			
+
+			var videos = _.pluck(movie['videos']['results'], "key").toString(),
+				data_attrs = 'data-href="http://image.tmdb.org/t/p/w500/'+poster+
+					'" data-toggle="modal" data-target="#movie_desc_modal"'+
+					'" data-info="'+info+'" data-title="'+title+'" '+
+					'data-cast="'+cast+'" data-crew="'+crew+'" '+
+					'data-videos="'+videos+'"'
+					// data-keywords="'+keywords+'"'
+
+			movie['emotions'] = graph_data(movie['emotions'], 'pie')
+			movie['sentiment'] = graph_data(movie['sentiment'], 'line')
 	        
 			if (welcome_visible)  {
 				got_info_clear_welcome();
@@ -163,7 +148,7 @@ $(function(){
 			'</ul>'+
 			'<div style="display:none;" id="campaignOn'+id+'">'+
 			'<h5>Would You Like To Delete The Campaign?</h5>'+
-			'<button class="btn btn-hot text-uppercase sweet-14 deleteCampaign" data-c_id="'+movies[title]['c_id']+'">Delete</button><button id="goBack'+id+'" class="btn btn-sunny text-uppercase">Cancel</button>'+
+			'<button class="btn btn-hot text-uppercase sweet-14 deleteCampaign" data-c_id="'+movie['c_id']+'">Delete</button><button id="goBack'+id+'" class="btn btn-sunny text-uppercase">Cancel</button>'+
 			'</div>'+
 			'</div>'+
 			'<div class="social">'+

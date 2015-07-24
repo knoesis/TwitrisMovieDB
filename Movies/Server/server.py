@@ -15,7 +15,7 @@ from campaigns import (create, remove, list_campaigns, retrieve)
 from analysis import (tweets, topics, sentiment, emotions)
 
 from movies import (new_releases, get_info, get_movie_reviews, \
-	get_credits, get_videos, get_keywords, get_upcoming)
+	get_credits, get_videos, get_upcoming)
 
 
 
@@ -84,10 +84,6 @@ def credits(m_id):
 @app.route('/twitris-movie-ext/api/v1.0/get_videos/<path:m_id>', methods=['GET'])
 def videos(m_id):
 	return get_videos(m_id)
-
-@app.route('/twitris-movie-ext/api/v1.0/get_keywords/<path:m_id>', methods=['GET'])
-def keywords(m_id):
-	return get_keywords(m_id)
 
 @app.route('/twitris-movie-ext/api/v1.0/get_reviews/<path:title>', methods=['GET'])
 def reviews(title):

@@ -48,9 +48,19 @@ def new_releases():
 		}
 		request = Request(url, headers=HEADERS)
 		response_body = urlopen(request).read()
-		return make_response(jsonify(json.loads(response_body)), 200)
-	except:
-		return serverError("error")
+
+		new_releases = json.loads(response_body)
+		for i, movie in enumerate(new_releases['results']): 
+			name = movie['title']
+			info = get_info(name, True)
+			if 'info' in info:
+				new_releases['results'][i]['info'] = info
+			else:
+				del new_releases['results'][i]
+
+		return make_response(jsonify(new_releases), 200)
+	except Exception, e:
+		return serverError("new releases error %s" % e)
 
 
 def get_upcoming():
@@ -65,26 +75,33 @@ def get_upcoming():
 	except:
 		return serverError("error")
 
-def get_info(text):
+def get_info(text, internal=False):
 	try:	
-		ogText = text
-		text = urllib.quote(text).encode('utf-8')
+		text = urllib.quote(text.encode('ascii','ignore')).encode('utf-8')
 		url = TMDB_API_ROOT+"search/movie?api_key="+TMDB_API_KEY+"&query="+text
 		headers = {
 		  'Accept': 'application/json'
 		}
 		request = Request(url, headers=HEADERS)
 		response_body = json.loads(urlopen(request).read())
-		print response_body
-		movie = {}
-		for m in response_body["results"]:
-			print m["title"]
-			if m["title"] == ogText:
-				movie = m
-				break
-		return make_response(jsonify({"info":movie}), 200)
-	except:
-		return serverError("error")
+		data = {}
+		if len(response_body["results"]) >= 1:
+			movie = response_body["results"][0]
+			m_id = str(movie['id'])
+			if m_id:
+				data = {
+					"info": movie,
+					"credits": get_credits(m_id, True),
+					"videos": get_videos(m_id, True)
+				}
+
+		if internal:
+			return jsonify(data)
+		else:
+			return make_response(jsonify(data), 200)
+	except Exception, e:
+		print("info error %s" % e)
+		return serverError("info releases error %s" % e)
 
 def get_movie_id(movie_title):	
 	try:		
@@ -108,7 +125,7 @@ def get_movie_reviews(movie_title):
 	except:
 		return serverError("error")
 
-def get_credits(id):
+def get_credits(id, internal=False):
 	try:	
 		url = TMDB_API_ROOT+"movie/"+id+"/credits?api_key="+TMDB_API_KEY
 		headers = {
@@ -116,13 +133,14 @@ def get_credits(id):
 		}
 		request = Request(url, headers=HEADERS)
 		response_body = json.loads(urlopen(request).read())
-		print response_body
+		if internal:
+			return response_body
+		else:
+			return make_response(jsonify({"credits":response_body}), 200)
+	except Exception, e:
+		return serverError("credits error %s" % e)
 
-		return make_response(jsonify({"credits":response_body}), 200)
-	except:
-		return serverError("error")
-
-def get_videos(id):
+def get_videos(id, internal=False):
 	try:	
 		url = TMDB_API_ROOT+"movie/"+id+"/videos?api_key="+TMDB_API_KEY
 		headers = {
@@ -130,23 +148,12 @@ def get_videos(id):
 		}
 		request = Request(url, headers=HEADERS)
 		response_body = json.loads(urlopen(request).read())
-		print response_body
+		if internal:
+			return response_body
+		else:
+			return make_response(jsonify({"videos":response_body}), 200)
+	except Exception, e:
+		print("videos error %s" % e)
+		return serverError("videos error %s" % e)
 
-		return make_response(jsonify({"videos":response_body}), 200)
-	except:
-		return serverError("error")
-
-def get_keywords(id):
-	try:	
-		url = TMDB_API_ROOT+"movie/"+id+"/keywords?api_key="+TMDB_API_KEY
-		headers = {
-		  'Accept': 'application/json'
-		}
-		request = Request(url, headers=HEADERS)
-		response_body = json.loads(urlopen(request).read())
-		print response_body
-
-		return make_response(jsonify({"keywords":response_body}), 200)
-	except:
-		return serverError("error")
 
