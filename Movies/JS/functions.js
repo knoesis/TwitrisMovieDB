@@ -26,7 +26,7 @@ $(function() {
         $cast_members = $('<div>').attr('id',"cast_members");
 
 
-    for (var i=0; i<cast.length;) {
+    for (var i=0; i< 12;) {
       var member = {
         character: cast[i++],
         name: cast[i++],
