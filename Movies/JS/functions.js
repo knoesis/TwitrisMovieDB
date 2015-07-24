@@ -31,6 +31,7 @@ $(function() {
         cast = $("#"+e.relatedTarget.id)[0].getAttribute("data-cast").split(","),
         videos = $("#"+e.relatedTarget.id)[0].getAttribute("data-videos").split(","),
         $cast_members = $('<div>').attr('id',"cast_members").html('<h5>Cast</h5>');
+        $director = $('<div>').attr('id',"director").html('<h5>Director</h5>');
 
 
     for (var i=0; i< 12;) {
@@ -51,6 +52,32 @@ $(function() {
         '<p>'+member['character']+'</p>'+
         '</div>'+
         '</div>')
+
+          var director = {
+        job: crew[i++],
+        name: crew[i++],
+        profile_pic: crew[i++]
+      }
+        $director.append(
+        '<div class="media">'+
+        '<div class="media-left">'+
+        '<a>'+
+        '<img class="media-object" src="https://image.tmdb.org/t/p/w45'+member['profile_pic']+'" alt="...">'+
+        '</a>'+
+        '</div>'+
+        '<div class="media-body">'+
+        '<h4 class="media-heading">'+member['name']+'</h4>'+
+        '<p>'+member['character']+'</p>'+
+        '</div>'+
+        '</div>')
+
+
+
+
+
+
+
+
     }
 
     $.ajax({

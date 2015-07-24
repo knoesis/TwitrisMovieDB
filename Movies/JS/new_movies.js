@@ -61,7 +61,7 @@ $(function(){
 						data_attrs = 'data-href="http://image.tmdb.org/t/p/w500/'+poster+
 							'" data-toggle="modal" data-target="#movie_desc_modal"'+
 							'" data-info="'+info+'" data-title="'+title+'" '+
-							'data-cast="'+cast+'" '+
+							'data-cast="'+cast+'"data-crew="'+crew+'" '+
 							'data-videos="'+videos+'"'
 							
 					// loop through the genres and create the HTML 
@@ -95,7 +95,7 @@ $(function(){
 						'<p class="senti" style="display:none;" id="movieSenti" class="">'+"Sentiment"+'</p>'+
 						'</div>'+
 						'<div style="display:none;" id="campaignOn'+i+'">'+
-						'<h5>Would You Like To Start A Campaign On This Film?</h5>'+
+						'<h5 id="start'+i+'">Would You Like To Start A Campaign On This Film?</h5>'+
 						'<button class="btn btn-fresh text-uppercase sweet-14 addCampaign" data-title="'+title+'">Add</button><button id="goBack'+i+'" class="btn btn-sunny text-uppercase">Cancel</button>'+
 						'</div>'+
 						'</div>'+
@@ -114,7 +114,7 @@ $(function(){
 					  		}
 						});			
 					$("#power"+i).click({num:i},function (d) {
-					    $('#movieInfo'+d.data.num).slideToggle("fast");
+					    $('#movieInfo'+d.data.num).slideToggle("fast");					
 					    $('#campaignOn'+d.data.num).slideToggle("fast");				
 					})
 					$("#goBack"+i).click({num:i},function (d) {
@@ -233,6 +233,6 @@ $(function() {
 });
 
 $(function () {
-	$('.tlt').textillate();
+	$('.tlt').textillate({ in: { effect: 'rollIn' } });
 });
 
