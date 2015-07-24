@@ -94,28 +94,34 @@ def topics(c_id):
 		if curl:
 			curl.close()
 
-def sentiment(c_id):
+def sentiment(c_id, internal=False):
 	curl = None
 	try:
 		url = TWITRIS_ANALYSIS_ROOT+c_id+'/sentiment'+getOptions()
 		curl, buffer = generateRequest(url)
 		curl.perform()
 		data = json.loads(buffer.getvalue())
-		return make_response(jsonify({ "data": data }), curl.getinfo(curl.RESPONSE_CODE))
+		if internal:
+			return	data
+		else:
+			return make_response(jsonify({ "data": data }), curl.getinfo(curl.RESPONSE_CODE))
 	except:
 		return serverError("error")
 	finally:
 		if curl:
 			curl.close()
 
-def emotions(c_id):
+def emotions(c_id, internal=False):
 	curl = None
 	try:
 		url = TWITRIS_ANALYSIS_ROOT+c_id+'/emotions'+getOptions()
 		curl, buffer = generateRequest(url)
 		curl.perform()
 		data = json.loads(buffer.getvalue())
-		return make_response(jsonify({ "data": data }), curl.getinfo(curl.RESPONSE_CODE))
+		if internal:
+			return	data
+		else:
+			return make_response(jsonify({ "data": data }), curl.getinfo(curl.RESPONSE_CODE))
 	except:
 		return serverError("error")
 	finally:

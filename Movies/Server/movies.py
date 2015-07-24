@@ -32,17 +32,13 @@ def generateStartEndDates():
 def getOptions(includeTime=False):
 	sd, ed = generateStartEndDates()
 	options = "?language=en&api_key="+TMDB_API_KEY
-	options+="&primary_release_date.gte="
-	options+=str(sd)
-	options+="&primary_release_date.lte="
-	options+=str(ed)
-	options+="&sort_by=popularity.desc"
+	options+="&append_to_response=credits,videos,images"
 	# "&keyword="+ Cannabis
 	return options
 
 def new_releases():
 	try:		
-		url = TMDB_API_ROOT+"discover/movie"+getOptions()
+		url = TMDB_API_ROOT+"movie/now_playing"+getOptions()
 		headers = {
 		  'Accept': 'application/json'
 		}
@@ -51,12 +47,8 @@ def new_releases():
 
 		new_releases = json.loads(response_body)
 		for i, movie in enumerate(new_releases['results']): 
-			name = movie['title']
-			info = get_info(name, True)
-			if 'info' in info:
-				new_releases['results'][i]['info'] = info
-			else:
-				del new_releases['results'][i]
+			m_id = str(movie['id'])
+			new_releases['results'][i]['info'] = get_additional_info(m_id, True)['info']
 
 		return make_response(jsonify(new_releases), 200)
 	except Exception, e:
@@ -96,7 +88,7 @@ def get_info(text, internal=False):
 				}
 
 		if internal:
-			return jsonify(data)
+			return data
 		else:
 			return make_response(jsonify(data), 200)
 	except Exception, e:
@@ -124,6 +116,21 @@ def get_movie_reviews(movie_title):
 		return make_response(jsonify({"reviews":json.loads(response_body)['reviews']}), 200)
 	except:
 		return serverError("error")
+
+def get_additional_info(id, internal=False):
+	try:	
+		url = TMDB_API_ROOT+"movie/"+id+"/credits?api_key="+TMDB_API_KEY+"&append_to_response=videos,images"
+		headers = {
+		  'Accept': 'application/json'
+		}
+		request = Request(url, headers=HEADERS)
+		response_body = json.loads(urlopen(request).read())
+		if internal:
+			return {"info":response_body}
+		else:
+			return make_response(jsonify({"info":response_body}), 200)
+	except Exception, e:
+		return serverError("credits error %s" % e)
 
 def get_credits(id, internal=False):
 	try:	

@@ -43,48 +43,21 @@ $(function(){
 		success: function (response) {
 			var resp = response['campaigns'];
 			for (var i=0; i<resp.length; i++) {
-				var name = resp[i]['event'],
+				var result = resp[i],
+					name = resp[i]['event'],
 					id = resp[i]['id'];
-					movies[name] = {
-						c_id : id
-					}
-					c_id = movies[name]['c_id'];
-
-					$.when(		
-						$.ajax({
-							type: 'GET',
-							"content-type": "Application/JSON",
-							url:"http://127.0.0.1:5200/twitris-movie-ext/api/v1.0/get_info/"+name,
-							success: function listMovies (results) {	
-								movies[name]['info'] = results['info']
-								movies[name]['credits'] = results['credits']
-								movies[name]['videos'] = results['videos']
-							},
-							error: myFailure
-						}),
-						$.ajax({
-							type: 'GET',
-							"content-type": "Application/JSON",
-							url:"http://localhost:5200/twitris-movie-ext/api/v1.0/sentiment/"+c_id,
-							success: function(results) {
-								movies[name]["sentiment"]=results['data'];
-							},
-							error: myFailure
-						}),
-						$.ajax({
-							type: 'GET',
-							"content-type": "Application/JSON",
-							url:"http://localhost:5200/twitris-movie-ext/api/v1.0/emotions/"+c_id,
-							success: function(results) {
-								movies[name]["emotions"]=results['data'];
-							},
-							error: myFailure
-						})
-					).done(function() {
-						listMovies(movies[name])
-					})	
+				movies[name] = {
+					c_id : id
+				}
+				movies[name]['info'] = result['info']['info']
+				movies[name]['credits'] = result['info']['credits']
+				movies[name]['videos'] = result['info']['videos']
+				movies[name]["sentiment"]=result['sentiment'];
+				movies[name]["emotions"]=result['emotions'];
+				listMovies(movies[name]);
+					
 			};
-		}	
+		}, error: myFailure	
 	});
 
 	var listMovies = function(movie){			

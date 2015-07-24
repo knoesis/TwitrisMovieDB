@@ -8,6 +8,12 @@ try:
 except ImportError:
     from StringIO import StringIO as BytesIO
 
+from analysis import (tweets, topics, sentiment, emotions)
+
+from movies import (new_releases, get_info, get_movie_reviews, \
+	get_credits, get_videos, get_upcoming)
+
+
 CLIENT_ID = "bnTnsANzdDVI9U1CYCrt8ErCz6pu2FSMXcyZONEz"
 CLIENT_SECRET = """
 Xv4j2ptY2Pvukc1H9Wtiqu8yCuMkeekMi
@@ -100,7 +106,11 @@ def list_campaigns():
 		resp = []
 		for c in data:
 			if "movie" in c['campaign_type']:
-				print c['event']
+				c_id = c['id']
+				name = c['event']
+				c['info'] = get_info(name, True)	
+				c['sentiment'] = sentiment(c_id, True) 
+				c['emotions'] = emotions(c_id, True)
 				resp.append(c)
 		return make_response(jsonify({ "campaigns": resp}), curl.getinfo(curl.RESPONSE_CODE))
 	except:
