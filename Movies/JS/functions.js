@@ -77,7 +77,6 @@ $(function() {
 
 
 
-
     }
 
     $.ajax({
@@ -91,6 +90,7 @@ $(function() {
               $('<div>').addClass('col-lg-4')
                 .html($('<p>').text(info))
                   .append($cast_members)))
+            .append(' <ul class="bxslider"></ul>');
             .append('<img src="images/rtlogo.png" alt="Rotton Tomatoes Logo">'+
               '<div class="carousel slide row-fluid" data-ride="carousel" id="quote-carousel">'+
               '<ol class="carousel-indicators"></ol>'+
@@ -99,6 +99,15 @@ $(function() {
               ' class="left carousel-control"><i class="fa fa-chevron-left"></i></a> '+
               '<a data-slide="next" href="#quote-carousel" class="right carousel-control">'+
               '<i class="fa fa-chevron-right"></i></a> </div>');
+
+
+
+          for (var i=0; i < video.length; i++){            
+            $('.bxslider').append('<li>'+
+              '<iframe src="https://www.youtube.com/watch?v='+videoKey+'" width="500" height="281" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>'+
+              '</li>'+
+              )
+          }  
 
           var resultNumb = results["reviews"];
         
@@ -113,7 +122,7 @@ $(function() {
             }
 
             $('#carousel_inner').append(
-            // <!-- Quote --> 
+            // <!-- Rotton Tomatoes Reviews --> 
             '<div class="item '+(i===0?"active":"")+'"> <blockquote> '+
             '<div class="row-fluid"> '+
             '<div class="col-sm-12 text-center"> '+
