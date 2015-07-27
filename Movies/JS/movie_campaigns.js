@@ -47,14 +47,14 @@ $(function(){
 					title = resp[i]['event'],
 					id = resp[i]['id']
 					movie = {};
-				movies[name] = {
+				movies[title] = {
 					c_id : id
 				}
 				movie['info'] = result['info']['info']
 				movie['credits'] = result['info']['credits']
 				movie['videos'] = result['info']['videos']
-				movie["sentiment"]=graph_data(result['emotions'], 'line');
-				movie["emotions"]=graph_data(result['emotions'], 'pie');
+				movies[title]["sentiment"]=graph_data(result['emotions'], 'line');
+				movies[title]["emotions"]=graph_data(result['emotions'], 'pie');
 				var date = movie["info"]["release_date"],
 					day = date.substring(8,10),
 					month = month_array[parseInt(date.substring(6,7))-1],
