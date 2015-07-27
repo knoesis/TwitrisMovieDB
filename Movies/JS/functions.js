@@ -33,7 +33,7 @@ $(function() {
         videos = $("#"+e.relatedTarget.id)[0].getAttribute("data-videos").split(","),
         $cast_members = $('<div>').attr('id',"cast_members").html('<h4>Cast</h4>');
         $crew_members = $('<div>').attr('id',"crew_members").html('<h4>Crew</h4>');
-        $videos = $('<div>').attr('id', 'videos').html('<ul class="bxslider"></ul>');
+        $videos = $('<div>').attr('id', 'videos').html('<h4>Videos</h4><div id="ninja-slider"><ul><li></li></ul></div>');
 
 
     for (var i=0; i< 12;) {
@@ -77,15 +77,8 @@ $(function() {
 
 
     for (var i=0; i < videos.length; i++){            
-          $('.bxslider').append('<li>'+
-            '<iframe src="https://www.youtube.com/watch?v='+videos[i]+'" width="500" height="281" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>'+
-            '</li>')
-        } 
-      
-
-
-
-    
+          $videos.find('li').append('<a class="video" href="https://www.youtube.com/watch?v='+videos[i]+'"></a>')
+        }     
 
     $.ajax({
       type: 'GET',
@@ -98,9 +91,9 @@ $(function() {
               $('<div>').addClass('col-lg-4')
                 .html($('<p>').text(info))
                   .append($cast_members)
-                  .append($videos)
-                  .append($crew_members)))
-            // .append(' <ul class="bxslider"></ul>')
+                  .append($crew_members)
+                  .append($videos)))
+
             .append('<img src="images/rtlogo.png" alt="Rotton Tomatoes Logo">'+
               '<div class="carousel slide row-fluid" data-ride="carousel" id="quote-carousel">'+
               '<ol class="carousel-indicators"></ol>'+
@@ -130,7 +123,7 @@ $(function() {
             '<div class="row-fluid"> '+
             '<div class="col-sm-12 text-center"> '+
             '<img class="img-circle" src="'+rottonImg+'" style="width: 100px;height:100px;"> '+       
-            '<div class="col-sm-9"> <p>'+resultNumb[i]["quote"]+'</p> <small>'+resultNumb[i]["critic"]+' from [ '+resultNumb[i]["publication"]+' ] ['+resultNumb[i][""]+']</small>'+
+            '<div class="col-sm-9"> <p>'+resultNumb[i]["quote"]+'</p> <small>'+resultNumb[i]["critic"]+' from [ '+resultNumb[i]["publication"]+' ] ['+resultNumb[i]["date"]+']</small>'+
             '</div> '+
             '</div> </blockquote> '+
             '</div>')
