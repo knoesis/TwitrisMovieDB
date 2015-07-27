@@ -94,10 +94,22 @@ def topics(c_id):
 		if curl:
 			curl.close()
 
-def sentiment(c_id, internal=False):
+def sentiment(c_id, start=False, end=False, internal=False):
 	curl = None
 	try:
-		url = TWITRIS_ANALYSIS_ROOT+c_id+'/sentiment'+getOptions()
+		if not start or not end:
+			options = getOptions()
+		else:
+			start = "-".join(start.split("/"))
+			end = "-".join(end.split("/"))
+			options = "?format=json"
+			options+="&start-date="
+			options+=str(start)
+			options+="&end-date="
+			options+=str(end)
+		print("options %s " % options)
+
+		url = TWITRIS_ANALYSIS_ROOT+c_id+'/sentiment'+options
 		curl, buffer = generateRequest(url)
 		curl.perform()
 		data = json.loads(buffer.getvalue())
@@ -105,16 +117,28 @@ def sentiment(c_id, internal=False):
 			return	data
 		else:
 			return make_response(jsonify({ "data": data }), curl.getinfo(curl.RESPONSE_CODE))
-	except:
-		return serverError("error")
+	except Exception, e:
+		return serverError("error %s" % e)
 	finally:
 		if curl:
 			curl.close()
 
-def emotions(c_id, internal=False):
+def emotions(c_id, start=False, end=False, internal=False):
 	curl = None
 	try:
-		url = TWITRIS_ANALYSIS_ROOT+c_id+'/emotions'+getOptions()
+		if not start or not end:
+			options = getOptions()
+		else:
+			start = "-".join(start.split("/"))
+			end = "-".join(end.split("/"))
+			options = "?format=json"
+			options+="&start-date="
+			options+=str(start)
+			options+="&end-date="
+			options+=str(end)
+		print("options %s " % options)
+
+		url = TWITRIS_ANALYSIS_ROOT+c_id+'/emotions'+options
 		curl, buffer = generateRequest(url)
 		curl.perform()
 		data = json.loads(buffer.getvalue())

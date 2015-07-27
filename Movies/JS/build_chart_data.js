@@ -54,12 +54,15 @@ var graph_data = function( name_point_data, graph_type ) {
 
 		    	var correctForMonth = yymmdd[1]-1 < 10 ? '0'+parseInt(yymmdd[1]-1) : parseInt(yymmdd[1]-1); 
 
-                data_points.push( [ Date.UTC( yymmdd[0], correctForMonth , yymmdd[2] ) ,
-                		parseFloat( name_point_data[i].data[j].sentiment ) ] ) ;
+		    	var emo = _.isUndefined(name_point_data[i].keyword)
+				var name = ((!emo)?name_point_data[i].keyword:name_point_data[i].name);
+                data_points.push( [ Date.UTC( yymmdd[0], correctForMonth , yymmdd[2] ) , 
+	                	!emo ? parseFloat( name_point_data[i].data[j].sentiment ):
+	                	 						   parseFloat( name_point_data[i].data[j].count ) ] ) ;
             }
 
 			var obj = { 
-				name: name_point_data[i].keyword,
+				name: name,
                 color: CSS_COLOR_NAMES[i+seriesArray.length*data_array.length],
                 data : data_points
 			};

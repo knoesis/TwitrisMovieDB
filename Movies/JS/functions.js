@@ -1,5 +1,4 @@
 $(function() {
-	$('#datepicker').datepicker({});
 
   var scroll = function(e, id) {
     var text = e.target.value,
@@ -31,18 +30,26 @@ $(function() {
         cast = $("#"+e.relatedTarget.id)[0].getAttribute("data-cast").split(","),
         crew = $("#"+e.relatedTarget.id)[0].getAttribute("data-crew").split(","),
         videos = $("#"+e.relatedTarget.id)[0].getAttribute("data-videos").split(","),
-        $cast_members = $('<div>').attr('id',"cast_members").html('<h4>Cast</h4>');
+        $top_cast_members = $('<div>').attr('id',"top_cast_members").html('<h4>Cast</h4>');
+        $add_cast_members = $('<div style="margin-top:15px">').attr('id',"add_cast_members").addClass("collapse");
         $crew_members = $('<div>').attr('id',"crew_members").html('<h4>Crew</h4>');
         $videos = $('<div>').attr('id', 'videos').html('<h4>Videos</h4><div id="ninja-slider"><ul><li></li></ul></div>');
 
 
-    for (var i=0; i< 12;) {
+    for (var i=0; i<cast.length;) {
       var member = {
         character: cast[i++],
         name: cast[i++],
         profile_pic: cast[i++]
       }
-        $cast_members.append(
+        var $el;
+        if (i<12) {
+          $el = $top_cast_members;
+        } else {
+          $el = $add_cast_members;
+        }
+
+        $el.append(
         '<div class="media">'+
         '<div class="media-left">'+
         '<a>'+
@@ -78,7 +85,7 @@ $(function() {
 
     for (var i=0; i < videos.length; i++){            
           $videos.find('li').append('<a class="video" href="https://www.youtube.com/watch?v='+videos[i]+'"></a>')
-        }     
+        } 
 
     $.ajax({
       type: 'GET',
@@ -90,9 +97,10 @@ $(function() {
               $('<div>').addClass('col-lg-8').html($('<img>').attr('src',img))).append(
               $('<div>').addClass('col-lg-4')
                 .html($('<p>').text(info))
-                  .append($cast_members)
-                  .append($crew_members)
-                  .append($videos)))
+                  .append($top_cast_members)
+                  .append($add_cast_members)
+                  .append($videos)
+                  .append($crew_members)))
 
             .append('<img src="images/rtlogo.png" alt="Rotton Tomatoes Logo">'+
               '<div class="carousel slide row-fluid" data-ride="carousel" id="quote-carousel">'+

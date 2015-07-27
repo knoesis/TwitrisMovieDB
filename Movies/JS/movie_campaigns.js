@@ -8,7 +8,13 @@ $(function(){
 					"JULY","AUG","SEPT","OCT","NOV","DEC"],
 		movies = {},
 		welcome_visible = true,
-		toDelete = "";
+		toDelete = "",
+		current_chart = {
+			title: "",
+			sent_emo: "",
+			type: "",
+			c_id: ""
+		};
 
 
 	// When the myCampains have been loaded 
@@ -20,17 +26,59 @@ $(function(){
 		welcome_visible = false;
 	}
 
-	var display_analysis = function(name, type) {
+	var draw_chart = function(name, sent_emo, type) {
+		$('#multi_modal').carousel('prev');
+		$('#multi_modal').carousel('pause')
+		var type = (_.isUndefined(type)?(sent_emo==="emotions"?"pie":"line"):type),
+			series = graph_data(movies[name][sent_emo], type),
+			title = [name,(sent_emo==="emotions"?"Emotions":"Sentiment"),"Analysis"].join(" "),
+			built_graph = buildChart("chart_body", title, series, (type==="pie"?true:false)),
+			chart = new Highcharts.Chart( built_graph );
+		current_chart['title'] = name;
+		current_chart['sent_emo'] = sent_emo; 
+		current_chart['type'] = type;  
+		current_chart['c_id'] = movies[name]['c_id'];
+	}
+
+	$('#chart_type').change(function(e){
+		var type = e.target.id,
+			name = current_chart['title'],
+			sent_emo = current_chart['sent_emo']; 
+		draw_chart(name, sent_emo, type);
+	});
+
+	$('#change_date').on('click', function(e){
+		var start = $('#start_date').attr('data-date'),
+			end = $('#end_date').attr('data-date')
+			sent_emo = current_chart['sent_emo'];
+
+		$.ajax({
+			type: 'GET',
+			data: {
+				start_date: start,
+				end_date: end
+			},
+			"content-type": "Application/JSON",
+			url:"http://localhost:5200/twitris-movie-ext/api/v1.0/"+sent_emo+"/"+current_chart['c_id'],
+			success: function (response) { 
+				var name = current_chart['title']
+					sent_emo = current_chart['sent_emo']
+					type = current_chart['type']
+				movies[name][sent_emo] = response['data'];
+				draw_chart(name, sent_emo, type);
+			},
+			error: function(){
+				console.log("ERROR")
+			}
+		})
+	})
+
+	var display_analysis = function(name, sent_emo, type) {
 		if (!_.isUndefined(movies[name])) {
-			var series = movies[name][type];
 			$('#chart_body').empty();
 			$("#multi_modal").modal();
-			$('#multi_modal').on('shown.bs.modal', function (e) {
-				var title = [name,(type==="emotions"?"Emotions":"Sentiment"),"Analysis"].join(" "),
-			    	built_graph = buildChart("chart_body", title, series, (type==="emotions"?true:false)),
-					chart = new Highcharts.Chart( built_graph );
-					var redraw = _.debounce(function(){chart.redraw()}, 300);
-					$(window).resize(redraw);
+			$('#multi_modal').on('shown.bs.modal', function() {
+				draw_chart(name, sent_emo, type)
 			});
 		
 		}
@@ -53,8 +101,8 @@ $(function(){
 				movie['info'] = result['info']['info']
 				movie['credits'] = result['info']['credits']
 				movie['videos'] = result['info']['videos']
-				movies[title]["sentiment"]=graph_data(result['emotions'], 'line');
-				movies[title]["emotions"]=graph_data(result['emotions'], 'pie');
+				movies[title]["sentiment"]=result['sentiment'];
+				movies[title]["emotions"]=result['emotions'];
 				var date = movie["info"]["release_date"],
 					day = date.substring(8,10),
 					month = month_array[parseInt(date.substring(6,7))-1],
@@ -74,7 +122,7 @@ $(function(){
 				crew = _.zip(_.pluck(crew, "name"),_.pluck(crew, "job"),_.pluck(crew, "profile_path")).toString()
 
 				var videos = _.pluck(movie['videos']['results'], "key").toString(),
-					data_attrs = 'data-href="http://image.tmdb.org/t/p/w500/'+poster+
+					data_attrs = 'data-href="http://image.tmdb.org/t/p/w342/'+poster+
 						'" data-toggle="modal" data-target="#movie_desc_modal"'+
 						'" data-info="'+info+'" data-title="'+title+'" '+
 						'data-cast="'+cast+'" data-crew="'+crew+'" '+
