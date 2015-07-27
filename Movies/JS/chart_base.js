@@ -13,9 +13,15 @@ var buildChart = function(el, title, series, emo) {
 			 	stops: [ [0, '#2a2a2b'], [1, '#3e3e40'] ]
 			},
 			style: {
-		        fontFamily: "'Unica One', sans-serif"
+		        fontFamily: "'Unica One', sans-serif",
+		        color: "#fff"
 		    },
 		    plotBorderColor: '#606063'
+	    },
+	    legend: {
+	    	itemStyle: {
+	    		color: "#ddd"
+	    	}
 	    },
 	    labels: {
       		style: {
@@ -38,7 +44,8 @@ var buildChart = function(el, title, series, emo) {
 	            align: 'right',
 	            style: {
 	                fontSize: '10px',
-	                fontFamily: 'Verdana, sans-serif'
+	                fontFamily: 'Verdana, sans-serif',
+	                color: "#ddd"
 	            }
 	        },
 			gridLineColor: '#707073',
@@ -129,10 +136,10 @@ var buildChart = function(el, title, series, emo) {
 	        },
 	        series: {
 	        	dataLabels: {
-	            	color: '#B0B0B3'
+	            	color: '#DDD'
 	        	},
 	         	marker: {
-	            	lineColor: '#333'
+	            	lineColor: '#DDD'
 	         	}
 	        }
 	    },

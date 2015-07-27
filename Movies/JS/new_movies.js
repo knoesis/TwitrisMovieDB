@@ -67,7 +67,7 @@ $(function(){
 					// loop through the genres and create the HTML 
 					// for the genre list
 					for (var j=0; j<gIds.length&&j<3;j++) {
-						gs+='<button style="float:right;" type="button" class="btn nohover btn-default btn-round-xs btn-sm">'+
+						gs+='<button style="float:right;" type="button" class="btn btn-hover btn-default btn-round-xs btn-sm">'+
 							'<span class="glyphicon glyphicon-tag"></span>'+genres[gIds[j]]+'</button>&nbsp';
 					}
 					// gs+=''; // close the genre list
@@ -91,8 +91,8 @@ $(function(){
 						'<h2 class="title ellipsis">'+title+gs+'</h2>'+
 						'<div id="movieInfo'+id+'">'+
 						'<p class="desc ellipsis">'+result["overview"]+'<a id="readFull'+id+'" '+data_attrs+'><p>More Info[+]</a></p>'+
-						'<div style="float="left;" id="rating'+id+'" data-score="'+result["vote_average"]/2+'"></div>'+
-						'<p style="float="right;">( '+result["vote_count"]+' )</p>'+
+						'<div style="float:left;" id="rating'+id+'" data-score="'+result["vote_average"]/2+'"></div>'+
+						'<div style="margin-left:100px;margin-top:11px;">( '+result["vote_count"]+' )</div>'+
 						'<p class="senti" style="display:none;" id="movieSenti" class="">'+"Sentiment"+'</p>'+
 						'</div>'+
 						'<div style="display:none;" id="campaignOn'+id+'">'+

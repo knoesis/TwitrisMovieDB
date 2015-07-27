@@ -27,8 +27,6 @@ $(function(){
 	}
 
 	var draw_chart = function(name, sent_emo, type) {
-		$('#multi_modal').carousel('prev');
-		$('#multi_modal').carousel('pause')
 		var type = (_.isUndefined(type)?(sent_emo==="emotions"?"pie":"line"):type),
 			series = graph_data(movies[name][sent_emo], type),
 			title = [name,(sent_emo==="emotions"?"Emotions":"Sentiment"),"Analysis"].join(" "),
@@ -44,6 +42,8 @@ $(function(){
 		var type = e.target.id,
 			name = current_chart['title'],
 			sent_emo = current_chart['sent_emo']; 
+		$('#chart_carousel').carousel('prev');
+		$('#chart_carousel').carousel('pause');
 		draw_chart(name, sent_emo, type);
 	});
 
@@ -65,6 +65,8 @@ $(function(){
 					sent_emo = current_chart['sent_emo']
 					type = current_chart['type']
 				movies[name][sent_emo] = response['data'];
+				$('#chart_carousel').carousel('prev');
+				$('#chart_carousel').carousel('pause');
 				draw_chart(name, sent_emo, type);
 			},
 			error: function(){

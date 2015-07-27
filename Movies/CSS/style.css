@@ -522,10 +522,14 @@ body{
     font-family: 'Oswald', sans-serif;
 }
 
-.btn{
-    margin: 4px;
-    margin-top: -8px;
-    
+.btn-hover {
+    margin: -8px 4px 4px 4px;
+    cursor: default;
+    background: none;
+}
+
+.btn-hover:hover {
+    background: none;
 }
 
 .btn-xs{

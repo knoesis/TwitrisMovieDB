@@ -1,5 +1,6 @@
 $(function() {
-
+  $('#chart_carousel').carousel('pause');
+  
   var scroll = function(e, id) {
     var text = e.target.value,
       $children = $(id+' > li'),
@@ -33,7 +34,7 @@ $(function() {
         $top_cast_members = $('<div>').attr('id',"top_cast_members").html('<h4>Cast</h4>');
         $add_cast_members = $('<div style="margin-top:15px">').attr('id',"add_cast_members").addClass("collapse");
         $crew_members = $('<div>').attr('id',"crew_members").html('<h4>Crew</h4>');
-        $videos = $('<div>').attr('id', 'videos').html('<h4>Videos</h4><div id="ninja-slider"><ul><li></li></ul></div>');
+        $videos = $('<div class="col-md-12 col-sm-12 col-lg-12" style="width:800px;height:400px;">').attr('id', 'videos').html('<h4>Videos</h4><div id="ninja-slider"><ul style="width:800px;height:400px;"><li style="width:800px;height:400px;"></li></ul></div>');
 
 
     for (var i=0; i<cast.length;) {
@@ -84,7 +85,7 @@ $(function() {
 
 
     for (var i=0; i < videos.length; i++){            
-          $videos.find('li').append('<a class="video" href="https://www.youtube.com/watch?v='+videos[i]+'"></a>')
+          $videos.find('li').append('<div style="width:800px;height:400px;"><a style="width:800px;height:400px;"class="video" data-autovideo="true" href="http://www.youtube.com/embed/'+videos[i]+'"></a></div>')
         } 
 
     $.ajax({
@@ -94,14 +95,14 @@ $(function() {
         success: function(results) {
           $('#movie_desc_body').html(
             $('<div>').addClass("row-fluid").html(
-              $('<div>').addClass('col-lg-8').html($('<img>').attr('src',img))).append(
+              $('<div>').addClass('col-lg-8').html($('<img>').attr('src',img)))
+            .append(
               $('<div>').addClass('col-lg-4')
                 .html($('<p>').text(info))
                   .append($top_cast_members)
                   .append($add_cast_members)
-                  .append($videos)
                   .append($crew_members)))
-
+            .append($videos)
             .append('<img src="images/rtlogo.png" alt="Rotton Tomatoes Logo">'+
               '<div class="carousel slide row-fluid" data-ride="carousel" id="quote-carousel">'+
               '<ol class="carousel-indicators"></ol>'+
