@@ -31,8 +31,9 @@ $(function() {
         cast = $("#"+e.relatedTarget.id)[0].getAttribute("data-cast").split(","),
         crew = $("#"+e.relatedTarget.id)[0].getAttribute("data-crew").split(","),
         videos = $("#"+e.relatedTarget.id)[0].getAttribute("data-videos").split(","),
-        $cast_members = $('<div>').attr('id',"cast_members").html('<h5>Cast</h5>');
-        $director = $('<div>').attr('id',"director").html('<h5>Director</h5>');
+        $cast_members = $('<div>').attr('id',"cast_members").html('<h4>Cast</h4>');
+        $crew_members = $('<div>').attr('id',"crew_members").html('<h4>Crew</h4>');
+        $videos = $('<div>').attr('id', 'videos').html('<ul class="bxslider"></ul>');
 
 
     for (var i=0; i< 12;) {
@@ -53,33 +54,38 @@ $(function() {
         '<p>'+member['character']+'</p>'+
         '</div>'+
         '</div>')
+      }
+
     for (var i=0; i< 12;) {
-        var director = {
+        var worker = {
             job: crew[i++],
             name: crew[i++],
             profile_pic: crew[i++]
         }
-    }
-      $director.append(
-      '<div class="media">'+
-      '<div class="media-left">'+
-      '<a>'+
-      '<img class="media-object" src="https://image.tmdb.org/t/p/w45'+member['profile_pic']+'" alt="...">'+
-      '</a>'+
-      '</div>'+
-      '<div class="media-body">'+
-      '<h4 class="media-heading">'+member['name']+'</h4>'+
-      '<p>'+member['character']+'</p>'+
-      '</div>'+
-      '</div>')
+        $crew_members.append(
+        '<div class="media">'+
+        '<div class="media-left">'+
+        '<a>'+
+        '<img class="media-object" src="https://image.tmdb.org/t/p/w45'+worker['profile_pic']+'" alt="...">'+
+        '</a>'+
+        '</div>'+
+        '<div class="media-body">'+
+        '<h4 class="media-heading">'+worker['job']+'</h4>'+
+        '<p>'+worker['name']+'</p>'+
+        '</div>')
+      }
+
+
+    for (var i=0; i < videos.length; i++){            
+          $('.bxslider').append('<li>'+
+            '<iframe src="https://www.youtube.com/watch?v='+videos[i]+'" width="500" height="281" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>'+
+            '</li>')
+        } 
+      
 
 
 
-
-
-
-
-    }
+    
 
     $.ajax({
       type: 'GET',
@@ -92,8 +98,9 @@ $(function() {
               $('<div>').addClass('col-lg-4')
                 .html($('<p>').text(info))
                   .append($cast_members)
-                  .append($cast_members)))
-            .append(' <ul class="bxslider"></ul>')
+                  .append($videos)
+                  .append($crew_members)))
+            // .append(' <ul class="bxslider"></ul>')
             .append('<img src="images/rtlogo.png" alt="Rotton Tomatoes Logo">'+
               '<div class="carousel slide row-fluid" data-ride="carousel" id="quote-carousel">'+
               '<ol class="carousel-indicators"></ol>'+
@@ -104,12 +111,6 @@ $(function() {
               '<i class="fa fa-chevron-right"></i></a> </div>');
 
 
-
-          // for (var i=0; i < videos.length; i++){            
-          //   $('.bxslider').append('<li>'+
-          //     '<iframe src="https://www.youtube.com/watch?v='+videos[i]+'" width="500" height="281" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>'+
-          //     '</li>')
-          // }  
 
           var resultNumb = results["reviews"];
         
