@@ -56,10 +56,24 @@ def get_topics(c_id):
 
 @app.route('/twitris-movie-ext/api/v1.0/sentiment/<path:c_id>', methods=['GET'])
 def get_sentiment(c_id):
-	return sentiment(c_id)
+	try:
+		print("trying date")
+		start = request.args.get('start_date', '')
+		end = request.args.get('end_date', '')
+		return sentiment(c_id, start=start, end=end)
+	except:
+		print("no date")
+		return sentiment(c_id)
 
 @app.route('/twitris-movie-ext/api/v1.0/emotions/<path:c_id>', methods=['GET'])
 def get_emotions(c_id):
+	try:
+		print("trying date")
+		start = request.args.get('start_date', '')
+		end = request.args.get('end_date', '')
+		return emotions(c_id, start=start, end=end)
+	except:
+		print("no date")
 	return emotions(c_id)
 
 """

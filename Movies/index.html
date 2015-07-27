@@ -136,22 +136,22 @@
                                 </div>
                                 <div class="item" style="text-align:center;">
                                     <h3> Type of Graph: </h3></br>
-                                    <div class="btn-group" data-toggle="buttons">
-                                        <label class="btn btn-info btn-lg active"><input type="radio" name="mode" id="option1">Column</label>
-                                        <label class="btn btn-info btn-lg"><input type="radio" name="mode" id="option1">Bar</label>
-                                        <label class="btn btn-info btn-lg"><input type="radio" name="mode" id="option1">Line</label>
-                                        <label class="btn btn-info btn-lg"><input type="radio" name="mode" id="option1">Spline</label>
-                                        <label class="btn btn-info btn-lg"><input type="radio" name="mode" id="option1">Area Spline</label>
-                                        <label class="btn btn-info btn-lg"><input type="radio" name="mode" id="option1">Scatter</label>                                            
+                                    <div id="chart_type" class="btn-group" data-toggle="buttons">
+                                        <label class="btn btn-info btn-lg active"><input type="radio" for="chart_type" name="mode" id="column">Column</label>
+                                        <label class="btn btn-info btn-lg"><input type="radio" for="chart_type" name="mode" id="bar">Bar</label>
+                                        <label class="btn btn-info btn-lg"><input type="radio" for="chart_type" name="mode" id="line">Line</label>
+                                        <label class="btn btn-info btn-lg"><input type="radio" for="chart_type" name="mode" id="spline">Spline</label>
+                                        <label class="btn btn-info btn-lg"><input type="radio" for="chart_type" name="mode" id="areaspline">Area Spline</label>
+                                        <label class="btn btn-info btn-lg"><input type="radio" for="chart_type" name="mode" id="scatter">Scatter</label>                                            
                                     </div>
                             
                                 <div class="col-sm-6"></br>
                                   
-                                        <div class="date-picker"  data-date="2014/09/02" data-keyboard="true">
+                                        <div id="start_date" class="date-picker"  data-date="" data-keyboard="true">
                                             <div class="date-container pull-left">
-                                                <h4 class="weekday">Monday</h4>
-                                                <h2 class="date">Februray 4th</h2>
-                                                <h4 class="year pull-right">2014</h4>
+                                                <h4 class="weekday"></h4>
+                                                <h2 class="date"></h2>
+                                                <h4 class="year pull-right"></h4>
                                             </div>
                                             <span data-toggle="datepicker" data-type="subtract" class="fa fa-angle-left"></span>
                                             <span data-toggle="datepicker" data-type="add" class="fa fa-angle-right"></span>
@@ -166,11 +166,11 @@
                                     </div>
                                     <div class="col-sm-6"></br> 
                                   
-                                        <div class="date-picker"  data-date="2014/09/02" data-keyboard="true">
+                                        <div id="end_date" class="date-picker" data-date="" data-keyboard="true">
                                             <div class="date-container pull-left">
-                                                <h4 class="weekday">Monday</h4>
-                                                <h2 class="date">Februray 4th</h2>
-                                                <h4 class="year pull-right">2014</h4>
+                                                <h4 class="weekday"></h4>
+                                                <h2 class="date"></h2>
+                                                <h4 class="year pull-right"></h4>
                                             </div>
                                             <span data-toggle="datepicker" data-type="subtract" class="fa fa-angle-left"></span>
                                             <span data-toggle="datepicker" data-type="add" class="fa fa-angle-right"></span>
@@ -182,6 +182,8 @@
                                             </div>
                                             <span data-toggle="calendar" class="fa fa-calendar"></span>
                                         </div>
+                                        <br><br>
+                                         <button id="change_date" class="btn btn-primary btn-sm pull-right" type="button">Submit</button>
                                     </div>
 
                                 </div>
@@ -231,7 +233,7 @@
     <script src="Library/jquery.mmenu.min.all.js"></script>
     <script src="Library/date.js"></script>
     <script src="Library/jquery.raty.js"></script>
-    <script src="Library/datepicker.js"></script>
+    <script src="Library/bootstrap-datepicker.js"></script>
     <script src="Library/jquery.fittext.js"></script>
     <script src="Library/jquery.bxslider.js"></script>
     <script src="Library/jquery.lettering.js"></script>

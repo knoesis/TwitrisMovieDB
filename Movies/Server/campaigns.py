@@ -108,12 +108,12 @@ def list_campaigns():
 				c_id = c['id']
 				name = c['event']
 				c['info'] = get_info(name, True)	
-				c['sentiment'] = sentiment(c_id, True) 
-				c['emotions'] = emotions(c_id, True)
+				c['sentiment'] = sentiment(c_id, internal=True) 
+				c['emotions'] = emotions(c_id, internal=True) 
 				resp.append(c)
 		return make_response(jsonify({ "campaigns": resp}), curl.getinfo(curl.RESPONSE_CODE))
-	except:
-		return serverError("error")
+	except Exception, e:
+		return serverError("error %s" % e)
 	finally:
 		if curl:
 			curl.close()
