@@ -89,36 +89,36 @@ $(function(){
 						img+ // either "" or an img element
 						'<div class="info">'+
 						'<h2 class="title ellipsis">'+title+gs+'</h2>'+
-						'<div id="movieInfo'+i+'">'+
-						'<p class="desc ellipsis">'+result["overview"]+'<a id="readFull'+i+'" '+data_attrs+'><p>More Info[+]</a></p>'+
-						'<div style="float="left;" id="rating'+i+'" data-score="'+result["vote_average"]/2+'"></div>'+
+						'<div id="movieInfo'+id+'">'+
+						'<p class="desc ellipsis">'+result["overview"]+'<a id="readFull'+id+'" '+data_attrs+'><p>More Info[+]</a></p>'+
+						'<div style="float="left;" id="rating'+id+'" data-score="'+result["vote_average"]/2+'"></div>'+
 						'<p style="float="right;">( '+result["vote_count"]+' )</p>'+
 						'<p class="senti" style="display:none;" id="movieSenti" class="">'+"Sentiment"+'</p>'+
 						'</div>'+
-						'<div style="display:none;" id="campaignOn'+i+'">'+
-						'<h5 id="start'+i+'">Would You Like To Start A Campaign On This Film?</h5>'+
-						'<button class="btn btn-fresh text-uppercase sweet-14 addCampaign" data-title="'+title+'">Add</button><button id="goBack'+i+'" class="btn btn-sunny text-uppercase">Cancel</button>'+
+						'<div style="display:none;" id="campaignOn'+id+'">'+
+						'<h5 id="start'+id+'">Would You Like To Start A Campaign On This Film?</h5>'+
+						'<button class="btn btn-fresh text-uppercase sweet-14 addCampaign" data-title="'+title+'">Add</button><button id="goBack'+id+'" class="btn btn-sunny text-uppercase">Cancel</button>'+
 						'</div>'+
 						'</div>'+
 						'<div class="social">'+
 						'<ul>'+					
-						'<li class="power" id="power'+i+'" style="width:25%;"><a hr><span class="fa fa-power-off"></span></a></li>'+
+						'<li class="power" id="power'+id+'" style="width:25%;"><a hr><span class="fa fa-power-off"></span></a></li>'+
 						'</ul>'+
 						'</div>'+
 						'</div>'+
 						'</li>')
-					$('#rating'+i).raty({
+					$('#rating'+id).raty({
 							path: './images',
 							readOnly: true, 					
 							score: function() {
 					    	return $(this).attr('data-score');
 					  		}
 						});			
-					$("#power"+i).click({num:i},function (d) {
+					$("#power"+id).click({num:id},function (d) {
 					    $('#movieInfo'+d.data.num).slideToggle("fast");					
 					    $('#campaignOn'+d.data.num).slideToggle("fast");				
 					})
-					$("#goBack"+i).click({num:i},function (d) {
+					$("#goBack"+id).click({num:id},function (d) {
 					    $('#movieInfo'+d.data.num).slideToggle("fast");
 					    $('#campaignOn'+d.data.num).slideToggle("fast");
 						})
