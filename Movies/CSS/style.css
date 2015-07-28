@@ -786,6 +786,54 @@ PRICING STYLES
         padding-top: 80px;
     }
 
+/*VIDEO CAROUSEL
+*/
+#video_carousel 
+{
+  padding: 0 10px 30px 10px;
+
+}
+
+/* Control buttons  */
+#video_carousel .carousel-control
+{
+  background: none;
+  color: #222;
+  font-size: 2.3em;
+  text-shadow: none;
+}
+#video_carousel i.fa {
+    padding-top: 160px
+}
+/* Previous button  */
+#video_carousel .carousel-control.left 
+{
+  left: -12px;
+}
+/* Next button  */
+#video_carousel .carousel-control.right 
+{
+  right: -12px !important;
+}
+/* Changes the position of the indicators */
+#video_carousel .carousel-indicators 
+{
+  right: 50%;
+  top: auto;
+  bottom: 0px;
+  margin-right: -19px;
+}
+/* Changes the color of the indicators */
+#video_carousel .carousel-indicators li 
+{
+  background: #c0c0c0;
+}
+#video_carousel .carousel-indicators .active 
+{
+  background: #333333;
+}
+
+
 
 
 /* carousel */

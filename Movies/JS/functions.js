@@ -32,11 +32,11 @@ $(function() {
         cast = $("#"+e.relatedTarget.id)[0].getAttribute("data-cast").split(","),
         crew = $("#"+e.relatedTarget.id)[0].getAttribute("data-crew").split(","),
         videos = $("#"+e.relatedTarget.id)[0].getAttribute("data-videos").split(","),
-        $top_cast_members = $('<div>').attr('id',"top_cast_members").html('<h4>Cast</h4>');
+        $top_cast_members = $('<div>').attr('id',"top_cast_members").html('<u><h3 style="text-align:center">Cast</h3></u>');
         $add_cast_members = $('<div style="margin-top:15px">').attr('id',"add_cast_members").addClass("collapse");
-        $top_crew_workers = $('<div>').attr('id',"top_crew_workers").html('<h4>Crew</h4>');
+        $top_crew_workers = $('<div>').attr('id',"top_crew_workers").html('<u><h3 style="text-align:center">Crew</h3></u>');
         $add_crew_workers = $('<div style="margin-top:15px">').attr('id',"add_crew_workers").addClass("collapse");
-        $videos = $('<div>').html('<h4>Videos</h4><br><div class="carousel slide row-fluid" data-ride="carousel" id="video_carousel"> <ol class="carousel-indicators"></ol> <div id="video_carousel_inner" class="carousel-inner"></div> <!-- Carousel Buttons Next/Prev --> <a data-slide="prev" href="#video_carousel"class="left carousel-control"><i class="fa fa-chevron-left"></i></a> <a data-slide="next" href="#video_carousel" class="right carousel-control"> <i class="fa fa-chevron-right"></i></a> </div>');
+        $videos = $('<div>').html('<h3 style="text-align:center;">Trailer & Clips</h3><br><div class="carousel slide row-fluid" data-ride="carousel" id="video_carousel"> <ol class="carousel-indicators"></ol> <div id="video_carousel_inner" style="width:600px; margin-left:auto; margin-right:auto;" class="carousel-inner"></div> <!-- Carousel Buttons Next/Prev --> <a data-slide="prev" href="#video_carousel"class="left carousel-control"><i class="fa fa-chevron-left"></i></a> <a data-slide="next" href="#video_carousel" class="right carousel-control"> <i class="fa fa-chevron-right"></i></a> </div></br>');
 
 
     for (var i=0; i<cast.length;) {
@@ -94,7 +94,7 @@ $(function() {
 
 
     for (var i=0; i < videos.length; i++){            
-          $videos.find("#video_carousel_inner").append('<div class="item'+(i==0?" active":"")+'"><object width="800" height="400"><embed src="http://www.youtube.com/embed/'+videos[i]+'"></object></div>')
+          $videos.find("#video_carousel_inner").append('<div class="item'+(i==0?" active":"")+'"><object width="800" height="400"><embed style="width:600px; height:400px;" src="http://www.youtube.com/embed/'+videos[i]+'"></object></div>')
         } 
 
     $.ajax({
@@ -106,13 +106,16 @@ $(function() {
             $('<div>').addClass("row-fluid").css("min-height","525px").html(
               $('<div>').addClass('col-lg-5 col-lg-offset-0 col-md-5 col-md-offset-0 col-sm-8 col-sm-offset-2').html($('<img height="513" width="342">').attr('src',img)))
             .append(
-              $('<div>').addClass('col-lg-7 col-md-7 col-sm-12').html($('<p>').text(info))
-                  .append($('<div>').addClass('col-lg-6 col-md-6')
+
+                $('<div>').addClass('col-lg-7 col-md-7 col-sm-12').html($('<div>')).append($('<h3>').addClass('text-center').text('Description')).append($('<p>').text(info))
+                  .append($('<div>').addClass('col-lg-6 col-md-6').css({"overflow":"auto","height":"350px"})
                     .html($top_cast_members)
-                      .append($add_cast_members))
-                  .append($('<div>').addClass('col-lg-6 col-md-6')
+                      .append($add_cast_members)
+                        .append($('<button class="btn btn-default" id="showCast">').text("Show More")))
+                  .append($('<div>').addClass('col-lg-6 col-md-6').css({"overflow":"auto","height":"350px"})
                     .html($top_crew_workers)
-                      .append($add_crew_workers))))
+                      .append($add_crew_workers)
+                        .append($('<button class="btn btn-default" id="showCrew">').text("Show More")))))
             .append($videos)
             .append($('<div>').addClass("row-fluid")
               .html('<img class="image_banner" src="images/rtlogo.png" alt="Rotton Tomatoes Logo">'+
@@ -123,6 +126,20 @@ $(function() {
               ' class="left carousel-control"><i class="fa fa-chevron-left"></i></a> '+
               '<a data-slide="next" href="#quote-carousel" class="right carousel-control">'+
               '<i class="fa fa-chevron-right"></i></a> </div>'));
+
+           $("#showCast").click(function(){
+                $("#add_cast_members").toggleClass("in");
+                $(this).text(function(i, v){
+                   return v === 'Show More' ? 'Show Less' : 'Show More'
+                        })              
+            });
+
+            $("#showCrew").click(function(){
+                $("#add_crew_workers").toggleClass("in");
+                $(this).text(function(i, v){
+                   return v === 'Show More' ? 'Show Less' : 'Show More'
+                        })      
+            });
 
 
 
