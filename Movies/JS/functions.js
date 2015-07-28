@@ -36,7 +36,7 @@ $(function() {
         $add_cast_members = $('<div style="margin-top:15px">').attr('id',"add_cast_members").addClass("collapse");
         $top_crew_workers = $('<div>').attr('id',"top_crew_workers").html('<h4>Crew</h4>');
         $add_crew_workers = $('<div style="margin-top:15px">').attr('id',"add_crew_workers").addClass("collapse");
-        $videos = $('<div class="col-md-12 col-sm-12 col-lg-12">').attr('id', 'videos').html('<h4>Videos</h4>');
+        $videos = $('<div>').html('<h4>Videos</h4><br><div class="carousel slide row-fluid" data-ride="carousel" id="video_carousel"> <ol class="carousel-indicators"></ol> <div id="video_carousel_inner" class="carousel-inner"></div> <!-- Carousel Buttons Next/Prev --> <a data-slide="prev" href="#video_carousel"class="left carousel-control"><i class="fa fa-chevron-left"></i></a> <a data-slide="next" href="#video_carousel" class="right carousel-control"> <i class="fa fa-chevron-right"></i></a> </div>');
 
 
     for (var i=0; i<cast.length;) {
@@ -94,7 +94,7 @@ $(function() {
 
 
     for (var i=0; i < videos.length; i++){            
-          $videos.find('li').append('<a style="width:800px;height:400px;"class="video" data-autovideo="true" href="http://www.youtube.com/embed/'+videos[i]+'"></a></div>')
+          $videos.find("#video_carousel_inner").append('<div class="item'+(i==0?" active":"")+'"><object width="800" height="400"><embed src="http://www.youtube.com/embed/'+videos[i]+'"></object></div>')
         } 
 
     $.ajax({
@@ -113,7 +113,7 @@ $(function() {
                   .append($('<div>').addClass('col-lg-6 col-md-6')
                     .html($top_crew_workers)
                       .append($add_crew_workers))))
-            .append($('<div>').addClass("row-fluid").html($videos))
+            .append($videos)
             .append($('<div>').addClass("row-fluid")
               .html('<img class="image_banner" src="images/rtlogo.png" alt="Rotton Tomatoes Logo">'+
               '<div class="carousel slide row-fluid" data-ride="carousel" id="quote-carousel">'+
