@@ -25,6 +25,7 @@ $(function() {
   });
 
   $('#movie_desc_modal').on('show.bs.modal', function (e) {
+    $('#movie_desc_body').empty();
     var info = $("#"+e.relatedTarget.id)[0].getAttribute("data-info"),
         title = $("#"+e.relatedTarget.id)[0].getAttribute("data-title"),
         img = $("#"+e.relatedTarget.id)[0].getAttribute("data-href"),
@@ -64,6 +65,7 @@ $(function() {
         '</div>'+
         '</div>')
       }
+    // $('.img').error(function () { $(this).css({visibility:'hidden'}); });
 
     for (var i=0; i<crew.length;) {
         var worker = {
@@ -101,24 +103,26 @@ $(function() {
       url:"http://127.0.0.1:5200/twitris-movie-ext/api/v1.0/get_reviews/"+title,
         success: function(results) {
           $('#movie_desc_body').html(
-            $('<div>').addClass("row-fluid").html(
-              $('<div>').addClass('col-lg-5').html($('<img>').attr('src',img)))
+            $('<div>').addClass("row-fluid").css("min-height","525px").html(
+              $('<div>').addClass('col-lg-5 col-lg-offset-0 col-md-5 col-md-offset-0 col-sm-8 col-sm-offset-2').html($('<img height="513" width="342">').attr('src',img)))
             .append(
-              $('<div>').addClass('col-lg-3')
-                .html($('<p>').text(info))
-                  .append($top_cast_members)
-                  .append($add_cast_members)
-                  .append($top_crew_workers)
-                  .append($add_crew_workers)))
-            // .append($videos)
-            .append('<img src="images/rtlogo.png" alt="Rotton Tomatoes Logo">'+
+              $('<div>').addClass('col-lg-7 col-md-7 col-sm-12').html($('<p>').text(info))
+                  .append($('<div>').addClass('col-lg-6 col-md-6')
+                    .html($top_cast_members)
+                      .append($add_cast_members))
+                  .append($('<div>').addClass('col-lg-6 col-md-6')
+                    .html($top_crew_workers)
+                      .append($add_crew_workers))))
+            .append($('<div>').addClass("row-fluid").html($videos))
+            .append($('<div>').addClass("row-fluid")
+              .html('<img class="image_banner" src="images/rtlogo.png" alt="Rotton Tomatoes Logo">'+
               '<div class="carousel slide row-fluid" data-ride="carousel" id="quote-carousel">'+
               '<ol class="carousel-indicators"></ol>'+
               '<div id="carousel_inner" class="carousel-inner"></div>'+
               '<!-- Carousel Buttons Next/Prev --> <a data-slide="prev" href="#quote-carousel"'+
               ' class="left carousel-control"><i class="fa fa-chevron-left"></i></a> '+
               '<a data-slide="next" href="#quote-carousel" class="right carousel-control">'+
-              '<i class="fa fa-chevron-right"></i></a> </div>');
+              '<i class="fa fa-chevron-right"></i></a> </div>'));
 
 
 

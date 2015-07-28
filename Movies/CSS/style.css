@@ -6,6 +6,36 @@ body {
 	background-color: black;
 }
 
+/*Rotten Tom Banner*/
+.image_banner {
+    width: 30%;
+    margin-left: 35%;
+}
+
+@media (max-width: 350px){
+    /*Rotten Tom Banner*/
+    .image_banner {
+        width: 75%;
+        margin-left: 12.5%;
+    }
+}
+@media (min-width: 350px) and (max-width: 768px) {
+    /*Rotten Tom Banner*/
+    .image_banner {
+        width: 60%;
+        margin-left: 20%;
+    }
+}
+@media (min-width: 768px) and (max-width: 1010px) {
+    /*Rotten Tom Banner*/
+    .image_banner {
+        width: 50%;
+        margin-left: 25%;
+    }
+
+}
+
+
 /*Video Player
 */
 #video_player { display: table; line-height: 0; font-size: 0; background: #000; }
@@ -145,7 +175,6 @@ h5 {padding-bottom: 5px;}
         font-size: 3em;
     } 
 }
-
 
  #custom-search-input{
     padding: 3px;

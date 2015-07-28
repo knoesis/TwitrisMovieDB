@@ -21,7 +21,7 @@ $(function(){
 						10770:"TV Movie",53:"Thriller",10752:"War",37:"Western"};
 
 				results = _.sortBy(results, "release_date");
-
+				
 				for (var i = 0; i < results.length; i++) {
 					// store a copy of results[i] as results so 
 					// we don't waste cycles accessing the list
