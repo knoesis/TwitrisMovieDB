@@ -65,7 +65,7 @@ $(function() {
         '</div>')
       }
 
-    for (var i=0; crew.length;) {
+    for (var i=0; i<crew.length;) {
         var worker = {
             job: crew[i++],
             name: crew[i++],
