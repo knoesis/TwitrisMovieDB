@@ -33,8 +33,9 @@ $(function() {
         videos = $("#"+e.relatedTarget.id)[0].getAttribute("data-videos").split(","),
         $top_cast_members = $('<div>').attr('id',"top_cast_members").html('<h4>Cast</h4>');
         $add_cast_members = $('<div style="margin-top:15px">').attr('id',"add_cast_members").addClass("collapse");
-        $crew_members = $('<div>').attr('id',"crew_members").html('<h4>Crew</h4>');
-        $videos = $('<div class="col-md-12 col-sm-12 col-lg-12" style="width:800px;height:400px;">').attr('id', 'videos').html('<h4>Videos</h4><div id="ninja-slider"><ul style="width:800px;height:400px;"><li style="width:800px;height:400px;"></li></ul></div>');
+        $top_crew_workers = $('<div>').attr('id',"top_crew_workers").html('<h4>Crew</h4>');
+        $add_crew_workers = $('<div style="margin-top:15px">').attr('id',"add_crew_workers").addClass("collapse");
+        $videos = $('<div class="col-md-12 col-sm-12 col-lg-12">').attr('id', 'videos').html('<h4>Videos</h4>');
 
 
     for (var i=0; i<cast.length;) {
@@ -54,7 +55,7 @@ $(function() {
         '<div class="media">'+
         '<div class="media-left">'+
         '<a>'+
-        '<img class="media-object" src="https://image.tmdb.org/t/p/w45'+member['profile_pic']+'" alt="...">'+
+        '<img class="media-object" src="https://image.tmdb.org/t/p/w45'+member['profile_pic']+'" alt="'+member['name']+member['character']+'">'+
         '</a>'+
         '</div>'+
         '<div class="media-body">'+
@@ -64,17 +65,23 @@ $(function() {
         '</div>')
       }
 
-    for (var i=0; i< 12;) {
+    for (var i=0; crew.length;) {
         var worker = {
             job: crew[i++],
             name: crew[i++],
             profile_pic: crew[i++]
         }
-        $crew_members.append(
+        var $wl;
+        if (i<12) {
+          $wl = $top_crew_workers;
+        } else {
+          $wl = $add_crew_workers;
+        }
+        $wl.append(
         '<div class="media">'+
         '<div class="media-left">'+
         '<a>'+
-        '<img class="media-object" src="https://image.tmdb.org/t/p/w45'+worker['profile_pic']+'" alt="...">'+
+        '<img class="media-object" src="https://image.tmdb.org/t/p/w45'+worker['profile_pic']+'" alt="'+worker['name']+'">'+
         '</a>'+
         '</div>'+
         '<div class="media-body">'+
@@ -85,7 +92,7 @@ $(function() {
 
 
     for (var i=0; i < videos.length; i++){            
-          $videos.find('li').append('<div style="width:800px;height:400px;"><a style="width:800px;height:400px;"class="video" data-autovideo="true" href="http://www.youtube.com/embed/'+videos[i]+'"></a></div>')
+          $videos.find('li').append('<a style="width:800px;height:400px;"class="video" data-autovideo="true" href="http://www.youtube.com/embed/'+videos[i]+'"></a></div>')
         } 
 
     $.ajax({
@@ -95,14 +102,15 @@ $(function() {
         success: function(results) {
           $('#movie_desc_body').html(
             $('<div>').addClass("row-fluid").html(
-              $('<div>').addClass('col-lg-8').html($('<img>').attr('src',img)))
+              $('<div>').addClass('col-lg-5').html($('<img>').attr('src',img)))
             .append(
-              $('<div>').addClass('col-lg-4')
+              $('<div>').addClass('col-lg-3')
                 .html($('<p>').text(info))
                   .append($top_cast_members)
                   .append($add_cast_members)
-                  .append($crew_members)))
-            .append($videos)
+                  .append($top_crew_workers)
+                  .append($add_crew_workers)))
+            // .append($videos)
             .append('<img src="images/rtlogo.png" alt="Rotton Tomatoes Logo">'+
               '<div class="carousel slide row-fluid" data-ride="carousel" id="quote-carousel">'+
               '<ol class="carousel-indicators"></ol>'+
@@ -132,7 +140,7 @@ $(function() {
             '<div class="row-fluid"> '+
             '<div class="col-sm-12 text-center"> '+
             '<img class="img-circle" src="'+rottonImg+'" style="width: 100px;height:100px;"> '+       
-            '<div class="col-sm-9"> <p>'+resultNumb[i]["quote"]+'</p> <small>'+resultNumb[i]["critic"]+' from [ '+resultNumb[i]["publication"]+' ] ['+resultNumb[i]["date"]+']</small>'+
+            '<div class="col-sm-9"> <p>'+resultNumb[i]["quote"]+'</p> <small>'+resultNumb[i]["publication"]+' from [ '+resultNumb[i]["date"]+' ] ['+resultNumb[i]["critic"]+']</small>'+
             '</div> '+
             '</div> </blockquote> '+
             '</div>')
