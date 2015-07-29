@@ -52,20 +52,12 @@ $(function() {
           $el = $add_cast_members;
         }
 
-        $el.append(
-        '<div class="media">'+
-        '<div class="media-left">'+
-        '<a id="thisPic">'+
-        '<img onerror="imgError(this); class="media-object" src="https://image.tmdb.org/t/p/w45'+member['profile_pic']+'" alt="'+member['name']+'" onError="this.onerror=null;this.src="/images/missingprofile.png";">'+
-        '</a>'+
-        '</div>'+
-        '<div class="media-body">'+
-        '<h4 class="media-heading">'+member['name']+'</h4>'+
-        '<p>'+member['character']+'</p>'+
-        '</div>'+
-        '</div>')
-      }
-   
+        $el.append('<div class="media"><div class="media-left"><a>'+
+        '<img class="media-object" src="https://image.tmdb.org/t/p/w45'+member['profile_pic']+'" alt="'+member['name']+member['character']+'">'+
+        '</a></div><div class="media-body"><h4 class="media-heading">'+member['name']+'</h4>'+
+        '<p>'+member['character']+'</p></div></div>')
+
+    }   
 
     for (var i=0; i<crew.length;) {
         var worker = {
@@ -79,24 +71,17 @@ $(function() {
         } else {
           $wl = $add_crew_workers;
         }
-        $wl.append(
-        '<div class="media">'+
-        '<div class="media-left">'+
-        '<a>'+
+        $wl.append('<div class="media"><div class="media-left"><a>'+
         '<img class="media-object" src="https://image.tmdb.org/t/p/w45'+worker['profile_pic']+'" alt="'+worker['name']+'">'+
-        '</a>'+
-        '</div>'+
-        '<div class="media-body">'+
-        '<h4 class="media-heading">'+worker['job']+'</h4>'+
-        '<p>'+worker['name']+'</p>'+
-        '</div>')
-      }
+        '</a></div><div class="media-body"><h4 class="media-heading">'+worker['job']+'</h4>'+
+        '<p>'+worker['name']+'</p></div>')
+    }
 
     function imgError(image) {
-    image.onerror = "";
-    image.src = "/images/missingprofile.png";
-    return true;
-}
+        image.onerror = "";
+        image.src = "/images/missingprofile.png";
+        return true;
+    }
 
 
     for (var i=0; i < videos.length; i++){            
@@ -111,27 +96,29 @@ $(function() {
           $('#movie_desc_body').html(
             $('<div>').addClass("row-fluid").css("min-height","525px").html(
               $('<div>').addClass('col-lg-5 col-lg-offset-0 col-md-5 col-md-offset-0 col-sm-8 col-sm-offset-2').html($('<img height="513" width="342">').attr('src',img)))
-            .append(
-
-                $('<div>').addClass('col-lg-7 col-md-7 col-sm-12').html($('<div>')).append($('<h3>').addClass('text-center').text('Description')).append($('<p>').text(info))
-                  .append($('<div>').addClass('col-lg-6 col-md-6').css({"overflow":"auto","height":"350px"})
-                    .html($top_cast_members)
-                      .append($add_cast_members)
-                        .append($('<button class="btn btn-default" id="showCast">').text("Show More")))
-                  .append($('<div>').addClass('col-lg-6 col-md-6').css({"overflow":"auto","height":"350px"})
-                    .html($top_crew_workers)
-                      .append($add_crew_workers)
-                        .append($('<button class="btn btn-default" id="showCrew">').text("Show More")))))
-            .append($videos)
-            .append($('<div>').addClass("row-fluid")
-              .html('<img class="image_banner" src="images/rtlogo.png" alt="Rotton Tomatoes Logo">'+
-              '<div class="carousel slide row-fluid" data-ride="carousel" id="quote-carousel">'+
-              '<ol class="carousel-indicators"></ol>'+
-              '<div id="carousel_inner" class="carousel-inner"></div>'+
-              '<!-- Carousel Buttons Next/Prev --> <a data-slide="prev" href="#quote-carousel"'+
-              ' class="left carousel-control"><i class="fa fa-chevron-left"></i></a> '+
-              '<a data-slide="next" href="#quote-carousel" class="right carousel-control">'+
-              '<i class="fa fa-chevron-right"></i></a> </div>'));
+                .append($('<div>').addClass('col-lg-7 col-md-7 col-sm-12')
+                        .append($('<h3>').addClass('text-center').text('Description'))
+                          .append($('<p>').text(info))
+                          .append($('<div>').addClass('col-lg-6 col-md-6 text-right')
+                            .html($('<div>').addClass('text-left').css({"overflow":"auto","height":"350px"})
+                              .append($top_cast_members)
+                              .append($add_cast_members))
+                              .append($('<a id="showCast">').text("Show More")))
+                          .append($('<div>').addClass('col-lg-6 col-md-6 text-right')
+                            .html($('<div>').addClass('text-left').css({"overflow":"auto","height":"350px"})
+                              .append($top_crew_workers)
+                              .append($add_crew_workers))
+                              .append($('<a id="showCrew">').text("Show More")))))
+                .append($videos)
+                .append($('<div>').addClass("row-fluid")
+                  .html('<img class="image_banner" src="images/rtlogo.png" alt="Rotton Tomatoes Logo">'+
+                  '<div class="carousel slide row-fluid" data-ride="carousel" id="quote-carousel">'+
+                  '<ol class="carousel-indicators"></ol>'+
+                  '<div id="carousel_inner" class="carousel-inner"></div>'+
+                  '<!-- Carousel Buttons Next/Prev --> <a data-slide="prev" href="#quote-carousel"'+
+                  ' class="left carousel-control"><i class="fa fa-chevron-left"></i></a> '+
+                  '<a data-slide="next" href="#quote-carousel" class="right carousel-control">'+
+                  '<i class="fa fa-chevron-right"></i></a> </div>'));
 
            $("#showCast").click(function(){
                 $("#add_cast_members").toggleClass("in");
@@ -176,12 +163,8 @@ $(function() {
         error: function(e) {
           console.log(e);
         }
-    });
 
-     // $('.img').error(function () { 
-     //    $(this).css({visibility:'hidden'});
-     //    $('#thisPic').prepend('<img id="errorImage" src="../images/missingprofile.png">')
-     //  });
+    });
 
     $('#modal_title').text(title);
 
