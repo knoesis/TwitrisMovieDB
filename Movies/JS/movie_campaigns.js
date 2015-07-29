@@ -152,14 +152,14 @@ $(function(){
 				'<li class="power" id="power'+id+'" style="width:25%;"><a><span class="fa fa-power-off"></span></a></li>'+
 				'</ul></div></li>')
 
-				$("#power"+id).click(function() {
-				    $('#movieInfo'+id).slideToggle("fast");
-				    $('#campaignOn'+id).slideToggle("fast");				
-				});
-				$("#goBack"+id).click(function () {
-				    $('#movieInfo'+id).slideToggle("fast");
-				    $('#campaignOn'+id).slideToggle("fast");	
-				});
+				$("#power"+id).click({num:id},function (d) {
+				    $('#movieInfo'+d.data.num).slideToggle("fast");					
+				    $('#campaignOn'+d.data.num).slideToggle("fast");				
+				})
+				$("#goBack"+id).click({num:id},function (d) {
+				    $('#movieInfo'+d.data.num).slideToggle("fast");
+				    $('#campaignOn'+d.data.num).slideToggle("fast");
+				})
 
 				  
 				$('.deleteCampaign').on('click', function(e){

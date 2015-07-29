@@ -89,36 +89,36 @@ $(function(){
 						img+ // either "" or an img element
 						'<div class="info">'+
 						'<h2 class="title ellipsis">'+title+gs+'</h2>'+
-						'<div id="movieInfo'+id+'">'+
-						'<p class="desc ellipsis">'+result["overview"]+'<a id="readFull'+id+'" '+data_attrs+'><p>More Info[+]</a></p>'+
-						'<div style="float:left;" id="rating'+id+'" data-score="'+result["vote_average"]/2+'"></div>'+
+						'<div id="movieInfo'+name+id+'">'+
+						'<p class="desc ellipsis">'+result["overview"]+'<a id="readFull'+name+id+'" '+data_attrs+'><p>More Info[+]</a></p>'+
+						'<div style="float:left;" id="rating'+name+id+'" data-score="'+result["vote_average"]/2+'"></div>'+
 						'<div style="margin-left:100px;margin-top:11px;">( '+result["vote_count"]+' )</div>'+
 						'<p class="senti" style="display:none;" id="movieSenti" class="">'+"Sentiment"+'</p>'+
 						'</div>'+
-						'<div style="display:none;" id="campaignOn'+id+'">'+
-						'<h5 id="start'+id+'">Would You Like To Start A Campaign On This Film?</h5>'+
-						'<button class="btn btn-fresh text-uppercase sweet-14 addCampaign" data-title="'+title+'">Add</button><button id="goBack'+id+'" class="btn btn-sunny text-uppercase">Cancel</button>'+
+						'<div style="display:none;" id="campaignOn'+name+id+'">'+
+						'<h5 id="start'+name+id+'">Would You Like To Start A Campaign On This Film?</h5>'+
+						'<button class="btn btn-fresh text-uppercase sweet-14 addCampaign" data-title="'+title+'">Add</button><button id="goBack'+name+id+'" class="btn btn-sunny text-uppercase">Cancel</button>'+
 						'</div>'+
 						'</div>'+
 						'<div class="social">'+
 						'<ul>'+					
-						'<li class="power" id="power'+id+'" style="width:25%;"><a hr><span class="fa fa-power-off"></span></a></li>'+
+						'<li class="power" id="power'+name+id+'" style="width:25%;"><a hr><span class="fa fa-power-off"></span></a></li>'+
 						'</ul>'+
 						'</div>'+
 						'</div>'+
 						'</li>')
-					$('#rating'+id).raty({
+					$('#rating'+name+id).raty({
 							path: './images',
 							readOnly: true, 					
 							score: function() {
 					    	return $(this).attr('data-score');
 					  		}
 						});			
-					$("#power"+id).click({num:id},function (d) {
+					$("#power"+name+id).click({num:name+id},function (d) {
 					    $('#movieInfo'+d.data.num).slideToggle("fast");					
 					    $('#campaignOn'+d.data.num).slideToggle("fast");				
 					})
-					$("#goBack"+id).click({num:id},function (d) {
+					$("#goBack"+name+id).click({num:name+id},function (d) {
 					    $('#movieInfo'+d.data.num).slideToggle("fast");
 					    $('#campaignOn'+d.data.num).slideToggle("fast");
 						})
@@ -170,7 +170,7 @@ $(function(){
 	}, 5000)
 	setTimeout(function(){
 		init('upcoming')
-	}, 10000)
+	}, 15000)
 	
 });
 
