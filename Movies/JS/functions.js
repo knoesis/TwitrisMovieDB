@@ -42,9 +42,11 @@ $(function() {
     for (var i=0; i<cast.length;) {
       var member = {
         character: cast[i++],
-        name: cast[i++],
-        profile_pic: cast[i++]
+        name: cast[i++]
       }
+      var img_string = cast[i++]
+      member['profile_pic'] = (img_string===""?"images/missingprofile.png":"https://image.tmdb.org/t/p/w45"+img_string)
+      
         var $el;
         if (i<12) {
           $el = $top_cast_members;
@@ -53,35 +55,31 @@ $(function() {
         }
 
         $el.append('<div class="media"><div class="media-left"><a>'+
-        '<img class="media-object" src="https://image.tmdb.org/t/p/w45'+member['profile_pic']+'" alt="'+member['name']+member['character']+'">'+
+        '<img class="media-object" src="'+member['profile_pic']+'" alt="'+member['name']+member['character']+'">'+
         '</a></div><div class="media-body"><h4 class="media-heading">'+member['name']+'</h4>'+
         '<p>'+member['character']+'</p></div></div>')
-
-    }   
+      }
+    // $('.img').error(function () { $(this).css({visibility:'hidden'}); });
 
     for (var i=0; i<crew.length;) {
         var worker = {
             job: crew[i++],
-            name: crew[i++],
-            profile_pic: crew[i++]
+            name: crew[i++]
         }
-        var $wl;
+            
+        var img_string = crew[i++]
+        worker['profile_pic'] = (img_string===""?"images/missingprofile.png":"https://image.tmdb.org/t/p/w45"+img_string)
+        
         if (i<12) {
           $wl = $top_crew_workers;
         } else {
           $wl = $add_crew_workers;
         }
         $wl.append('<div class="media"><div class="media-left"><a>'+
-        '<img class="media-object" src="https://image.tmdb.org/t/p/w45'+worker['profile_pic']+'" alt="'+worker['name']+'">'+
+        '<img class="media-object" src="'+worker['profile_pic']+'" alt="'+worker['name']+'">'+
         '</a></div><div class="media-body"><h4 class="media-heading">'+worker['job']+'</h4>'+
         '<p>'+worker['name']+'</p></div>')
-    }
-
-    function imgError(image) {
-        image.onerror = "";
-        image.src = "/images/missingprofile.png";
-        return true;
-    }
+      }
 
 
     for (var i=0; i < videos.length; i++){            
@@ -165,7 +163,6 @@ $(function() {
         }
 
     });
-
     $('#modal_title').text(title);
 
   })
