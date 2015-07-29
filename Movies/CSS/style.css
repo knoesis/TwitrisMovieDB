@@ -1,10 +1,114 @@
 /*EVENT LIST */
 @import url("http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,400italic");
 
+
+
+html {
+     font-family: 'Lato', sans-serif     !important;
+}
+
+
 body {
 	
 	background-color: black;
 }
+
+
+.embed-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; } 
+.embed-container iframe, .embed-container object, .embed-container embed { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+
+.btn-letssubmit { 
+  color: #FFFFFF; 
+  background-color: #333333; 
+  border-color: #FFFFFF; 
+} 
+ 
+.btn-letssubmit:hover, 
+.btn-letssubmit:focus, 
+.btn-letssubmit:active, 
+.btn-letssubmit.active, 
+.open .dropdown-toggle.btn-letssubmit { 
+  color: #FFFFFF; 
+  background-color: #9C9C9C; 
+  border-color: #FFFFFF; 
+} 
+ 
+.btn-letssubmit:active, 
+.btn-letssubmit.active, 
+.open .dropdown-toggle.btn-letssubmit { 
+  background-image: none; 
+} 
+ 
+.btn-letssubmit.disabled, 
+.btn-letssubmit[disabled], 
+fieldset[disabled] .btn-letssubmit, 
+.btn-letssubmit.disabled:hover, 
+.btn-letssubmit[disabled]:hover, 
+fieldset[disabled] .btn-letssubmit:hover, 
+.btn-letssubmit.disabled:focus, 
+.btn-letssubmit[disabled]:focus, 
+fieldset[disabled] .btn-letssubmit:focus, 
+.btn-letssubmit.disabled:active, 
+.btn-letssubmit[disabled]:active, 
+fieldset[disabled] .btn-letssubmit:active, 
+.btn-letssubmit.disabled.active, 
+.btn-letssubmit[disabled].active, 
+fieldset[disabled] .btn-letssubmit.active { 
+  background-color: #333333; 
+  border-color: #FFFFFF; 
+} 
+ 
+.btn-letssubmit .badge { 
+  color: #333333; 
+  background-color: #FFFFFF; 
+}
+
+.btn-twitris { 
+  color: #ffffff; 
+  background-color: #476666; 
+  border-color: #232323; 
+} 
+ 
+.btn-twitris:hover, 
+.btn-twitris:focus, 
+.btn-twitris:active, 
+.btn-twitris.active, 
+.open .dropdown-toggle.btn-twitris { 
+  color: #ffffff; 
+  background-color: #232323; 
+  border-color: #232323; 
+} 
+ 
+.btn-twitris:active, 
+.btn-twitris.active, 
+.open .dropdown-toggle.btn-twitris { 
+  background-image: none; 
+} 
+ 
+.btn-twitris.disabled, 
+.btn-twitris[disabled], 
+fieldset[disabled] .btn-twitris, 
+.btn-twitris.disabled:hover, 
+.btn-twitris[disabled]:hover, 
+fieldset[disabled] .btn-twitris:hover, 
+.btn-twitris.disabled:focus, 
+.btn-twitris[disabled]:focus, 
+fieldset[disabled] .btn-twitris:focus, 
+.btn-twitris.disabled:active, 
+.btn-twitris[disabled]:active, 
+fieldset[disabled] .btn-twitris:active, 
+.btn-twitris.disabled.active, 
+.btn-twitris[disabled].active, 
+fieldset[disabled] .btn-twitris.active { 
+  background-color: #476666; 
+  border-color: #232323; 
+} 
+ 
+.btn-twitris .badge { 
+  color: #476666; 
+  background-color: #ffffff; 
+}
+
 
 .carousel-inner {
  > .item {
@@ -146,7 +250,7 @@ h5 {padding-bottom: 5px;}
     position: relative;
     display: inline-block;
     width: 100%;
-    color: rgb(75, 77, 78);
+    color: white;
     -webkit-touch-callout: none;
     -webkit-user-select: none;
     -moz-user-select: none;
@@ -275,6 +379,8 @@ border-radius: 17px;
 border-radius: 15px;
 }
 .btn-round-xs{
+margin-top: 10px;
+margin-bottom: 30px;
 border: none;
 padding-top: -10px;
 padding-left: 10px;
@@ -626,6 +732,7 @@ margin-top: 2px;
 color: #fff;
 background-color: #f4ad49;
 border-bottom:2px solid #c38a3a;
+margin-right: 5px;
 }
 
 .btn-sunny:hover, .btn-sky.active:focus, .btn-sunny:focus, .open>.dropdown-toggle.btn-sunny {
