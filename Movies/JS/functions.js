@@ -55,8 +55,8 @@ $(function() {
         $el.append(
         '<div class="media">'+
         '<div class="media-left">'+
-        '<a>'+
-        '<img class="media-object" src="https://image.tmdb.org/t/p/w45'+member['profile_pic']+'" alt="'+member['name']+member['character']+'">'+
+        '<a id="thisPic">'+
+        '<img onerror="imgError(this); class="media-object" src="https://image.tmdb.org/t/p/w45'+member['profile_pic']+'" alt="'+member['name']+'" onError="this.onerror=null;this.src="/images/missingprofile.png";">'+
         '</a>'+
         '</div>'+
         '<div class="media-body">'+
@@ -65,7 +65,7 @@ $(function() {
         '</div>'+
         '</div>')
       }
-    // $('.img').error(function () { $(this).css({visibility:'hidden'}); });
+   
 
     for (var i=0; i<crew.length;) {
         var worker = {
@@ -91,6 +91,12 @@ $(function() {
         '<p>'+worker['name']+'</p>'+
         '</div>')
       }
+
+    function imgError(image) {
+    image.onerror = "";
+    image.src = "/images/missingprofile.png";
+    return true;
+}
 
 
     for (var i=0; i < videos.length; i++){            
@@ -171,6 +177,11 @@ $(function() {
           console.log(e);
         }
     });
+
+     // $('.img').error(function () { 
+     //    $(this).css({visibility:'hidden'});
+     //    $('#thisPic').prepend('<img id="errorImage" src="../images/missingprofile.png">')
+     //  });
 
     $('#modal_title').text(title);
 

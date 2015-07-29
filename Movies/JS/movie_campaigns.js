@@ -141,7 +141,7 @@ $(function(){
 				'<p class="desc ellipsis">'+info+'</p><a id="readmore_'+id+'" '+data_attrs+'><p>More Info[+]</a></div><ul>'+
 				'<li style="width:33.3%;"><span class="fa fa-bar-chart" id="show_sentiment_'+id+'" data-title="'+title+'"> Sentiment</span></li>'+
 				'<li style="width:33.3%;"><span class="fa fa-pie-chart" id="show_emotions_'+id+'" data-title="'+title+'"> Emotional</span></li>'+
-				'<li style="width:33.3%;"><span class="fa fa-twitter-square"> Live Tweet\'s</span></li></ul>'+
+				'<li style="width:33.3%;"><span class="fa fa-globe"> Network</span></li></ul>'+
 				'<div style="display:none;" id="campaignOn'+id+'"><h5>Would You Like To Delete The Campaign?</h5>'+
 				'<button class="btn btn-hot text-uppercase sweet-14 deleteCampaign" data-c_id="'+movie['c_id']+
 				'">Delete</button><button id="goBack'+id+'" class="btn btn-sunny text-uppercase">Cancel</button>'+
