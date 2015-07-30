@@ -7,6 +7,7 @@ import pycurl
 import urllib
 from urllib2 import Request, urlopen
 from datetime import datetime, timedelta
+import time
 
 TMDB_API_ROOT = "http://api.themoviedb.org/3/"
 TMDB_API_KEY = "8bd778c68dccc25fb46b1850046f4f00"
@@ -48,6 +49,7 @@ def get_movies(name):
 		for i, movie in enumerate(new_releases['results']): 
 			m_id = str(movie['id'])
 			new_releases['results'][i]['info'] = get_additional_info(m_id, True)['info']
+			time.sleep(0.25)
 
 		return make_response(jsonify(new_releases), 200)
 	except Exception, e:

@@ -165,12 +165,8 @@ $(function(){
 	    });
 	}
 
-	setTimeout(function(){
-		init('now_playing')
-	}, 5000)
-	setTimeout(function(){
-		init('upcoming')
-	}, 15000)
+	init('now_playing')
+	init('upcoming')
 	
 });
 
